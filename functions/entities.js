@@ -1,11 +1,10 @@
 export async function onRequest(context) {
     const { pathname } = new URL(context.request.url);
 
-    alert("Pathname:", pathname);
-    if(context.params) alert("Params:", context.params);
-
     const { results } = await context.env.test_d1
       .prepare("SELECT * FROM Entities")
       .run();
-    return Response.json(results);
+
+    const result = { pathname: pathname, params: context.params, results: results };
+    return Response.json(result);
 };
