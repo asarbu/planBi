@@ -18,5 +18,5 @@ export async function onRequestGet(context) {
 			.results;
 	}
 
-	return Response.json(results);
+	return Response.json({results});
 };
