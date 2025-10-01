@@ -1,5 +1,10 @@
 export async function onRequestPost(context) {
     const requestBody = await context.request.json();
+
+	if(!requestBody.fullName || !requestBody.email || !requestBody.county || !requestBody.telephone || !requestBody.date) {
+		return Response.json({ error: 'Missing required fields' }, { status: 400 });
+	}
+
     const result = await context.env.plan_bi.prepare("INSERT INTO Meetings (fullName, email, county, telephone, date) VALUES (?, ?, ?, ?, ?)")
         .bind(requestBody.fullName, requestBody.email, requestBody.county, requestBody.telephone, requestBody.date)
         .run();
@@ -7,8 +12,7 @@ export async function onRequestPost(context) {
 	if(result.success)
 		return Response.json({ success: result.success });
 	else {
-		// Todo: use middleware to display an error page
-		throw new Error('Failed to insert meeting data: ' + JSON.stringify(requestBody));
+		return Response.json({ error: 'Failed to insert meeting data' }, { status: 500 });
 	}
 };
 
@@ -18,7 +22,7 @@ export async function onRequestGet(context) {
 
 	let sqlResponse = null;
 	if(param) {
-		sqlResponse = await context.env.plan_bi
+		sqlResponse =	 await context.env.plan_bi
 			.prepare("SELECT * FROM Meetings where ID = ?")
 			.bind(param)
 			.run();
@@ -31,7 +35,6 @@ export async function onRequestGet(context) {
 	if(sqlResponse.success) {
 		return Response.json( { results: sqlResponse.results });
 	} else {
-		// Todo: use middleware to display an error page 
-		throw new Error('Failed to retrieve meeting data: ' + JSON.stringify(param));
+		return Response.json({ error: 'Failed to retrieve meeting data' }, { status: 500 });
 	}
 };
