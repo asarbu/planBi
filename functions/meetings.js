@@ -3,8 +3,9 @@ export async function onRequestPost(context) {
     const result = await context.env.plan_bi.prepare("INSERT INTO Meetings (fullName, email, county, telephone, date) VALUES (?, ?, ?, ?, ?)")
         .bind(requestBody.fullName, requestBody.email, requestBody.county, requestBody.telephone, requestBody.date)
         .run();
+
 	if(result.success)
-		return Response.json(JSON.stringify(result));
+		return Response.json({ success: result.success });
 	else {
 		// Todo: use middleware to display an error page
 		throw new Error('Failed to insert meeting data: ' + JSON.stringify(requestBody));
@@ -28,7 +29,7 @@ export async function onRequestGet(context) {
 	}
 
 	if(sqlResponse.success) {
-		return Response.json(JSON.stringify(sqlResponse));
+		return Response.json( { results: sqlResponse.results });
 	} else {
 		// Todo: use middleware to display an error page 
 		throw new Error('Failed to retrieve meeting data: ' + JSON.stringify(param));
