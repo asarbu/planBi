@@ -52,11 +52,7 @@ function submitConsultation(formData) {
     })
     .then(response => response.json())
     .then(data => {
-        if (data.success) {
-            resultDiv.textContent = 'Thank you for your submission, ' + data.fullName + '!';
-        } else {
-            resultDiv.textContent = 'There was an error with your submission.';
-        }
+        resultDiv.textContent = JSON.stringify(data);
     })
     .catch(() => {
         resultDiv.textContent = 'There was an error connecting to the server.';
