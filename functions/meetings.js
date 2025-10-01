@@ -1,7 +1,7 @@
 export async function onRequestPost(context) {
 	const url = new URL(context.request.url);
 	//const param = url.searchParams.get("id");
-    const formData = await context.request.formData();
+    const formData = await context.request.json();
     /*const fullName = formData.get("fullName");
     const email = formData.get("email");
     const county = formData.get("county");
