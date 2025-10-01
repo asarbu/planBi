@@ -42,23 +42,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-// Handle consultation form submission
-function submitConsultation(formData) {
-    const resultDiv = document.getElementById('consultationResult');
-    fetch('/meetings', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
-    })
-    .then(response => response.json())
-    .then(data => {
-        resultDiv.textContent = JSON.stringify(data);
-    })
-    .catch(() => {
-        resultDiv.textContent = 'There was an error connecting to the server.';
-    });
-}
-
     // Consultation form event listener
     const consultationForm = document.getElementById('consultationForm');
     if (consultationForm) {
@@ -68,9 +51,27 @@ function submitConsultation(formData) {
                 fullName: consultationForm.fullName.value,
                 email: consultationForm.email.value,
                 county: consultationForm.county.value,
-                telephone: consultationForm.telephone.value
+                telephone: consultationForm.telephone.value,
+                date: new Date().toISOString()
             };
             submitConsultation(formData);
+        });
+    }
+
+    // Handle consultation form submission
+    function submitConsultation(formData) {
+        const resultDiv = document.getElementById('consultationResult');
+        fetch('/meetings', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            resultDiv.textContent = JSON.stringify(data);
+        })
+        .catch(() => {
+            resultDiv.textContent = 'There was an error connecting to the server.';
         });
     }
 });
