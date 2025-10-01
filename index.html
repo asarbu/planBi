@@ -90,8 +90,66 @@
 
         <section class="call-to-action">
             <h2>Arrange a meeting</h2>
-            <p>Use the options from below to schedule a consultation.</p>
-            <a href="#" class="btn btn-secondary">Get Started</a>
+            <form id="consultationForm">
+                <label for="fullName">Full Name:</label>
+                <input type="text" id="fullName" name="fullName" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="county">County:</label>
+                <select id="county" name="county" required>
+                    <option value="">Select County</option>
+                    <option value="Alba">Alba</option>
+                    <option value="Arad">Arad</option>
+                    <option value="Arges">Argeș</option>
+                    <option value="Bacau">Bacău</option>
+                    <option value="Bihor">Bihor</option>
+                    <option value="Bistrita-Nasaud">Bistrița-Năsăud</option>
+                    <option value="Botosani">Botoșani</option>
+                    <option value="Brasov">Brașov</option>
+                    <option value="Braila">Brăila</option>
+                    <option value="Bucuresti">București</option>
+                    <option value="Buzau">Buzău</option>
+                    <option value="Caras-Severin">Caraș-Severin</option>
+                    <option value="Calarasi">Călărași</option>
+                    <option value="Cluj">Cluj</option>
+                    <option value="Constanta">Constanța</option>
+                    <option value="Covasna">Covasna</option>
+                    <option value="Dambovita">Dâmbovița</option>
+                    <option value="Dolj">Dolj</option>
+                    <option value="Galati">Galați</option>
+                    <option value="Giurgiu">Giurgiu</option>
+                    <option value="Gorj">Gorj</option>
+                    <option value="Harghita">Harghita</option>
+                    <option value="Hunedoara">Hunedoara</option>
+                    <option value="Ialomita">Ialomița</option>
+                    <option value="Iasi">Iași</option>
+                    <option value="Ilfov">Ilfov</option>
+                    <option value="Maramures">Maramureș</option>
+                    <option value="Mehedinti">Mehedinți</option>
+                    <option value="Mures">Mureș</option>
+                    <option value="Neamt">Neamț</option>
+                    <option value="Olt">Olt</option>
+                    <option value="Prahova">Prahova</option>
+                    <option value="Satu Mare">Satu Mare</option>
+                    <option value="Salaj">Sălaj</option>
+                    <option value="Sibiu">Sibiu</option>
+                    <option value="Suceava">Suceava</option>
+                    <option value="Teleorman">Teleorman</option>
+                    <option value="Timis">Timiș</option>
+                    <option value="Tulcea">Tulcea</option>
+                    <option value="Vaslui">Vaslui</option>
+                    <option value="Valcea">Vâlcea</option>
+                    <option value="Vrancea">Vrancea</option>
+                </select>
+
+                <label for="telephone">Telephone Number:</label>
+                <input type="tel" id="telephone" name="telephone" required>
+
+                <button type="submit" class="btn btn-secondary">Submit</button>
+                <div id="consultationResult" style="margin-top:1em;color:#2a7a2a;"></div>
+            </form>
         </section>
     </main>
 
