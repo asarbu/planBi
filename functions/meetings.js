@@ -13,12 +13,12 @@ export async function onRequestGet(context) {
 
 	let sqlResponse = null;
 	if(param) {
-		sqlResponse = await context.env.test_d1
+		sqlResponse = await context.env.plan_bi
 			.prepare("SELECT * FROM Meetings where ID = ?")
 			.bind(param)
 			.run();
 	} else {
-		sqlResponse = await context.env.test_d1
+		sqlResponse = await context.env.plan_bi
 			.prepare("SELECT * FROM Meetings")
 			.run();
 	}
