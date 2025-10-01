@@ -7,5 +7,5 @@ export async function onRequestPost(context) {
     const county = formData.get("county");
     const telephone = formData.get("telephone");*/
 
-	return Response.json({ formData: JSON.stringify(formData) });
+	return Response.json(JSON.stringify(formData));
 };
