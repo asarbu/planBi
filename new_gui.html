@@ -95,7 +95,7 @@
         <!-- Service Cards Grid -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
             <!-- Gold Planning Card -->
-            <div class="bg-white p-8 rounded-xl relative price-card">
+            <div class="bg-white p-8 rounded-xl relative card">
                 <h4 class="text-2xl font-serif font-semibold mb-3 text-text">
                     Servicii Gold
                 </h4>
@@ -109,13 +109,13 @@
                     <li class="flex items-center"><span class="mr-2 text-primary-light"><i class="fas fa-check-circle"></i></span> Coordonarea furnizorilor in ziua evenimentului</li>
                     <li class="flex items-center"><span class="mr-2 text-primary-light"><i class="fas fa-check-circle"></i></span> Asistenta pe durata intregului eveniment (max. 12 ore)</li>
                 </ul>
-                <div class="absolute bottom-4 left-4 right-4 px-8 py-3 bg-primary text-highight font-bold rounded-full shadow-lg">
+                <div id="gold_price" class="absolute bottom-4 left-4 right-4 px-8 py-3 bg-primary text-highight font-bold rounded-full shadow-lg hover:shadow-2xl transition duration-200 transform hover:-translate-y-1 border border-primary/50">
                     <p class="text-highlight text-center">800 Euro</p>
                 </div>
             </div>
 
             <!-- Platinum Planning -->
-            <div class="bg-white p-8 rounded-xl relative price-card">
+            <div class="bg-white p-8 rounded-xl relative card">
                 <h4 class="text-2xl font-serif font-semibold mb-3 text-text">
                     Servicii Platinum
                 </h4>
@@ -127,13 +127,13 @@
                     <li class="flex items-center"><span class="mr-2 text-primary-light"><i class="fas fa-check-circle"></i></span> Asistenta in selectaerea furnizorilor pentru max. 5 categorii</li>
                     <li class="flex items-center"><span class="mr-2 text-primary-light"><i class="fas fa-check-circle"></i></span> Trei sedinte suplimentare de consultanta</li>
                 </ul>
-                <div class="absolute bottom-4 left-4 right-4 px-8 py-3 bg-primary text-highight font-bold rounded-full shadow-lg">
+                <div id="platinum_price" class="absolute bottom-4 left-4 right-4 px-8 py-3 bg-primary text-highight font-bold rounded-full shadow-lg hover:shadow-2xl transition duration-200 transform hover:-translate-y-1 border border-primary/50">
                     <p class="text-highlight text-center">1200 Euro</p>
                 </div>
             </div>
 
             <!-- Diamond Card -->
-            <div class="bg-white p-8 rounded-xl relative price-card">
+            <div class="bg-white p-8 rounded-xl relative card">
                 <h4 class="text-2xl font-serif font-semibold mb-3 text-text">
                     Servicii Diamond
                 </h4>
@@ -147,9 +147,9 @@
                     <li class="flex items-center"><span class="mr-2 text-primary-light"><i class="fas fa-check-circle"></i></span> Plan financiar si monitorizare buget</li>
                     <li class="flex items-center"><span class="mr-2 text-primary-light"><i class="fas fa-check-circle"></i></span> Coordonare in ziua evenimentului, cu asistent</li>
                 </ul>
-                
-                <div class="absolute bottom-4 left-4 right-4 px-8 py-3 bg-primary text-highight font-bold rounded-full shadow-lg  hover:shadow-2xl transition duration-200 transform hover:-translate-y-1 border border-primary/50">
-                    <p class="text-highlight text-center">1200 Euro</p>
+
+                <div id="diamond_price" class="absolute bottom-4 left-4 right-4 px-8 py-3 bg-primary text-highight font-bold rounded-full shadow-lg  hover:shadow-2xl transition duration-200 transform hover:-translate-y-1 border border-primary/50">
+                    <p class="text-highlight text-center">2500 Euro</p>
                 </div>
             </div>
         </div>
@@ -168,17 +168,17 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
-                <div class="relative event1-background p-6 rounded-xl shadow-lg border-t-4 border-primary hover:shadow-2xl transition duration-200 transform hover:-translate-y-1 border border-primary/50">
+                <div class="shadow-lg relative event1-background p-6 rounded-xl border-t-4 border-primary hover:shadow-2xl transition duration-200 transform hover:-translate-y-1 border border-primary/50">
                     <p class="fancy-text text-bg absolute bottom-4 left-4">Casă de piatră, Sebi & Bia!</p>
                     <p class="fancy-text text-bg absolute top-4 right-4">Galerie</p>
                 </div>
 
-                <div class="relative event2-background p-6 rounded-xl shadow-lg border-t-4 border-primary hover:shadow-2xl transition duration-200 transform hover:-translate-y-1 border border-primary/50">
+                <div class="shadow-lg relative event2-background p-6 rounded-xl border-t-4 border-primary hover:shadow-2xl transition duration-200 transform hover:-translate-y-1 border border-primary/50">
                     <p class="fancy-text text-bg absolute bottom-4 left-4">Bine ai venit, Cristian!</p>
                     <p class="fancy-text text-bg absolute top-4 right-4">Galerie</p>
                 </div>
 
-                <div class="relative event3-background p-6 rounded-xl shadow-lg border-t-4 border-primary hover:shadow-2xl transition duration-200 transform hover:-translate-y-1 border border-primary/50">
+                <div class="shadow-lg relative event3-background p-6 rounded-xl border-t-4 border-primary hover:shadow-2xl transition duration-200 transform hover:-translate-y-1 border border-primary/50">
                     <p class="fancy-text text-bg absolute bottom-4 left-4">La mulți ani, Alexandra!</p>
                     <p class="fancy-text text-bg absolute top-4 right-4">Galerie</p>
                 </div>
@@ -262,5 +262,6 @@
             <p class="text-xs mt-6">&copy; 2025 PlanBi Events SRL. | Design by Alexandru-Sebastian SARBU.</p>
         </div>
     </footer>
+    <script src="script.js"></script>
 </body>
 </html>

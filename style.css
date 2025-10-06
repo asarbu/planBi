@@ -67,6 +67,6 @@ body {
     letter-spacing: 0.03em;
 }
 
-.price-card {
+.card {
     box-shadow: var(--shadow-l);
 }
