@@ -1,280 +1,72 @@
-/* Basic Reset & Global Styles */
+/* Custom styles for elegance and mobile usability */
 :root {
-    --primary-color: #1a1a1a;
-    --secondary-color: #f4f4f4;
-    --accent-color: #d4af37; /* A gold-like accent */
-    --text-color: #333;
-    --bg-color: #ffffff;
-}
+    --shadow-s: 
+        inset 0 1px 2px #ffffff30,
+        0 1px 2px #00000030,
+        0 2px 4px #00000015;
+    
+    --shadow-m: 
+        inset 0 1px 2px #ffffff50,
+        0 2px 4px #00000030,
+        0 4px 8px #00000015;
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+    --shadow-l: 
+        inset 0 1px 2px #ffffff70,
+        0 4px 6px #00000030,
+        0 6px 10px #00000015;
 }
-
 body {
-    font-family: 'Montserrat', sans-serif;
-    color: var(--text-color);
-    background-color: var(--bg-color);
-    line-height: 1.6;
+    font-family: 'Inter', sans-serif;
+    background-color: #FAFAF9;
+}
+.hero-background {
+    background-image: url('https://i0.wp.com/photofocus.com/wp-content/uploads/2021/03/wedding-hero-silhouette.jpg?resize=2048%2C1152&ssl=1');
+    background-size: cover;
+    background-position: center;
+    height: 70vh; /* Increased responsive height */
+    min-height: 500px;
 }
 
-a {
-    color: var(--text-color);
-    text-decoration: none;
+.event1-background {
+    height: 70vh; /* Increased responsive height */
+    min-height: 500px;
+    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)), url('https://pashabelman.com/wp-content/uploads/2023/09/Best-Wedding-Poses-Wedding-Posing-Ideas.webp');
+    background-size: cover;
+    background-position: center;
 }
 
-ul {
-    list-style: none;
+.event2-background {
+    height: 70vh; /* Increased responsive height */
+    min-height: 500px;
+    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)), url('https://media.gettyimages.com/id/2150114199/photo/young-mother-holding-her-baby-during-christening-in-orthodox-church.jpg?s=1024x1024&w=gi&k=20&c=lazeFMgUrULZwOsUl1jsKmQLIHeybf-zeCM-dEV_No0=');
+    background-size: cover;
+    background-position: center;
 }
 
-h1, h2, h3 {
-    font-weight: 400;
-    line-height: 1.2;
+.event3-background {
+    height: 70vh; /* Increased responsive height */
+    min-height: 500px;
+    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)), url('https://www.pinkvilla.com/images/2023-04/675743304_shutterstock_1230401362_1280*720.jpg');
+    background-size: cover;
+    background-position: calc(10%) center; /* Shifted right for better composition */
 }
 
-/* Header */
-.main-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.5rem 2rem;
-    border-bottom: 1px solid var(--secondary-color);
-    background-color: var(--bg-color);
-    z-index: 1000;
-}
-
-.main-header .logo a {
-    font-size: 1.5rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-}
-
-.main-nav ul {
-    display: flex;
-}
-
-.main-nav ul li {
-    margin: 0 1rem;
-}
-
-.main-nav ul li a {
-    text-transform: uppercase;
-    font-size: 0.9rem;
-    font-weight: 500;
-    transition: color 0.3s ease;
-}
-
-.main-nav ul li a:hover {
-    color: var(--accent-color);
-}
-
-.header-icons a {
-    margin-left: 1.5rem;
-    font-size: 0.9rem;
-}
-
-.mobile-menu-toggle {
-    display: none; /* Hidden on desktop */
-    background: none;
-    border: 1px solid var(--text-color);
-    padding: 0.5rem;
-    cursor: pointer;
-}
-/* --- Hero Section --- */
-.hero-section {
-    position: relative; /* Needed for absolute positioning of children */
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    text-align: center;
-    overflow: hidden; /* Crucial for containing the moving background */
-}
-
-.hero-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 120%; /* Make image taller to allow for vertical movement without showing edges */
-    object-fit: cover;
-    z-index: -1; /* Place it behind the text */
-}
-
-.hero-content h1 {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-}
-
-.hero-content p {
-    font-size: 1.2rem;
-    margin-bottom: 2rem;
-}
-
-.btn {
+.service-icon {
     display: inline-block;
-    padding: 0.8rem 2rem;
-    background-color: white;
-    color: var(--primary-color);
-    border: 1px solid white;
-    text-transform: uppercase;
-    font-weight: 500;
-    transition: all 0.3s ease;
-}
-
-.btn:hover {
-    background-color: transparent;
-    color: white;
-}
-
-/* Featured Products Section */
-.featured-products {
-    padding: 4rem 2rem;
-    text-align: center;
-    background-color: var(--secondary-color);
-}
-
-.featured-products h2 {
-    font-size: 2rem;
-    margin-bottom: 3rem;
-}
-
-.product-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.product-card {
-    text-align: left;
-}
-
-.product-card img {
-    width: 100%;
-    height: auto;
-    background-color: var(--secondary-color);
+    width: 50px;
+    height: 50px;
     margin-bottom: 1rem;
 }
 
-.product-card h3 {
-    font-size: 1.1rem;
-    font-weight: 500;
+.fancy-text {
+    /* font-family: 'MonteCarlo', cursive; */
+    font-family: 'Luxurious Script', cursive;
+    font-size: 3rem;
+    color: #B88A00;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    letter-spacing: 0.03em;
 }
 
-.product-card .price {
-    font-size: 1rem;
-    color: #666;
-}
-
-/* Call to Action Section */
-.call-to-action {
-    background-color: var(--secondary-color);
-    text-align: center;
-    padding: 4rem 2rem;
-}
-
-.call-to-action h2 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-}
-
-.call-to-action p {
-    margin-bottom: 2rem;
-}
-
-.btn-secondary {
-    background-color: var(--primary-color);
-    color: white;
-    border-color: var(--primary-color);
-}
-
-.btn-secondary:hover {
-    background-color: #333;
-    border-color: #333;
-    color: white;
-}
-
-/* Footer */
-.main-footer {
-    background-color: var(--primary-color);
-    color: #a0a0a0;
-    padding: 4rem 2rem 2rem;
-}
-
-.footer-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 2rem;
-    max-width: 1200px;
-    margin: 0 auto 3rem;
-}
-
-.footer-column h4 {
-    color: white;
-    font-weight: 500;
-    margin-bottom: 1rem;
-}
-
-.footer-column ul li {
-    margin-bottom: 0.5rem;
-}
-
-.footer-column a {
-    color: #a0a0a0;
-    transition: color 0.3s ease;
-}
-
-.footer-column a:hover {
-    color: white;
-}
-
-.newsletter-form input {
-    width: 100%;
-    padding: 0.7rem;
-    background-color: #333;
-    border: 1px solid #555;
-    color: white;
-    margin-bottom: 0.5rem;
-}
-
-.newsletter-form button {
-    width: 100%;
-    padding: 0.7rem;
-    background-color: var(--accent-color);
-    color: var(--primary-color);
-    border: none;
-    cursor: pointer;
-    font-weight: 700;
-}
-
-.footer-bottom {
-    text-align: center;
-    border-top: 1px solid #333;
-    padding-top: 2rem;
-    font-size: 0.9rem;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .main-nav, .header-icons {
-        display: none; /* Hide on mobile */
-    }
-    .mobile-menu-toggle {
-        display: block; /* Show hamburger menu */
-    }
-    .hero-content h1 {
-        font-size: 2rem;
-    }
-    .footer-grid {
-        grid-template-columns: 1fr 1fr;
-    }
+.price-card {
+    box-shadow: var(--shadow-l);
 }

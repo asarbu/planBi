@@ -8,6 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Load Font Awesome for Icons (Reviews, Portfolio) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Luxurious+Script&display=swap" rel="stylesheet">
@@ -19,86 +20,28 @@
             theme: {
                 extend: {
                     colors: {
-                        "bg-dark": "oklch(0.92 0.02 85)",
-                        "bg": "oklch(0.96 0.02 85)",
-                        "bg-light": "oklch(1 0.02 85)",
+                        "bg-dark": "oklch(0.9 0.02 85)",
+                        "bg": "oklch(0.93 0.02 85)",
+                        "bg-light": "oklch(0.96 0.02 85)",
                         "text": "oklch(0.15 0.04 85)",
-                        "text-muted": "oklch(0.4 0.04 85)",
                         "highlight": "oklch(1 0.04 85)",
                         "border": "oklch(0.6 0.04 85)",
                         "border-muted": "oklch(0.7 0.04 85)",
-                        "primary": "oklch(0.4 0.1 85)",
-                        "secondary": "oklch(0.4 0.1 265)",
+                        "primary-light": "oklch(0.8 0.0815 85)",
+                        "primary": "oklch(0.6 0.0815 85)",
+                        "primary-dark": "oklch(0.4 0.0815 85)",
                         "danger": "oklch(0.5 0.05 30)",
                         "warning": "oklch(0.5 0.05 100)",
                         "success": "oklch(0.5 0.05 160)",
-                        "info": "oklch(0.5 0.05 260)"
+                        "info": "oklch(0.5 0.05 260)",
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
-                        serif: ['Playfair Display', 'serif'], // Elegant font for headings
                     },
                 }
             }
         }
     </script>
-    <style>
-        /* Custom styles for elegance and mobile usability */
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #FAFAF9;
-        }
-        .hero-background {
-            background-image: url('https://i0.wp.com/photofocus.com/wp-content/uploads/2021/03/wedding-hero-silhouette.jpg?resize=2048%2C1152&ssl=1');
-            background-size: cover;
-            background-position: center;
-            height: 70vh; /* Increased responsive height */
-            min-height: 500px;
-        }
-
-        .event1-background {
-            height: 70vh; /* Increased responsive height */
-            min-height: 500px;
-            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)), url('https://pashabelman.com/wp-content/uploads/2023/09/Best-Wedding-Poses-Wedding-Posing-Ideas.webp');
-            background-size: cover;
-            background-position: center;
-        }
-
-        .event2-background {
-            height: 70vh; /* Increased responsive height */
-            min-height: 500px;
-            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)), url('https://media.gettyimages.com/id/2150114199/photo/young-mother-holding-her-baby-during-christening-in-orthodox-church.jpg?s=1024x1024&w=gi&k=20&c=lazeFMgUrULZwOsUl1jsKmQLIHeybf-zeCM-dEV_No0=');
-            background-size: cover;
-            background-position: center;
-        }
-
-        .event3-background {
-            height: 70vh; /* Increased responsive height */
-            min-height: 500px;
-            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)), url('https://www.pinkvilla.com/images/2023-04/675743304_shutterstock_1230401362_1280*720.jpg');
-            background-size: cover;
-            background-position: calc(10%) center; /* Shifted right for better composition */
-        }
-
-        .service-icon {
-            display: inline-block;
-            width: 50px;
-            height: 50px;
-            margin-bottom: 1rem;
-        }
-        .input-style {
-            @apply w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition duration-150;
-        }
-
-        .fancy-text {
-            /* font-family: 'MonteCarlo', cursive; */
-            font-family: 'Luxurious Script', cursive;
-            font-size: 3rem;
-            color: #B88A00;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-            letter-spacing: 0.03em;
-        }
-    </style>
 </head>
 <body class="text-text antialiased">
 
@@ -131,7 +74,7 @@
             <p class="text-xl text-highlight max-w-2xl mx-auto mb-8 font-light">
                 Celebrări de neuitat, fără stres. Create pe sufletul tău.
             </p>
-            <a href="#booking" class="inline-block px-8 py-3 bg-bg text-primary font-bold rounded-full shadow-lg hover:bg-opacity-90 transition duration-300 transform hover:scale-105">
+            <a href="#booking" class="inline-block px-8 py-3 bg-bg text-primary font-bold rounded-full shadow-lg hover:bg-opacity-90 transition duration-200 transform hover:scale-105">
                 Incepe acum
             </a>
         </div>
@@ -152,60 +95,60 @@
         <!-- Service Cards Grid -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
             <!-- Gold Planning Card -->
-            <div class="bg-white p-8 rounded-xl shadow-xl hover:shadow-2xl transition duration-300 transform hover:-translate-y-1 border border-secondary/50">
+            <div class="bg-white p-8 rounded-xl relative price-card">
                 <h4 class="text-2xl font-serif font-semibold mb-3 text-text">
                     Servicii Gold
                 </h4>
                 <p class="text-gray-600">
                     Pentru persoanele care stiu ce vor, au locatia si o parte din furnizori, dar doresc o experienta completa fara griji.
                 </p>
-                <ul class="mt-4 text-sm text-gray-500 space-y-2">
-                    <li class="flex items-center"><span class="mr-2 text-primary"><i class="fas fa-check-circle"></i></span> Coordonare in ziua evenimentului</li>
-                    <li class="flex items-center"><span class="mr-2 text-primary"><i class="fas fa-check-circle"></i></span> Doua sedinte de consultanta inaintea evenimentului</li>
-                    <li class="flex items-center"><span class="mr-2 text-primary"><i class="fas fa-check-circle"></i></span> Crearea unui plan detaliat de eveniment</li>
-                    <li class="flex items-center"><span class="mr-2 text-primary"><i class="fas fa-check-circle"></i></span> Coordonarea furnizorilor in ziua evenimentului</li>
-                    <li class="flex items-center"><span class="mr-2 text-primary"><i class="fas fa-check-circle"></i></span> Asistenta pe durata intregului eveniment (max. 12 ore)</li>
+                <ul class="mt-4 mb-12 text-sm text-gray-500 space-y-3">
+                    <li class="flex items-center"><span class="mr-2 text-primary-light"><i class="fas fa-check-circle"></i></span> Coordonare in ziua evenimentului</li>
+                    <li class="flex items-center"><span class="mr-2 text-primary-light"><i class="fas fa-check-circle"></i></span> Doua sedinte de consultanta inaintea evenimentului</li>
+                    <li class="flex items-center"><span class="mr-2 text-primary-light"><i class="fas fa-check-circle"></i></span> Crearea unui plan detaliat de eveniment</li>
+                    <li class="flex items-center"><span class="mr-2 text-primary-light"><i class="fas fa-check-circle"></i></span> Coordonarea furnizorilor in ziua evenimentului</li>
+                    <li class="flex items-center"><span class="mr-2 text-primary-light"><i class="fas fa-check-circle"></i></span> Asistenta pe durata intregului eveniment (max. 12 ore)</li>
                 </ul>
-                <div class="absolute bottom-4 left-4 right-4 px-8 py-3 bg-secondary text-highight font-bold rounded-full shadow-lg">
+                <div class="absolute bottom-4 left-4 right-4 px-8 py-3 bg-primary text-highight font-bold rounded-full shadow-lg">
                     <p class="text-highlight text-center">800 Euro</p>
                 </div>
             </div>
 
-            <!-- Platinum Planning & Design Card -->
-            <div class="relative bg-white p-8 rounded-xl shadow-xl border border-secondary/50">
+            <!-- Platinum Planning -->
+            <div class="bg-white p-8 rounded-xl relative price-card">
                 <h4 class="text-2xl font-serif font-semibold mb-3 text-text">
                     Servicii Platinum
                 </h4>
                 <p class="text-gray-600">
                     Aveti stabilita data si locatia, dar aveti nevoie de ajutor pentru a aduce totul impreuna.
                 </p>
-                <ul class="mt-4 text-sm text-gray-500 space-y-2">
-                    <li class="flex items-center"><span class="mr-2 text-primary"><i class="fas fa-check-circle"></i></span> Tot ce contine pachetul "Gold"</li>
-                    <li class="flex items-center"><span class="mr-2 text-primary"><i class="fas fa-check-circle"></i></span> Asistenta in selectaerea furnizorilor pentru max. 5 categorii</li>
-                    <li class="flex items-center"><span class="mr-2 text-primary"><i class="fas fa-check-circle"></i></span> Trei sedinte suplimentare de consultanta</li>
+                <ul class="mt-4 mb-12 text-sm text-gray-500 space-y-2">
+                    <li class="flex items-center"><span class="mr-2 text-primary-light"><i class="fas fa-check-circle"></i></span> Tot ce contine pachetul "Gold"</li>
+                    <li class="flex items-center"><span class="mr-2 text-primary-light"><i class="fas fa-check-circle"></i></span> Asistenta in selectaerea furnizorilor pentru max. 5 categorii</li>
+                    <li class="flex items-center"><span class="mr-2 text-primary-light"><i class="fas fa-check-circle"></i></span> Trei sedinte suplimentare de consultanta</li>
                 </ul>
-                <div class="absolute bottom-4 left-4 right-4 px-8 py-3 bg-secondary text-highight font-bold rounded-full shadow-lg">
+                <div class="absolute bottom-4 left-4 right-4 px-8 py-3 bg-primary text-highight font-bold rounded-full shadow-lg">
                     <p class="text-highlight text-center">1200 Euro</p>
                 </div>
             </div>
 
             <!-- Diamond Card -->
-            <div class="bg-white p-8 rounded-xl shadow-xl hover:shadow-2xl transition duration-300 transform hover:-translate-y-1 border border-secondary/50">
+            <div class="bg-white p-8 rounded-xl relative price-card">
                 <h4 class="text-2xl font-serif font-semibold mb-3 text-text">
                     Servicii Diamond
                 </h4>
                 <p class="text-gray-600">
                     Relaxați-vă complet, noi preluăm întreaga organizare. Gestionăm fiecare detaliu, de la A la Z.
                 </p>
-                <ul class="mt-4 text-sm text-gray-500 space-y-2">
-                    <li class="flex items-center"><span class="mr-2 text-primary"><i class="fas fa-check-circle"></i></span> Coordonare integrala a evenimentului</li>
-                    <li class="flex items-center"><span class="mr-2 text-primary"><i class="fas fa-check-circle"></i></span> Crearea conceptului tematic si designului</li>
-                    <li class="flex items-center"><span class="mr-2 text-primary"><i class="fas fa-check-circle"></i></span> Selectarea, rezervarea si gestionarea tuturor furnizorilor</li>
-                    <li class="flex items-center"><span class="mr-2 text-primary"><i class="fas fa-check-circle"></i></span> Plan financiar si monitorizare buget</li>
-                    <li class="flex items-center"><span class="mr-2 text-primary"><i class="fas fa-check-circle"></i></span> Coordonare in ziua evenimentului, cu asistent</li>
+                <ul class="mt-4 mb-12 text-sm text-gray-500 space-y-2">
+                    <li class="flex items-center"><span class="mr-2 text-primary-light"><i class="fas fa-check-circle"></i></span> Coordonare integrala a evenimentului</li>
+                    <li class="flex items-center"><span class="mr-2 text-primary-light"><i class="fas fa-check-circle"></i></span> Crearea conceptului tematic si designului</li>
+                    <li class="flex items-center"><span class="mr-2 text-primary-light"><i class="fas fa-check-circle"></i></span> Selectarea, rezervarea si gestionarea tuturor furnizorilor</li>
+                    <li class="flex items-center"><span class="mr-2 text-primary-light"><i class="fas fa-check-circle"></i></span> Plan financiar si monitorizare buget</li>
+                    <li class="flex items-center"><span class="mr-2 text-primary-light"><i class="fas fa-check-circle"></i></span> Coordonare in ziua evenimentului, cu asistent</li>
                 </ul>
                 
-                <div class="absolute bottom-4 left-4 right-4 px-8 py-3 bg-secondary text-highight font-bold rounded-full shadow-lg">
+                <div class="absolute bottom-4 left-4 right-4 px-8 py-3 bg-primary text-highight font-bold rounded-full shadow-lg  hover:shadow-2xl transition duration-200 transform hover:-translate-y-1 border border-primary/50">
                     <p class="text-highlight text-center">1200 Euro</p>
                 </div>
             </div>
@@ -225,17 +168,17 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
-                <div class="relative event1-background p-6 rounded-xl shadow-lg border-t-4 border-primary">
+                <div class="relative event1-background p-6 rounded-xl shadow-lg border-t-4 border-primary hover:shadow-2xl transition duration-200 transform hover:-translate-y-1 border border-primary/50">
                     <p class="fancy-text text-bg absolute bottom-4 left-4">Casă de piatră, Sebi & Bia!</p>
                     <p class="fancy-text text-bg absolute top-4 right-4">Galerie</p>
                 </div>
 
-                <div class="relative event2-background p-6 rounded-xl shadow-lg border-t-4 border-primary">
+                <div class="relative event2-background p-6 rounded-xl shadow-lg border-t-4 border-primary hover:shadow-2xl transition duration-200 transform hover:-translate-y-1 border border-primary/50">
                     <p class="fancy-text text-bg absolute bottom-4 left-4">Bine ai venit, Cristian!</p>
                     <p class="fancy-text text-bg absolute top-4 right-4">Galerie</p>
                 </div>
-                
-                <div class="relative event3-background p-6 rounded-xl shadow-lg border-t-4 border-primary">
+
+                <div class="relative event3-background p-6 rounded-xl shadow-lg border-t-4 border-primary hover:shadow-2xl transition duration-200 transform hover:-translate-y-1 border border-primary/50">
                     <p class="fancy-text text-bg absolute bottom-4 left-4">La mulți ani, Alexandra!</p>
                     <p class="fancy-text text-bg absolute top-4 right-4">Galerie</p>
                 </div>
@@ -244,7 +187,7 @@
     </section>
 
     <!-- Consultation Booking Form Section -->
-    <section id="booking" class="bg-border py-16 md:py-24">
+    <section id="booking" class="bg-primary-dark py-16 md:py-24">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-10">
                 <h3 class="text-xl text-highlight font-medium mb-2">Următorul pas</h3>
@@ -261,42 +204,37 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                         <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Nume</label>
-                        <input type="text" id="name" name="name" placeholder="De exemplu, Ion Popescu" required class="input-style">
+                        <input type="text" id="name" name="name" placeholder="Ion Popescu" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition duration-150">
                     </div>
                     <div>
                         <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Adresă de email</label>
-                        <input type="email" id="email" name="email" placeholder="email@exemplu.com" required class="input-style">
+                        <input type="email" id="email" name="email" placeholder="email@exemplu.com" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition duration-150">
                     </div>
-                </div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                         <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Număr de telefon</label>
-                        <input type="tel" id="phone" name="phone" placeholder="(770) 123-4567" class="input-style">
+                        <input type="tel" id="phone" name="phone" placeholder="(770) 123-4567" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition duration-150">
                     </div>
                     <div>
                         <label for="date" class="block text-sm font-medium text-gray-700 mb-1">Data evenimentului</label>
-                        <input type="date" id="date" name="date" required class="input-style">
+                        <input type="date" id="date" name="date" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition duration-150">
+                    </div>
+                    <div class="md:col-span-1">
+                        <label for="service_type" class="block text-sm font-medium text-gray-700 mb-1">Ce fel de serviciu vă interesează?</label>
+                        <select id="service_type" name="service_type" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition duration-150 appearance-none">
+                            <option value="" disabled selected>Selectați un pachet de servicii</option>
+                            <option value="gold">Gold</option>
+                            <option value="platinum">Platinum</option>
+                            <option value="diamond">Diamond</option>
+                            <option value="unsure">Nu sunt sigur încă</option>
+                        </select>
+                    </div>
+                    <div class="md:col-span-1">
+                        <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Spuneți-ne despre viziunea evenimentului dvs. (Oaspeți, Locație, Stil)</label>
+                        <textarea id="message" name="message" rows="4" placeholder="Planificăm un eveniment rustic pentru 150 de oaspeți în munți..." required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition duration-150"></textarea>
                     </div>
                 </div>
 
-                <div>
-                    <label for="service_type" class="block text-sm font-medium text-gray-700 mb-1">Ce fel de serviciu vă interesează?</label>
-                    <select id="service_type" name="service_type" required class="input-style appearance-none">
-                        <option value="" disabled selected>Selectați un pachet de servicii</option>
-                        <option value="gold">Gold</option>
-                        <option value="platinum">Platinum</option>
-                        <option value="diamond">Diamond</option>
-                        <option value="unsure">Nu sunt sigur încă</option>
-                    </select>
-                </div>
-
-                <div>
-                    <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Spuneți-ne despre viziunea evenimentului dvs. (Oaspeți, Locație, Stil)</label>
-                    <textarea id="message" name="message" rows="4" placeholder="Planificăm un eveniment rustic pentru 150 de oaspeți în munți..." required class="input-style"></textarea>
-                </div>
-
-                <button type="submit" class="w-full mt-4 px-10 py-4 bg-primary text-white font-extrabold rounded-full shadow-xl hover:bg-opacity-90 transition duration-300 transform hover:scale-105 uppercase tracking-wider">
+                <button type="submit" class="w-full mt-4 px-10 py-4 bg-primary text-white font-extrabold rounded-full shadow-xl hover:bg-opacity-90 transition duration-200 transform hover:scale-105 uppercase tracking-wider">
                     Trimiteți și solicitați un apel
                 </button>
                 <p class="text-xs text-center text-gray-500 mt-3">
@@ -317,13 +255,12 @@
                 Eleganta in Fiecare Detaliu
             </p>
             <div class="flex justify-center space-x-4 mb-4 text-sm">
-                <a href="mailto:hello@goldenhourevents.com" class="hover:text-white transition duration-150">hello@goldenhourevents.com</a>
+                <a href="mailto:hello@blanbi.com" class="hover:text-white transition duration-150">hello@blanbi.com</a>
                 <span>|</span>
-                <a href="tel:+40771234567" class="hover:text-white transition duration-150">(555) 123-4567</a>
+                <a href="tel:+4077123456" class="hover:text-white transition duration-150">(771) 123-456</a>
             </div>
             <p class="text-xs mt-6">&copy; 2025 PlanBi Events SRL. | Design by Alexandru-Sebastian SARBU.</p>
         </div>
     </footer>
-
 </body>
 </html>
