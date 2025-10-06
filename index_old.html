@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlanBi Wedding Planner</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="logo">
+            <a href="#">PlanBi</a>
+        </div>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="#description">Description</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#prices">Prices</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+        </nav>
+        <button class="mobile-menu-toggle">Menu</button>
+    </header>
+
+    <main>
+        <section id="description" class="hero-section">
+            <img class="hero-bg parallax" src="images/wedding_rings.png" alt="Wedding Rings">
+            <div class="hero-content">
+                <h1>PlanBI</h1>
+                <p>Discover the newest concept in wedding planning.</p>
+                <a href="#" class="btn">Start</a>
+            </div>
+        </section>
+
+        <section id="projects">
+            <h2>Proiecte</h2>
+            <article class="project-card">
+                <img src="images/project1.jpg" alt="Project 1">
+                <h3>Elegant Beach Wedding</h3>
+                <p>A beautiful beach wedding setup with elegant decorations and a stunning view.</p>
+            </article>
+            <article class="project-card">
+                <img src="images/project2.jpg" alt="Project 2">
+                <h3>Rustic Barn Wedding</h3>
+                <p>A charming rustic barn wedding with vintage decor and a cozy atmosphere.</p>
+            </article>
+            <article class="project-card">
+                <img src="images/project3.jpg" alt="Project 3">
+                <h3>Garden Ceremony</h3>
+                <p>An intimate garden ceremony surrounded by lush greenery and floral arrangements.</p>
+            </article>
+        </section>
+
+        <section id="prices" class="featured-products">
+            <h2>Lista preturi</h2>
+            <div class="product-grid">
+                <div class="product-card">
+                    <h3>Gold</h3>
+                    <p class="price">€800.00</p>
+                </div>
+                <div class="product-card">
+                    <h3>Platinum</h3>
+                    <p class="price">€1200.00</p>
+                </div>
+                <div class="product-card">
+                    <h3>Diamond</h3>
+                    <p class="price">€2500.00</p>
+                </div>
+            </div>
+
+            <h2>Servicii aditionale</h2>
+            <div class="product-grid">
+                <div class="product-card">
+                    <h3>Creare concept si design personalizat</h3>
+                    <p class="price">€300.00 - €500.00</p>
+                </div>
+                <div class="product-card">
+                    <h3>Planificare cerere in casatorie</h3>
+                    <p class="price">€250.00</p>
+                </div>
+                <div class="product-card">
+                    <h3>Diamond</h3>
+                    <p class="price">€450.00</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="call-to-action">
+            <h2>Arrange a meeting</h2>
+            <form id="consultationForm">
+                <label for="fullName">Full Name:</label>
+                <input type="text" id="fullName" name="fullName" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="county">County:</label>
+                <select id="county" name="county" required>
+                    <option value="">Select County</option>
+                    <option value="Alba">Alba</option>
+                    <option value="Arad">Arad</option>
+                    <option value="Arges">Argeș</option>
+                    <option value="Bacau">Bacău</option>
+                    <option value="Bihor">Bihor</option>
+                    <option value="Bistrita-Nasaud">Bistrița-Năsăud</option>
+                    <option value="Botosani">Botoșani</option>
+                    <option value="Brasov">Brașov</option>
+                    <option value="Braila">Brăila</option>
+                    <option value="Bucuresti">București</option>
+                    <option value="Buzau">Buzău</option>
+                    <option value="Caras-Severin">Caraș-Severin</option>
+                    <option value="Calarasi">Călărași</option>
+                    <option value="Cluj">Cluj</option>
+                    <option value="Constanta">Constanța</option>
+                    <option value="Covasna">Covasna</option>
+                    <option value="Dambovita">Dâmbovița</option>
+                    <option value="Dolj">Dolj</option>
+                    <option value="Galati">Galați</option>
+                    <option value="Giurgiu">Giurgiu</option>
+                    <option value="Gorj">Gorj</option>
+                    <option value="Harghita">Harghita</option>
+                    <option value="Hunedoara">Hunedoara</option>
+                    <option value="Ialomita">Ialomița</option>
+                    <option value="Iasi">Iași</option>
+                    <option value="Ilfov">Ilfov</option>
+                    <option value="Maramures">Maramureș</option>
+                    <option value="Mehedinti">Mehedinți</option>
+                    <option value="Mures">Mureș</option>
+                    <option value="Neamt">Neamț</option>
+                    <option value="Olt">Olt</option>
+                    <option value="Prahova">Prahova</option>
+                    <option value="Satu Mare">Satu Mare</option>
+                    <option value="Salaj">Sălaj</option>
+                    <option value="Sibiu">Sibiu</option>
+                    <option value="Suceava">Suceava</option>
+                    <option value="Teleorman">Teleorman</option>
+                    <option value="Timis">Timiș</option>
+                    <option value="Tulcea">Tulcea</option>
+                    <option value="Vaslui">Vaslui</option>
+                    <option value="Valcea">Vâlcea</option>
+                    <option value="Vrancea">Vrancea</option>
+                </select>
+
+                <label for="telephone">Telephone Number:</label>
+                <input type="tel" id="telephone" name="telephone" required>
+
+                <button type="submit" class="btn btn-secondary">Submit</button>
+                <div id="consultationResult" style="margin-top:1em;color:#2a7a2a;"></div>
+            </form>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-grid">
+            <div class="footer-column">
+                <h4>Shop</h4>
+                <ul>
+                    <li><a href="#">Description</a></li>
+                    <li><a href="#">Projects</a></li>
+                    <li><a href="#">Pricing</a></li>
+                    <li><a href="#">Consultations</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>About</h4>
+                <ul>
+                    <li><a href="#">My Story</a></li>
+                    <li><a href="#">Designers</a></li>
+                    <li><a href="#">Press</a></li>
+                    <li><a href="#">Careers</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Returns</a></li>
+                    <li><a href="#">Warranty</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Whatsapp</h4>
+                <p>Join our Whatsapp group for updates and offers.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Enter your email">
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Authentik. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
