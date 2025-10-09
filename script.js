@@ -1,5 +1,21 @@
 document.addEventListener('DOMContentLoaded', function() {
     console.log("Website template loaded successfully!");
+    // Read more button logic
+    document.querySelectorAll('.read-more-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            var targetId = btn.getAttribute('data-target');
+            var target = document.getElementById(targetId);
+            if (target) {
+                if (target.classList.contains('hidden')) {
+                    target.classList.remove('hidden');
+                    btn.textContent = 'Read less';
+                } else {
+                    target.classList.add('hidden');
+                    btn.textContent = 'Read more';
+                }
+            }
+        });
+    });
     /** // Register the ScrollTrigger plugin with GSAP
     gsap.registerPlugin(ScrollTrigger);
 
