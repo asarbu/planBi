@@ -11,9 +11,13 @@ document.addEventListener('DOMContentLoaded', function() {
                     btn.textContent = 'Read less';
                 } else {
                     target.classList.add('hidden');
-                    btn.textContent = 'Read more';
+                    btn.textContent = 'Descoperă';
+                    btn.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 }
             }
+            const parentElement = btn.parentElement;
+            parentElement.removeChild(btn);
+            parentElement.appendChild(btn);
         });
     });
     /** // Register the ScrollTrigger plugin with GSAP
