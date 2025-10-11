@@ -1,23 +1,38 @@
 document.addEventListener('DOMContentLoaded', function() {
-    console.log("Website template loaded successfully!");
     // Read more button logic
     document.querySelectorAll('.read-more-btn').forEach(function(btn) {
         btn.addEventListener('click', function() {
             var targetId = btn.getAttribute('data-target');
             var target = document.getElementById(targetId);
+            var readLessBtn = document.getElementById(targetId + '-read-less');
             if (target) {
-                if (target.classList.contains('hidden')) {
-                    target.classList.remove('hidden');
-                    btn.textContent = 'Read less';
-                } else {
-                    target.classList.add('hidden');
-                    btn.textContent = 'Descoperă';
-                    btn.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }
+                btn.classList.add('animate');
+                btn.addEventListener('transitionend', () => {
+                    btn.style.display = 'none';
+                    readLessBtn.style.display = 'inline-block';
+                    readLessBtn.classList.add('animate');
+                    target.classList.add('animate');
+                    btn.parentElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, { once: true });
             }
-            const parentElement = btn.parentElement;
-            parentElement.removeChild(btn);
-            parentElement.appendChild(btn);
+        });
+
+        document.querySelectorAll('.read-less-btn').forEach(function(readLessBtn) {
+            readLessBtn.addEventListener('click', function() {
+                var targetId = readLessBtn.getAttribute('data-target');
+                var target = document.getElementById(targetId);
+                var readMoreBtn = document.querySelector('.read-more-btn[data-target="' + targetId + '"]');
+                if (target) {
+                    readLessBtn.classList.remove('animate');
+                    target.classList.remove('animate');
+                        readLessBtn.parentElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    readLessBtn.addEventListener('transitionend', () => {
+                        readMoreBtn.style.display = 'inline-block';
+                        readMoreBtn.classList.remove('animate');
+                        readLessBtn.style.display = 'none';
+                    }, { once: true });
+                }
+            });
         });
     });
     /** // Register the ScrollTrigger plugin with GSAP

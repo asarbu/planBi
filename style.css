@@ -1,71 +1,126 @@
 /* Custom styles for elegance and mobile usability */
 :root {
-    --shadow-s: 
-        inset 0 1px 2px #ffffff30,
-        0 1px 2px #00000030,
-        0 2px 4px #00000015;
-    
-    --shadow-m: 
-        inset 0 1px 2px #ffffff50,
-        0 2px 4px #00000030,
-        0 4px 8px #00000015;
+	--shadow-s: 
+		inset 0 1px 2px #ffffff30,
+		0 1px 2px #00000030,
+		0 2px 4px #00000015;
+	
+	--shadow-m: 
+		inset 0 1px 2px #ffffff50,
+		0 2px 4px #00000030,
+		0 4px 8px #00000015;
 
-    --shadow-l: 
-        inset 0 1px 2px #ffffff70,
-        0 4px 6px #00000030,
-        0 6px 10px #00000015;
+	--shadow-l: 
+		inset 0 1px 2px #ffffff70,
+		0 4px 6px #00000030,
+		0 6px 10px #00000015;
+
+	--animation-long: 250ms;
+	--animation-short: 200ms;
 }
 body {
-    font-family: 'Inter', sans-serif;
+	font-family: 'Inter', sans-serif;
 }
 .hero-background {
-    background-image: url('https://i0.wp.com/photofocus.com/wp-content/uploads/2021/03/wedding-hero-silhouette.jpg?resize=2048%2C1152&ssl=1');
-    background-size: cover;
-    background-position: center;
-    height: 70vh; /* Increased responsive height */
-    min-height: 500px;
+	background-image:linear-gradient(rgba(0, 0, 0, 0.3), rgba(65,33,55, 0.7)),  url('/images/wedding2.jpg');
+	background-size: cover;
+	background-position: center;
+	height: 70vh; /* Increased responsive height */
+	min-height: 500px;
 }
 
 .event1-background {
-    height: 70vh; /* Increased responsive height */
-    min-height: 500px;
-    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)), url('https://pashabelman.com/wp-content/uploads/2023/09/Best-Wedding-Poses-Wedding-Posing-Ideas.webp');
-    background-size: cover;
-    background-position: center;
+	height: 70vh; /* Increased responsive height */
+	min-height: 500px;
+	background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)), url('https://pashabelman.com/wp-content/uploads/2023/09/Best-Wedding-Poses-Wedding-Posing-Ideas.webp');
+	background-size: cover;
+	background-position: center;
 }
 
 .event2-background {
-    height: 70vh; /* Increased responsive height */
-    min-height: 500px;
-    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)), url('https://media.gettyimages.com/id/2150114199/photo/young-mother-holding-her-baby-during-christening-in-orthodox-church.jpg?s=1024x1024&w=gi&k=20&c=lazeFMgUrULZwOsUl1jsKmQLIHeybf-zeCM-dEV_No0=');
-    background-size: cover;
-    background-position: center;
+	height: 70vh; /* Increased responsive height */
+	min-height: 500px;
+	background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)), url('https://media.gettyimages.com/id/2150114199/photo/young-mother-holding-her-baby-during-christening-in-orthodox-church.jpg?s=1024x1024&w=gi&k=20&c=lazeFMgUrULZwOsUl1jsKmQLIHeybf-zeCM-dEV_No0=');
+	background-size: cover;
+	background-position: center;
 }
 
 .event3-background {
-    height: 70vh; /* Increased responsive height */
-    min-height: 500px;
-    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)), url('https://www.pinkvilla.com/images/2023-04/675743304_shutterstock_1230401362_1280*720.jpg');
-    background-size: cover;
-    background-position: calc(10%) center; /* Shifted right for better composition */
+	height: 70vh; /* Increased responsive height */
+	min-height: 500px;
+	background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)), url('https://www.pinkvilla.com/images/2023-04/675743304_shutterstock_1230401362_1280*720.jpg');
+	background-size: cover;
+	background-position: calc(10%) center; /* Shifted right for better composition */
 }
 
 .service-icon {
-    display: inline-block;
-    width: 50px;
-    height: 50px;
-    margin-bottom: 1rem;
+	display: inline-block;
+	width: 50px;
+	height: 50px;
+	margin-bottom: 1rem;
 }
 
 .fancy-text {
-    /* font-family: 'MonteCarlo', cursive; */
-    font-family: 'Luxurious Script', cursive;
-    font-size: 3rem;
-    color: oklch(0.96 0.02 85);
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-    letter-spacing: 0.03em;
+	/* font-family: 'MonteCarlo', cursive; */
+	font-family: 'Luxurious Script', cursive;
+	font-size: 3rem;
+	color: oklch(0.96 0.02 85);
+	text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+	letter-spacing: 0.03em;
 }
 
 .card {
-    box-shadow: var(--shadow-l);
+	box-shadow: var(--shadow-l);
+}
+
+.read-less-btn {
+	display: none;
+}
+
+.read-more-btn {
+	translate: 0 0;
+	transition: translate var(--animation-short) ease-in;
+}
+
+.read-more-btn.animate {
+	translate: 0 1em;
+	transition: translate var(--animation-short) ease-in;
+}
+
+.short-fade-in-short-delay {
+	opacity: 0;
+	transition: opacity var(--animation-short) ease-in var(--animation-short);
+}
+
+.short-fade-in-short-delay.animate {
+	opacity: 1;
+	transition: opacity var(--animation-short) ease-in var(--animation-short);
+}
+
+.short-fade-out {
+	opacity: 1;
+	transition: opacity var(--animation-short) ease-in;
+}
+
+.short-fade-out.animate {
+	opacity: 0;
+	transition: opacity var(--animation-short) ease-in;
+}
+
+.details { 
+	height: 0;
+	opacity: 0;
+	translate: 0 1em;
+	transition: height var(--animation-long) ease-in var(--animation-long),
+		opacity var(--animation-long) ease-in,
+		translate var(--animation-long) ease-in;
+}
+
+.details.animate {
+	height: 90em;
+	opacity: 1;
+	translate: 0 0;
+	transition: height var(--animation-long) ease-in,
+		opacity var(--animation-long) ease-in var(--animation-long),
+		translate var(--animation-long) ease-in var(--animation-long);
 }
