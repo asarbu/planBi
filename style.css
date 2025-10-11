@@ -15,8 +15,8 @@
 		0 4px 6px #00000030,
 		0 6px 10px #00000015;
 
-	--animation-long: 250ms;
-	--animation-short: 200ms;
+	--animation-long: 1000ms;
+	--animation-short: 500ms;
 }
 body {
 	font-family: 'Inter', sans-serif;
@@ -53,13 +53,6 @@ body {
 	background-position: calc(10%) center; /* Shifted right for better composition */
 }
 
-.service-icon {
-	display: inline-block;
-	width: 50px;
-	height: 50px;
-	margin-bottom: 1rem;
-}
-
 .fancy-text {
 	/* font-family: 'MonteCarlo', cursive; */
 	font-family: 'Luxurious Script', cursive;
@@ -79,12 +72,26 @@ body {
 
 .read-more-btn {
 	translate: 0 0;
-	transition: translate var(--animation-short) ease-in;
+	opacity: 1;
+	transition: translate var(--animation-short) ease-in, opacity var(--animation-short) ease-in;
 }
 
 .read-more-btn.animate {
 	translate: 0 1em;
-	transition: translate var(--animation-short) ease-in;
+	opacity: 0;
+	transition: translate var(--animation-short) ease-in, opacity var(--animation-short) ease-in;
+}
+
+.read-less-btn {
+	opacity: 0;
+	translate: 0 0;
+	transition: opacity var(--animation-short) ease-in, translate var(--animation-short) ease-in var(--animation-short);
+}
+
+.read-less-btn.animate {
+	opacity: 1;
+	translate: 0 1em;
+	transition: opacity var(--animation-short) ease-in var(--animation-short), translate var(--animation-short) ease-in var(--animation-short);
 }
 
 .short-fade-in-short-delay {
@@ -117,7 +124,7 @@ body {
 }
 
 .details.animate {
-	height: 90em;
+	height: 81em;
 	opacity: 1;
 	translate: 0 0;
 	transition: height var(--animation-long) ease-in,

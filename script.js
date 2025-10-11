@@ -1,40 +1,43 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Read more button logic
     document.querySelectorAll('.read-more-btn').forEach(function(btn) {
+        var targetId = btn.getAttribute('data-target');
+        var target = document.getElementById(targetId);
+        var targetParent = target.parentElement;
+        var readLessBtn = document.getElementById(targetId + '-read-less');
+        //targetParent.removeChild(target);
+        //targetParent.removeChild(readLessBtn);
         btn.addEventListener('click', function() {
-            var targetId = btn.getAttribute('data-target');
+            //targetParent.appendChild(target);
+            //targetParent.appendChild(readLessBtn);
+            btn.classList.add('animate');
+            btn.addEventListener('transitionend', () => {
+                btn.style.display = 'none';
+                readLessBtn.style.display = 'inline-block';
+                readLessBtn.classList.add('animate');
+                target.classList.add('animate');
+                btn.parentElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, { once: true });
+        });
+
+    document.querySelectorAll('.read-less-btn').forEach(function(readLessBtn) {
+        readLessBtn.addEventListener('click', function() {
+            var targetId = readLessBtn.getAttribute('data-target');
             var target = document.getElementById(targetId);
-            var readLessBtn = document.getElementById(targetId + '-read-less');
+            var readMoreBtn = document.querySelector('.read-more-btn[data-target="' + targetId + '"]');
             if (target) {
-                btn.classList.add('animate');
-                btn.addEventListener('transitionend', () => {
-                    btn.style.display = 'none';
-                    readLessBtn.style.display = 'inline-block';
-                    readLessBtn.classList.add('animate');
-                    target.classList.add('animate');
-                    btn.parentElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                readLessBtn.classList.remove('animate');
+                target.classList.remove('animate');
+                readLessBtn.parentElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                readLessBtn.addEventListener('transitionend', () => {
+                    readMoreBtn.style.display = 'inline-block';
+                    readMoreBtn.classList.remove('animate');
+                    readLessBtn.style.display = 'none';
                 }, { once: true });
             }
         });
-
-        document.querySelectorAll('.read-less-btn').forEach(function(readLessBtn) {
-            readLessBtn.addEventListener('click', function() {
-                var targetId = readLessBtn.getAttribute('data-target');
-                var target = document.getElementById(targetId);
-                var readMoreBtn = document.querySelector('.read-more-btn[data-target="' + targetId + '"]');
-                if (target) {
-                    readLessBtn.classList.remove('animate');
-                    target.classList.remove('animate');
-                        readLessBtn.parentElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    readLessBtn.addEventListener('transitionend', () => {
-                        readMoreBtn.style.display = 'inline-block';
-                        readMoreBtn.classList.remove('animate');
-                        readLessBtn.style.display = 'none';
-                    }, { once: true });
-                }
-            });
-        });
     });
+});
     /** // Register the ScrollTrigger plugin with GSAP
     gsap.registerPlugin(ScrollTrigger);
 

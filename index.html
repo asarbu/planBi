@@ -25,7 +25,7 @@
                         "bg-xxdark": "oklch(0.7 0.02 85)",
                         "bg-xdark": "oklch(0.8 0.02 85)",
                         "bg-dark": "oklch(0.9 0.02 85)",
-                        "bg": "oklch(0.7 0.03 135)",
+                        "bg": "#a8b5a2",
                         "bg-light": "oklch(0.96 0.02 85)",
                         "bg-xlight": "oklch(0.9429 0.0163 17.45)",
                         "text": "oklch(0.15 0.04 85)",
@@ -56,10 +56,10 @@
 </head>
 <body class="text-text antialiased">
     <!-- Navigation Bar -->
-    <header class="bg-white shadow-md sticky top-0 z-20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+    <header class="bg-bg shadow-md sticky top-0 z-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-1 flex justify-between items-center">
             <h1 class="text-2xl font-serif font-bold text-primary tracking-wider">
-                PlanBi Events
+                <img src="images/desc.png" alt="PlanBi Description" class="h-10 inline-block mr-2">
             </h1>
             <nav class="hidden sm:block">
                 <a href="#services" class="text-gray-600 hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition duration-150">Services</a>
@@ -99,7 +99,7 @@
         <p class="text-lg max-w-3xl mx-auto text-primary-darker">
             Vă transformăm viziunea într-un eveniment de neuitat. De la prima discuție la momentul culminant, asigurăm un parcurs plăcut și o zi perfectă.
         </p>
-        <button class="read-more-btn short-slide-down mt-16 px-8 py-3 bg-primary-light text-bg-xlight font-bold rounded-full" data-target="services-details" data-collapse="services-details-read-less">Descoperă</button>
+        <button class="read-more-btn mt-16 px-8 py-3 bg-primary-light text-bg-xlight font-bold rounded-full" data-target="services-details" data-collapse="services-details-read-less">Descoperă</button>
         <div id="services-details" class="details">
             <!-- Service Cards Grid -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
@@ -223,100 +223,95 @@
                 </div>
             </div>
         </div>
-    </div>        
-    <button class="read-less-btn short-fade-in-short-delay mt-16 px-8 py-3 bg-primary-light text-bg-xlight font-bold rounded-full" id="services-details-read-less" data-target="services-details">Restrange</button>
+        <button class="read-less-btn mt-16 px-8 py-3 bg-primary-light text-bg-xlight font-bold rounded-full" id="services-details-read-less" data-target="services-details">Restrange</button>
     </section>
 
     <section id="portfolio" class="py-16 md:py-24 bg-bg pb-20 text-center">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h3 class="font-serif pt-16 pb-2 text-5xl md:text-4xl font-bold text-primary-xxdark">Evenimentele Noastre</h3>
-                <h2 class="text-xl text-primary-xdark font-medium pb-6">
-                    Amintiri Prețioase & Recenzii Strălucitoare
-                </h2>
-                <p class="pb-16 text-lg max-w-3xl mx-auto text-primary-dark">
-                    Vedeți magia pe care am creat-o și ascultați ce au de spus clienții noștri fericiți despre experiența lor cu PlanBi.
-                </p>
-                <button class="read-more-btn mt-16 px-8 py-3 bg-primary text-bg-light font-bold rounded-full" data-target="portfolio-details">Descoperă</button>
-                <div id="portfolio-details" class="details">
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
-                        <div class="shadow-lg relative event1-background p-6 rounded-xl border-t-4 border-primary hover:shadow-2xl transition duration-200 transform hover:-translate-y-1 border border-primary/50">
-                            <p class="fancy-text text-bg absolute bottom-4 left-4">Casă de piatră, Sebi & Bia!</p>
-                            <p class="fancy-text text-bg absolute top-4 right-4">Galerie</p>
-                        </div>
-                        <div class="shadow-lg relative event2-background p-6 rounded-xl border-t-4 border-primary hover:shadow-2xl transition duration-200 transform hover:-translate-y-1 border border-primary/50">
-                            <p class="fancy-text text-bg absolute bottom-4 left-4">Bine ai venit, Cristian!</p>
-                            <p class="fancy-text text-bg absolute top-4 right-4">Galerie</p>
-                        </div>
-                        <div class="shadow-lg relative event3-background p-6 rounded-xl border-t-4 border-primary hover:shadow-2xl transition duration-200 transform hover:-translate-y-1 border border-primary/50">
-                            <p class="fancy-text text-bg absolute bottom-4 left-4">La mulți ani, Alexandra!</p>
-                            <p class="fancy-text text-bg absolute top-4 right-4">Galerie</p>
-                        </div>
-                    </div>
+        <h3 class="font-serif pt-16 pb-2 text-5xl md:text-4xl font-bold text-primary-xxdark">Evenimentele Noastre</h3>
+        <h2 class="text-xl text-primary-xdark font-medium pb-6">
+            Amintiri Prețioase & Recenzii Strălucitoare
+        </h2>
+        <p class="pb-16 text-lg max-w-3xl mx-auto text-primary-dark">
+            Vedeți magia pe care am creat-o și ascultați ce au de spus clienții noștri fericiți despre experiența lor cu PlanBi.
+        </p>
+        <button class="read-more-btn mt-16 px-8 py-3 bg-primary text-bg-light font-bold rounded-full" data-target="portfolio-details">Descoperă</button>
+        <div id="portfolio-details" class="details">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
+                <div class="shadow-lg relative event1-background p-6 rounded-xl border-t-4 border-primary hover:shadow-2xl transition duration-200 transform hover:-translate-y-1 border border-primary/50">
+                    <p class="fancy-text text-bg absolute bottom-4 left-4">Casă de piatră, Sebi & Bia!</p>
+                    <p class="fancy-text text-bg absolute top-4 right-4">Galerie</p>
+                </div>
+                <div class="shadow-lg relative event2-background p-6 rounded-xl border-t-4 border-primary hover:shadow-2xl transition duration-200 transform hover:-translate-y-1 border border-primary/50">
+                    <p class="fancy-text text-bg absolute bottom-4 left-4">Bine ai venit, Cristian!</p>
+                    <p class="fancy-text text-bg absolute top-4 right-4">Galerie</p>
+                </div>
+                <div class="shadow-lg relative event3-background p-6 rounded-xl border-t-4 border-primary hover:shadow-2xl transition duration-200 transform hover:-translate-y-1 border border-primary/50">
+                    <p class="fancy-text text-bg absolute bottom-4 left-4">La mulți ani, Alexandra!</p>
+                    <p class="fancy-text text-bg absolute top-4 right-4">Galerie</p>
                 </div>
             </div>
         </div>
+        <button class="read-less-btn mt-16 px-8 py-3 bg-primary-light text-bg-xlight font-bold rounded-full" id="portfolio-details-read-less" data-target="portfolio-details">Restrange</button>
     </section>
 
     <!-- Consultation Booking Form Section -->
     <section id="booking" class="bg-primary-dark py-16 md:py-24 text-center pb-20">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h3 class="font-serif pt-16 pb-2 text-5xl md:text-4xl font-bold text-bg-xlight">Următorul pas</h3>
-                <h2 class="text-xl text-bg-xdark font-medium pb-6">
-                    Programați o sesiune de consultanță
-                </h2>
-                <p class="text-lg max-w-3xl mx-auto text-bg-xxdark">
-                    Spuneți-ne puțin despre viziunea evenimentului și vom programa o discuție rapidă pentru a vedea cum putem să o aducem la viață.
-                </p>
-                <button class="read-more-btn mt-16 px-8 py-3 bg-primary-lighter text-bg-xlight font-bold rounded-full" data-target="booking-details">Descoperă</button>
-                <div id="booking-details" class="details pt-20">
-                    <!-- Booking Form -->
-                    <form class="bg-white p-8 md:p-10 rounded-xl shadow-2xl space-y-6 text-left">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Nume</label>
-                                <input type="text" id="name" name="name" placeholder="Ion Popescu" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition duration-150">
-                            </div>
-                            <div>
-                                <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Adresă de email</label>
-                                <input type="email" id="email" name="email" placeholder="email@exemplu.com" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition duration-150">
-                            </div>
-                            <div>
-                                <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Număr de telefon</label>
-                                <input type="tel" id="phone" name="phone" placeholder="(770) 123-4567" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition duration-150">
-                            </div>
-                            <div>
-                                <label for="date" class="block text-sm font-medium text-gray-700 mb-1">Data evenimentului</label>
-                                <input type="date" id="date" name="date" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition duration-150">
-                            </div>
-                            <div class="md:col-span-1">
-                                <label for="service_type" class="block text-sm font-medium text-gray-700 mb-1">Ce fel de serviciu vă interesează?</label>
-                                <select id="service_type" name="service_type" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition duration-150 appearance-none">
-                                    <option value="" disabled selected>Selectați un pachet de servicii</option>
-                                    <option value="gold">Gold</option>
-                                    <option value="platinum">Platinum</option>
-                                    <option value="diamond">Diamond</option>
-                                    <option value="unsure">Nu sunt sigur încă</option>
-                                </select>
-                            </div>
-                            <div class="md:col-span-1">
-                                <label for="timeslot" class="block text-sm font-medium text-gray-700 mb-1">Alegeți intervalul orar dorit</label>
-                                <select id="timeslot" name="timeslot" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition duration-150 appearance-none">
-                                    <option value="" disabled selected>Selectați un interval</option>
-                                    <option value="09:00-09:30">09:00 - 09:30</option>
-                                    <option value="09:30-10:00">09:30 - 10:00</option>
-                                </select>
-                            </div>
-                            <div class="md:col-span-1">
-                                <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Spuneți-ne despre viziunea evenimentului dvs. (Oaspeți, Locație, Stil)</label>
-                                <textarea id="message" name="message" rows="4" placeholder="Planificăm un eveniment rustic pentru 150 de oaspeți în munți..." required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition duration-150"></textarea>
-                            </div>
-                        </div>
-                        <button type="submit" class="w-full mt-4 px-10 py-4 bg-primary text-white font-bold rounded-full shadow-xl hover:bg-opacity-90 transition duration-200 transform hover:scale-105">Trimiteți și solicitați un apel</button>
-                        <p class="text-xs text-center text-gray-500 mt-3">Nu vom împărtăși niciodată informațiile dvs. Așteptați un răspuns în termen de 24 de ore.</p>
-                    </form>
+        <h3 class="font-serif pt-16 pb-2 text-5xl md:text-4xl font-bold text-bg-xlight">Următorul pas</h3>
+        <h2 class="text-xl text-bg-xdark font-medium pb-6">
+            Programați o sesiune de consultanță
+        </h2>
+        <p class="text-lg max-w-3xl mx-auto text-bg-xxdark">
+            Spuneți-ne puțin despre viziunea evenimentului și vom programa o discuție rapidă pentru a vedea cum putem să o aducem la viață.
+        </p>
+        <button class="read-more-btn mt-16 px-8 py-3 bg-primary-lighter text-bg-xlight font-bold rounded-full" data-target="booking-details">Descoperă</button>
+        <div id="booking-details" class="details">
+            <!-- Booking Form -->
+            <form class="bg-white p-8 md:p-10 rounded-xl shadow-2xl space-y-6 text-left">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Nume</label>
+                        <input type="text" id="name" name="name" placeholder="Ion Popescu" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition duration-150">
+                    </div>
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Adresă de email</label>
+                        <input type="email" id="email" name="email" placeholder="email@exemplu.com" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition duration-150">
+                    </div>
+                    <div>
+                        <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Număr de telefon</label>
+                        <input type="tel" id="phone" name="phone" placeholder="(770) 123-4567" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition duration-150">
+                    </div>
+                    <div>
+                        <label for="date" class="block text-sm font-medium text-gray-700 mb-1">Data evenimentului</label>
+                        <input type="date" id="date" name="date" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition duration-150">
+                    </div>
+                    <div class="md:col-span-1">
+                        <label for="service_type" class="block text-sm font-medium text-gray-700 mb-1">Ce fel de serviciu vă interesează?</label>
+                        <select id="service_type" name="service_type" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition duration-150 appearance-none">
+                            <option value="" disabled selected>Selectați un pachet de servicii</option>
+                            <option value="gold">Gold</option>
+                            <option value="platinum">Platinum</option>
+                            <option value="diamond">Diamond</option>
+                            <option value="unsure">Nu sunt sigur încă</option>
+                        </select>
+                    </div>
+                    <div class="md:col-span-1">
+                        <label for="timeslot" class="block text-sm font-medium text-gray-700 mb-1">Alegeți intervalul orar dorit</label>
+                        <select id="timeslot" name="timeslot" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition duration-150 appearance-none">
+                            <option value="" disabled selected>Selectați un interval</option>
+                            <option value="09:00-09:30">09:00 - 09:30</option>
+                            <option value="09:30-10:00">09:30 - 10:00</option>
+                        </select>
+                    </div>
+                    <div class="md:col-span-1">
+                        <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Spuneți-ne despre viziunea evenimentului dvs. (Oaspeți, Locație, Stil)</label>
+                        <textarea id="message" name="message" rows="4" placeholder="Planificăm un eveniment rustic pentru 150 de oaspeți în munți..." required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition duration-150"></textarea>
+                    </div>
                 </div>
-            </div>
+                <button type="submit" class="w-full mt-4 px-10 py-4 bg-primary text-white font-bold rounded-full shadow-xl hover:bg-opacity-90 transition duration-200 transform hover:scale-105">Trimiteți și solicitați un apel</button>
+                <p class="text-xs text-center text-gray-500 mt-3">Nu vom împărtăși niciodată informațiile dvs. Așteptați un răspuns în termen de 24 de ore.</p>
+            </form>
         </div>
+        <button class="read-less-btn mt-16 px-8 py-3 bg-primary-light text-bg-xlight font-bold rounded-full" id="booking-details-read-less" data-target="booking-details">Restrange</button>
     </section>
 
     <!-- Contact/Footer Section -->
