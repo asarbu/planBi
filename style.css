@@ -129,7 +129,7 @@ body {
 
 .details.animate {
 	display: block;
-	height: 81em;
+	height: 82.5em;
 	opacity: 1;
 	translate: 0 0;
 	transition: height var(--animation-long) ease 0s,
@@ -141,5 +141,18 @@ body {
 		height: 0;
 		opacity: 0;
 		translate: 0 1em;
+	}
+}
+
+
+@media screen and (max-width: 1024px) {
+	.details.animate {
+		height: 115em;
+	}
+}
+
+@media screen and (max-width: 768px) {
+	.details.animate {
+		height: 225em;
 	}
 }
