@@ -116,7 +116,7 @@ body {
 }
 
 
-.details { 
+.portfolio-details { 
 	display: none;
 	height: 0;
 	opacity: 0;
@@ -127,7 +127,35 @@ body {
 		display var(--animation-long) ease var(--animation-long) allow-discrete;
 }
 
-.details.animate {
+.portfolio-details.animate {
+	display: block;
+	height: 32.5em;
+	opacity: 1;
+	translate: 0 0;
+	transition: height var(--animation-long) ease 0s,
+		opacity var(--animation-long) ease var(--animation-long),
+		translate var(--animation-long) ease var(--animation-long),
+		display var(--animation-long) ease var(--animation-long) allow-discrete;
+
+	@starting-style {
+		height: 0;
+		opacity: 0;
+		translate: 0 1em;
+	}
+}
+
+.services-details { 
+	display: none;
+	height: 0;
+	opacity: 0;
+	translate: 0 1em;
+	transition: height var(--animation-long) ease var(--animation-long),
+		opacity var(--animation-long) ease 0s,
+		translate var(--animation-long) ease 0s,
+		display var(--animation-long) ease var(--animation-long) allow-discrete;
+}
+
+.services-details.animate {
 	display: block;
 	height: 82.5em;
 	opacity: 1;
@@ -144,15 +172,58 @@ body {
 	}
 }
 
+.booking-details { 
+	display: none;
+	height: 0;
+	opacity: 0;
+	translate: 0 1em;
+	transition: height var(--animation-long) ease var(--animation-long),
+		opacity var(--animation-long) ease 0s,
+		translate var(--animation-long) ease 0s,
+		display var(--animation-long) ease var(--animation-long) allow-discrete;
+}
+
+.booking-details.animate {
+	display: block;
+	height: 40em;
+	opacity: 1;
+	translate: 0 0;
+	transition: height var(--animation-long) ease 0s,
+		opacity var(--animation-long) ease var(--animation-long),
+		translate var(--animation-long) ease var(--animation-long),
+		display var(--animation-long) ease var(--animation-long) allow-discrete;
+
+	@starting-style {
+		height: 0;
+		opacity: 0;
+		translate: 0 1em;
+	}
+}
 
 @media screen and (max-width: 1024px) {
-	.details.animate {
+	.portfolio-details.animate {
+		height: 100em;
+	}
+
+	.services-details.animate {
 		height: 115em;
+	}
+
+	.booking-details.animate {
+		height: 40em;
 	}
 }
 
 @media screen and (max-width: 768px) {
-	.details.animate {
-		height: 225em;
+	.portfolio-details.animate {
+		height: 100em;
+	}
+
+	.services-details.animate {
+		height: 215em;
+	}
+
+	.booking-details.animate {
+		height: 60em;
 	}
 }

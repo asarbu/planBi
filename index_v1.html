@@ -22,19 +22,29 @@
             theme: {
                 extend: {
                     colors: {
-                        "bg-xxdark": "oklch(0.378 0.05 160)",
-                        "bg": "oklch(0.979 0.05 160)",
-                        "text": "oklch(0 0 0)",
-                        "highlight": "oklch(1 0 0)",
-                        "primary-xxlight": "oklch(1 0.01 160)",
-                        "primary-xlight": "oklch(0.905 0.05 160)",
-                        "primary-light": "oklch(0.845 0.05 160)",
-                        "primary-lighter": "oklch(0.765 0.05 160)",
-                        "primary": "oklch(0.696 0.05 160)",
-                        "primary-darker": "oklch(0.596 0.05 160)",
-                        "primary-dark": "oklch(0.508 0.05 160)",
-                        "primary-xdark": "oklch(0.432 0.05 160)",
-                        "primary-xxdark": "oklch(0.378 0.05 160)",
+                        "bg-xxdark": "oklch(0.7 0.02 85)",
+                        "bg-xdark": "oklch(0.8 0.02 85)",
+                        "bg-dark": "oklch(0.9 0.02 85)",
+                        "bg": "#a8b5a2",
+                        "bg-light": "oklch(0.96 0.02 85)",
+                        "bg-xlight": "oklch(0.9429 0.0163 17.45)",
+                        "text": "oklch(0.15 0.04 85)",
+                        "highlight": "oklch(1 0.04 85)",
+                        "border": "oklch(0.6 0.04 85)",
+                        "border-muted": "oklch(0.7 0.04 85)",
+                        "primary-xxlight": "oklch(1 0.06 340)",
+                        "primary-xlight": "oklch(0.9 0.06 340)",
+                        "primary-light": "oklch(0.8 0.06 340)",
+                        "primary-lighter": "oklch(0.7 0.06 340)",
+                        "primary": "oklch(0.6 0.06 340)",
+                        "primary-darker": "oklch(0.5 0.06 340)",
+                        "primary-dark": "oklch(0.4 0.06 340)",
+                        "primary-xdark": "oklch(0.3 0.06 340)",
+                        "primary-xxdark": "oklch(0.2 0.0815 85)",
+                        "danger": "oklch(0.5 0.05 30)",
+                        "warning": "oklch(0.5 0.05 100)",
+                        "success": "oklch(0.5 0.05 160)",
+                        "info": "oklch(0.5 0.05 260)",
                     },
                     fontFamily: {
                         sans: ['Parisienne', 'sans-serif'],
@@ -46,17 +56,17 @@
 </head>
 <body class="text-text antialiased">
     <!-- Navigation Bar -->
-    <header class="bg-primary-lighter shadow-md sticky top-0 z-20">
+    <header class="bg-bg shadow-md sticky top-0 z-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-1 flex justify-between items-center">
             <h1 class="text-2xl font-serif font-bold text-primary tracking-wider">
                 <img src="images/desc.png" alt="PlanBi Description" class="h-10 inline-block mr-2">
             </h1>
             <nav class="hidden sm:block">
-                <a href="#services" class="text-black hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition duration-150">Services</a>
-                <a href="#portfolio" class="text-black hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition duration-150">Portfolio</a>
-                <a href="#booking" class="text-black hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition duration-150">Consultation</a>
+                <a href="#services" class="text-gray-600 hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition duration-150">Services</a>
+                <a href="#portfolio" class="text-gray-600 hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition duration-150">Portfolio</a>
+                <a href="#booking" class="text-gray-600 hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition duration-150">Consultation</a>
             </nav>
-            <button class="sm:hidden text-black focus:outline-none">
+            <button class="sm:hidden text-text focus:outline-none">
                 <!-- Hamburger Icon -->
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
             </button>
@@ -74,51 +84,23 @@
             <p class="text-xl text-highlight max-w-2xl mx-auto mb-12 font-light">
                 Organizam celebrări de neuitat, fără stres. Create pe sufletul tău.
             </p>
-            <a href="#booking" class="inline-block px-8 py-3 bg-primary-dark text-white font-bold rounded-full shadow-lg hover:bg-opacity-90 transition duration-200 transform hover:scale-105">
+            <a href="#booking" class="inline-block px-8 py-3 bg-bg text-primary-xdark font-bold rounded-full shadow-lg hover:bg-opacity-90 transition duration-200 transform hover:scale-105">
                 Începe acum
             </a>
         </div>
     </div>
 
-    <section id="portfolio" class="mx-auto px-4 sm:px-6 lg:px-8 py-16 bg-primary-darker text-center">
-        <h3 class="font-serif pt-16 pb-2 text-5xl md:text-4xl font-bold text-gray-50">Evenimentele Noastre</h3>
-        <h2 class="text-xl text-gray-100 font-medium pb-6">
-            Amintiri Prețioase & Recenzii Strălucitoare
-        </h2>
-        <p class="pb-16 text-lg max-w-3xl mx-auto text-gray-200">
-            Vedeți magia pe care am creat-o și ascultați ce au de spus clienții noștri fericiți despre experiența lor cu PlanBi.
-        </p>
-        <button class="read-more-btn mt-16 px-8 py-3 bg-primary-dark text-white font-bold rounded-full" data-target="portfolio-details">Descoperă</button>
-        <div id="portfolio-details" class="portfolio-details">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
-                <div class="shadow-lg relative event1-background p-6 rounded-xl border-t-4 border-primary-xxdark hover:shadow-2xl transition duration-200 transform hover:-translate-y-1 border border-primary/50">
-                    <p class="fancy-text text-white absolute bottom-4 left-4">Casă de piatră, Sebi & Bia!</p>
-                    <p class="fancy-text text-white absolute top-4 right-4">Galerie</p>
-                </div>
-                <div class="shadow-lg relative event2-background p-6 rounded-xl border-t-4 border-primary-xxdark hover:shadow-2xl transition duration-200 transform hover:-translate-y-1 border border-primary/50">
-                    <p class="fancy-text text-white absolute bottom-4 left-4">Bine ai venit, Cristian!</p>
-                    <p class="fancy-text text-white absolute top-4 right-4">Galerie</p>
-                </div>
-                <div class="shadow-lg relative event3-background p-6 rounded-xl border-t-4 border-primary-xxdark hover:shadow-2xl transition duration-200 transform hover:-translate-y-1 border border-primary/50">
-                    <p class="fancy-text text-white absolute bottom-4 left-4">La mulți ani, Alexandra!</p>
-                    <p class="fancy-text text-white absolute top-4 right-4">Galerie</p>
-                </div>
-            </div>
-        </div>
-        <button class="read-less-btn mt-16 px-8 py-3 bg-primary-dark text-highlight font-bold rounded-full" id="portfolio-details-read-less" data-target="portfolio-details">Restrange</button>
-    </section>
-
     <!-- Services Section -->
-    <section id="services" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center bg-primary-xxlight">
-        <h3 class="font-serif pt-16 pb-2 text-5xl md:text-4xl font-bold text-gray-800">Ofertele Noastre</h3>
-        <h2 class="text-xl text-gray-700 font-medium pb-6">
+    <section id="services" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8 text-center">
+        <h3 class="font-serif pt-16 pb-2 text-5xl md:text-4xl font-bold text-primary-xdark">Ofertele Noastre</h3>
+        <h2 class="text-xl text-primary-dark font-medium pb-6">
             Soluții de Planificare pentru Fiecare Eveniment
         </h2>
-        <p class="text-lg max-w-3xl mx-auto text-gray-600">
+        <p class="text-lg max-w-3xl mx-auto text-primary-darker">
             Vă transformăm viziunea într-un eveniment de neuitat. De la prima discuție la momentul culminant, asigurăm un parcurs plăcut și o zi perfectă.
         </p>
-        <button class="read-more-btn mt-16 px-8 py-3 bg-primary-darker text-highlight font-bold rounded-full" data-target="services-details" data-collapse="services-details-read-less">Descoperă</button>
-        <div id="services-details" class="services-details">
+        <button class="read-more-btn mt-16 px-8 py-3 bg-primary-light text-bg-xlight font-bold rounded-full" data-target="services-details" data-collapse="services-details-read-less">Descoperă</button>
+        <div id="services-details" class="details">
             <!-- Service Cards Grid -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
                 <!-- Gold Planning Card -->
@@ -132,7 +114,7 @@
                         <li class="flex items-center"><span class="mr-2 text-primary-light"><i class="fas fa-check-circle"></i></span> Coordonarea furnizorilor in ziua evenimentului</li>
                         <li class="flex items-center"><span class="mr-2 text-primary-light"><i class="fas fa-check-circle"></i></span> Asistenta pe durata intregului eveniment (max. 12 ore)</li>
                     </ul>
-                    <div id="gold_price" class="absolute bottom-4 left-4 right-4 px-8 py-3 bg-primary text-highlight font-bold rounded-full shadow-lg hover:shadow-2xl transition duration-200 transform hover:-translate-y-1 border border-primary/50">
+                    <div id="gold_price" class="absolute bottom-4 left-4 right-4 px-8 py-3 bg-primary text-highight font-bold rounded-full shadow-lg hover:shadow-2xl transition duration-200 transform hover:-translate-y-1 border border-primary/50">
                         <p class="text-highlight text-center">800 Euro</p>
                     </div>
                 </div>
@@ -145,7 +127,7 @@
                         <li class="flex items-center"><span class="mr-2 text-primary-light"><i class="fas fa-check-circle"></i></span> Asistenta in selectaerea furnizorilor pentru max. 5 categorii</li>
                         <li class="flex items-center"><span class="mr-2 text-primary-light"><i class="fas fa-check-circle"></i></span> Trei sedinte suplimentare de consultanta</li>
                     </ul>
-                    <div id="platinum_price" class="absolute bottom-4 left-4 right-4 px-8 py-3 bg-primary text-highlight font-bold rounded-full shadow-lg hover:shadow-2xl transition duration-200 transform hover:-translate-y-1 border border-primary/50">
+                    <div id="platinum_price" class="absolute bottom-4 left-4 right-4 px-8 py-3 bg-primary text-highight font-bold rounded-full shadow-lg hover:shadow-2xl transition duration-200 transform hover:-translate-y-1 border border-primary/50">
                         <p class="text-highlight text-center">1200 Euro</p>
                     </div>
                 </div>
@@ -160,20 +142,20 @@
                         <li class="flex items-center"><span class="mr-2 text-primary-light"><i class="fas fa-check-circle"></i></span> Plan financiar si monitorizare buget</li>
                         <li class="flex items-center"><span class="mr-2 text-primary-light"><i class="fas fa-check-circle"></i></span> Coordonare in ziua evenimentului, cu asistent</li>
                     </ul>
-                    <div id="diamond_price" class="absolute bottom-4 left-4 right-4 px-8 py-3 bg-primary text-highlight font-bold rounded-full shadow-lg  hover:shadow-2xl transition duration-200 transform hover:-translate-y-1 border border-primary/50">
+                    <div id="diamond_price" class="absolute bottom-4 left-4 right-4 px-8 py-3 bg-primary text-highight font-bold rounded-full shadow-lg  hover:shadow-2xl transition duration-200 transform hover:-translate-y-1 border border-primary/50">
                         <p class="text-highlight text-center">2500 Euro</p>
                     </div>
                 </div>
             </div>
             <div class="text-center my-12">
-                <h3 class="font-serif pt-16 pb-2 text-5xl md:text-4xl font-bold text-gray-800">Servicii Suplimentare</h3>
-                <h2 class="text-xl text-gray-700 font-medium pb-6">
+                <h3 class="font-serif pt-16 pb-2 text-5xl md:text-4xl font-bold text-primary-xxdark">Servicii Suplimentare</h3>
+                <h2 class="text-xl text-primary-dark font-medium pb-6">
                     Opțiuni Extra Pentru Evenimentul Tău
                 </h2>
-                <p class="pb-16 text-lg max-w-3xl mx-auto text-gray-600">
+                <p class="pb-16 text-lg max-w-3xl mx-auto text-primary">
                     Completează experiența cu servicii personalizate, pentru ca fiecare detaliu să fie perfect adaptat dorințelor tale.
                 </p>
-                <div id="additional-details">
+                <div id="additional-details" class="hidden">
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
                         <div class="bg-white p-8 rounded-xl shadow-lg border-t-4 border-primary flex flex-col justify-between">
                             <h4 class="text-xl font-serif font-semibold mb-3 text-text">Consultare inițială</h4>
@@ -208,23 +190,83 @@
                     </div>
                 </div>
             </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
+                <div class="bg-white p-8 rounded-xl shadow-lg border-t-4 border-primary flex flex-col justify-between">
+                    <h4 class="text-xl font-serif font-semibold mb-3 text-text">Consultare inițială</h4>
+                    <p class="text-gray-600 mb-4">Încercăm să te cunoastem, să îți înțelegem dorințele și să cădem de comun acord asupra detaliilor.</p>
+                    <div class="px-6 py-2 bg-primary text-highlight font-bold rounded-full shadow-md border border-primary/50 text-center">100 Euro</div>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-lg border-t-4 border-primary flex flex-col justify-between">
+                    <h4 class="text-xl font-serif font-semibold mb-3 text-text">Creare concept și design personalizat</h4>
+                    <p class="text-gray-600 mb-4">Transformăm ideile tale în decoruri și tematici unice.</p>
+                    <div class="px-6 py-2 bg-primary text-highlight font-bold rounded-full shadow-md border border-primary/50 text-center">300-500 Euro</div>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-lg border-t-4 border-primary flex flex-col justify-between">
+                    <h4 class="text-xl font-serif font-semibold mb-3 text-text">Planificare cerere în căsătorie</h4>
+                    <p class="text-gray-600 mb-4">Te ajutăm să creezi un moment memorabil pentru a spune "DA".</p>
+                    <div class="px-6 py-2 bg-primary text-highlight font-bold rounded-full shadow-md border border-primary/50 text-center">200 Euro</div>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-lg border-t-4 border-primary flex flex-col justify-between">
+                    <h4 class="text-xl font-serif font-semibold mb-3 text-text">Organizare petrecere logodnă</h4>
+                    <p class="text-gray-600 mb-4">Petrecere de logodnă organizată cu atenție la detalii.</p>
+                    <div class="px-6 py-2 bg-primary text-highlight font-bold rounded-full shadow-md border border-primary/50 text-center">400 Euro</div>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-lg border-t-4 border-primary flex flex-col justify-between">
+                    <h4 class="text-xl font-serif font-semibold mb-3 text-text">Consiliere vestimentație</h4>
+                    <p class="text-gray-600 mb-4">Sfaturi personalizate pentru alegerea ținutelor perfecte.</p>
+                    <div class="px-6 py-2 bg-primary text-highlight font-bold rounded-full shadow-md border border-primary/50 text-center">100 Euro / Persoană</div>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-lg border-t-4 border-primary flex flex-col justify-between">
+                    <h4 class="text-xl font-serif font-semibold mb-3 text-text">Coordonare evenimente conexe</h4>
+                    <p class="text-gray-600 mb-4">Gestionăm cu profesionalism evenimentele asociate.</p>
+                    <div class="px-6 py-2 bg-primary text-highlight font-bold rounded-full shadow-md border border-primary/50 text-center">250-400 Euro</div>
+                </div>
+            </div>
         </div>
-        <button class="read-less-btn mt-16 px-8 py-3 bg-primary-darker text-highlight font-bold rounded-full" id="services-details-read-less" data-target="services-details">Restrange</button>
+        <button class="read-less-btn mt-16 px-8 py-3 bg-primary-light text-bg-xlight font-bold rounded-full" id="services-details-read-less" data-target="services-details">Restrange</button>
+    </section>
+
+    <section id="portfolio" class="py-16 md:py-24 bg-bg pb-20 text-center">
+        <h3 class="font-serif pt-16 pb-2 text-5xl md:text-4xl font-bold text-primary-xxdark">Evenimentele Noastre</h3>
+        <h2 class="text-xl text-primary-xdark font-medium pb-6">
+            Amintiri Prețioase & Recenzii Strălucitoare
+        </h2>
+        <p class="pb-16 text-lg max-w-3xl mx-auto text-primary-dark">
+            Vedeți magia pe care am creat-o și ascultați ce au de spus clienții noștri fericiți despre experiența lor cu PlanBi.
+        </p>
+        <button class="read-more-btn mt-16 px-8 py-3 bg-primary text-bg-light font-bold rounded-full" data-target="portfolio-details">Descoperă</button>
+        <div id="portfolio-details" class="details">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
+                <div class="shadow-lg relative event1-background p-6 rounded-xl border-t-4 border-primary hover:shadow-2xl transition duration-200 transform hover:-translate-y-1 border border-primary/50">
+                    <p class="fancy-text text-bg absolute bottom-4 left-4">Casă de piatră, Sebi & Bia!</p>
+                    <p class="fancy-text text-bg absolute top-4 right-4">Galerie</p>
+                </div>
+                <div class="shadow-lg relative event2-background p-6 rounded-xl border-t-4 border-primary hover:shadow-2xl transition duration-200 transform hover:-translate-y-1 border border-primary/50">
+                    <p class="fancy-text text-bg absolute bottom-4 left-4">Bine ai venit, Cristian!</p>
+                    <p class="fancy-text text-bg absolute top-4 right-4">Galerie</p>
+                </div>
+                <div class="shadow-lg relative event3-background p-6 rounded-xl border-t-4 border-primary hover:shadow-2xl transition duration-200 transform hover:-translate-y-1 border border-primary/50">
+                    <p class="fancy-text text-bg absolute bottom-4 left-4">La mulți ani, Alexandra!</p>
+                    <p class="fancy-text text-bg absolute top-4 right-4">Galerie</p>
+                </div>
+            </div>
+        </div>
+        <button class="read-less-btn mt-16 px-8 py-3 bg-primary-light text-bg-xlight font-bold rounded-full" id="portfolio-details-read-less" data-target="portfolio-details">Restrange</button>
     </section>
 
     <!-- Consultation Booking Form Section -->
-    <section id="booking" class="bg-primary-darker  mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
-        <h3 class="font-serif pt-16 pb-2 text-5xl md:text-4xl font-bold text-highlight">Următorul pas</h3>
-        <h2 class="text-xl text-highlight font-medium pb-6">
+    <section id="booking" class="bg-primary-dark py-16 md:py-24 text-center pb-20">
+        <h3 class="font-serif pt-16 pb-2 text-5xl md:text-4xl font-bold text-bg-xlight">Următorul pas</h3>
+        <h2 class="text-xl text-bg-xdark font-medium pb-6">
             Programați o sesiune de consultanță
         </h2>
-        <p class="text-lg max-w-3xl mx-auto text-highlight">
+        <p class="text-lg max-w-3xl mx-auto text-bg-xxdark">
             Spuneți-ne puțin despre viziunea evenimentului și vom programa o discuție rapidă pentru a vedea cum putem să o aducem la viață.
         </p>
-        <button class="read-more-btn mt-16 px-8 py-3 bg-primary-dark text-highlight font-bold rounded-full" data-target="booking-details">Descoperă</button>
-        <div id="booking-details" class="booking-details ">
+        <button class="read-more-btn mt-16 px-8 py-3 bg-primary-lighter text-bg-xlight font-bold rounded-full" data-target="booking-details">Descoperă</button>
+        <div id="booking-details" class="details">
             <!-- Booking Form -->
-            <form class="bg-white m-8 p-8 md:p-10 rounded-xl shadow-2xl space-y-6 text-left">
+            <form class="bg-white p-8 md:p-10 rounded-xl shadow-2xl space-y-6 text-left">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                         <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Nume</label>
@@ -269,13 +311,13 @@
                 <p class="text-xs text-center text-gray-500 mt-3">Nu vom împărtăși niciodată informațiile dvs. Așteptați un răspuns în termen de 24 de ore.</p>
             </form>
         </div>
-        <button class="read-less-btn mt-16 px-8 py-3 bg-primary-dark text-highlight font-bold rounded-full" id="booking-details-read-less" data-target="booking-details">Restrange</button>
+        <button class="read-less-btn mt-16 px-8 py-3 bg-primary-light text-bg-xlight font-bold rounded-full" id="booking-details-read-less" data-target="booking-details">Restrange</button>
     </section>
 
     <!-- Contact/Footer Section -->
-    <footer id="contact" class="bg-primary-xxdark py-12">
+    <footer id="contact" class="bg-text py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-300">
-            <h4 class="text-2xl font-serif font-bold text-primary-xxlight mb-4">
+            <h4 class="text-2xl font-serif font-bold text-primary mb-4">
                 PlanBi Events
             </h4>
             <p class="mb-2">
@@ -292,4 +334,3 @@
     <script src="script.js"></script>
 </body>
 </html>
-

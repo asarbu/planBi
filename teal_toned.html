@@ -22,19 +22,19 @@
             theme: {
                 extend: {
                     colors: {
-                        "bg-xxdark": "oklch(0.378 0.05 160)",
-                        "bg": "oklch(0.979 0.05 160)",
+                        "bg-xxdark": "oklch(0.386 0.05 180)",
+                        "bg": "oklch(0.984 0.05 180)",
                         "text": "oklch(0 0 0)",
                         "highlight": "oklch(1 0 0)",
-                        "primary-xxlight": "oklch(1 0.01 160)",
-                        "primary-xlight": "oklch(0.905 0.05 160)",
-                        "primary-light": "oklch(0.845 0.05 160)",
-                        "primary-lighter": "oklch(0.765 0.05 160)",
-                        "primary": "oklch(0.696 0.05 160)",
-                        "primary-darker": "oklch(0.596 0.05 160)",
-                        "primary-dark": "oklch(0.508 0.05 160)",
-                        "primary-xdark": "oklch(0.432 0.05 160)",
-                        "primary-xxdark": "oklch(0.378 0.05 160)",
+                        "primary-xxlight": "oklch(0.984 0.05 180)",
+                        "primary-xlight": "oklch(0.91 0.05 180)",
+                        "primary-light": "oklch(0.855 0.05 180)",
+                        "primary-lighter": "oklch(0.777 0.05 180)",
+                        "primary": "oklch(0.704 0.05 180)",
+                        "primary-darker": "oklch(0.6 0.05 180)",
+                        "primary-dark": "oklch(0.511 0.05 180)",
+                        "primary-xdark": "oklch(0.437 0.05 180)",
+                        "primary-xxdark": "oklch(0.386 0.05 180)",
                     },
                     fontFamily: {
                         sans: ['Parisienne', 'sans-serif'],
@@ -46,17 +46,17 @@
 </head>
 <body class="text-text antialiased">
     <!-- Navigation Bar -->
-    <header class="bg-primary-lighter shadow-md sticky top-0 z-20">
+    <header class="bg-primary-darker shadow-md sticky top-0 z-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-1 flex justify-between items-center">
             <h1 class="text-2xl font-serif font-bold text-primary tracking-wider">
                 <img src="images/desc.png" alt="PlanBi Description" class="h-10 inline-block mr-2">
             </h1>
             <nav class="hidden sm:block">
-                <a href="#services" class="text-black hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition duration-150">Services</a>
-                <a href="#portfolio" class="text-black hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition duration-150">Portfolio</a>
-                <a href="#booking" class="text-black hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition duration-150">Consultation</a>
+                <a href="#services" class="text-gray-600 hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition duration-150">Services</a>
+                <a href="#portfolio" class="text-gray-600 hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition duration-150">Portfolio</a>
+                <a href="#booking" class="text-gray-600 hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition duration-150">Consultation</a>
             </nav>
-            <button class="sm:hidden text-black focus:outline-none">
+            <button class="sm:hidden text-white focus:outline-none">
                 <!-- Hamburger Icon -->
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
             </button>
@@ -74,13 +74,13 @@
             <p class="text-xl text-highlight max-w-2xl mx-auto mb-12 font-light">
                 Organizam celebrări de neuitat, fără stres. Create pe sufletul tău.
             </p>
-            <a href="#booking" class="inline-block px-8 py-3 bg-primary-dark text-white font-bold rounded-full shadow-lg hover:bg-opacity-90 transition duration-200 transform hover:scale-105">
+            <a href="#booking" class="inline-block px-8 py-3 bg-primary text-white font-bold rounded-full shadow-lg hover:bg-opacity-90 transition duration-200 transform hover:scale-105">
                 Începe acum
             </a>
         </div>
     </div>
 
-    <section id="portfolio" class="mx-auto px-4 sm:px-6 lg:px-8 py-16 bg-primary-darker text-center">
+    <section id="portfolio" class="py-16 md:py-24 bg-primary pb-20 text-center">
         <h3 class="font-serif pt-16 pb-2 text-5xl md:text-4xl font-bold text-gray-50">Evenimentele Noastre</h3>
         <h2 class="text-xl text-gray-100 font-medium pb-6">
             Amintiri Prețioase & Recenzii Strălucitoare
@@ -88,28 +88,28 @@
         <p class="pb-16 text-lg max-w-3xl mx-auto text-gray-200">
             Vedeți magia pe care am creat-o și ascultați ce au de spus clienții noștri fericiți despre experiența lor cu PlanBi.
         </p>
-        <button class="read-more-btn mt-16 px-8 py-3 bg-primary-dark text-white font-bold rounded-full" data-target="portfolio-details">Descoperă</button>
-        <div id="portfolio-details" class="portfolio-details">
+        <button class="read-more-btn mt-16 px-8 py-3 bg-primary-darker text-highlight font-bold rounded-full" data-target="portfolio-details">Descoperă</button>
+        <div id="portfolio-details" class="details">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
-                <div class="shadow-lg relative event1-background p-6 rounded-xl border-t-4 border-primary-xxdark hover:shadow-2xl transition duration-200 transform hover:-translate-y-1 border border-primary/50">
-                    <p class="fancy-text text-white absolute bottom-4 left-4">Casă de piatră, Sebi & Bia!</p>
-                    <p class="fancy-text text-white absolute top-4 right-4">Galerie</p>
+                <div class="shadow-lg relative event1-background p-6 rounded-xl border-t-4 border-primary hover:shadow-2xl transition duration-200 transform hover:-translate-y-1 border border-primary/50">
+                    <p class="fancy-text text-text absolute bottom-4 left-4">Casă de piatră, Sebi & Bia!</p>
+                    <p class="fancy-text text-text absolute top-4 right-4">Galerie</p>
                 </div>
-                <div class="shadow-lg relative event2-background p-6 rounded-xl border-t-4 border-primary-xxdark hover:shadow-2xl transition duration-200 transform hover:-translate-y-1 border border-primary/50">
-                    <p class="fancy-text text-white absolute bottom-4 left-4">Bine ai venit, Cristian!</p>
-                    <p class="fancy-text text-white absolute top-4 right-4">Galerie</p>
+                <div class="shadow-lg relative event2-background p-6 rounded-xl border-t-4 border-primary hover:shadow-2xl transition duration-200 transform hover:-translate-y-1 border border-primary/50">
+                    <p class="fancy-text text-text absolute bottom-4 left-4">Bine ai venit, Cristian!</p>
+                    <p class="fancy-text text-text absolute top-4 right-4">Galerie</p>
                 </div>
-                <div class="shadow-lg relative event3-background p-6 rounded-xl border-t-4 border-primary-xxdark hover:shadow-2xl transition duration-200 transform hover:-translate-y-1 border border-primary/50">
-                    <p class="fancy-text text-white absolute bottom-4 left-4">La mulți ani, Alexandra!</p>
-                    <p class="fancy-text text-white absolute top-4 right-4">Galerie</p>
+                <div class="shadow-lg relative event3-background p-6 rounded-xl border-t-4 border-primary hover:shadow-2xl transition duration-200 transform hover:-translate-y-1 border border-primary/50">
+                    <p class="fancy-text text-text absolute bottom-4 left-4">La mulți ani, Alexandra!</p>
+                    <p class="fancy-text text-text absolute top-4 right-4">Galerie</p>
                 </div>
             </div>
         </div>
-        <button class="read-less-btn mt-16 px-8 py-3 bg-primary-dark text-highlight font-bold rounded-full" id="portfolio-details-read-less" data-target="portfolio-details">Restrange</button>
+        <button class="read-less-btn mt-16 px-8 py-3 bg-primary-light text-highlight font-bold rounded-full" id="portfolio-details-read-less" data-target="portfolio-details">Restrange</button>
     </section>
 
     <!-- Services Section -->
-    <section id="services" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center bg-primary-xxlight">
+    <section id="services" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
         <h3 class="font-serif pt-16 pb-2 text-5xl md:text-4xl font-bold text-gray-800">Ofertele Noastre</h3>
         <h2 class="text-xl text-gray-700 font-medium pb-6">
             Soluții de Planificare pentru Fiecare Eveniment
@@ -117,8 +117,8 @@
         <p class="text-lg max-w-3xl mx-auto text-gray-600">
             Vă transformăm viziunea într-un eveniment de neuitat. De la prima discuție la momentul culminant, asigurăm un parcurs plăcut și o zi perfectă.
         </p>
-        <button class="read-more-btn mt-16 px-8 py-3 bg-primary-darker text-highlight font-bold rounded-full" data-target="services-details" data-collapse="services-details-read-less">Descoperă</button>
-        <div id="services-details" class="services-details">
+        <button class="read-more-btn mt-16 px-8 py-3 bg-primary text-highlight font-bold rounded-full" data-target="services-details" data-collapse="services-details-read-less">Descoperă</button>
+        <div id="services-details" class="details">
             <!-- Service Cards Grid -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
                 <!-- Gold Planning Card -->
@@ -209,11 +209,11 @@
                 </div>
             </div>
         </div>
-        <button class="read-less-btn mt-16 px-8 py-3 bg-primary-darker text-highlight font-bold rounded-full" id="services-details-read-less" data-target="services-details">Restrange</button>
+        <button class="read-less-btn mt-16 px-8 py-3 bg-primary text-highlight font-bold rounded-full" id="services-details-read-less" data-target="services-details">Restrange</button>
     </section>
 
     <!-- Consultation Booking Form Section -->
-    <section id="booking" class="bg-primary-darker  mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
+    <section id="booking" class="bg-primary-darker py-16 md:py-24 text-center pb-20">
         <h3 class="font-serif pt-16 pb-2 text-5xl md:text-4xl font-bold text-highlight">Următorul pas</h3>
         <h2 class="text-xl text-highlight font-medium pb-6">
             Programați o sesiune de consultanță
@@ -221,10 +221,10 @@
         <p class="text-lg max-w-3xl mx-auto text-highlight">
             Spuneți-ne puțin despre viziunea evenimentului și vom programa o discuție rapidă pentru a vedea cum putem să o aducem la viață.
         </p>
-        <button class="read-more-btn mt-16 px-8 py-3 bg-primary-dark text-highlight font-bold rounded-full" data-target="booking-details">Descoperă</button>
-        <div id="booking-details" class="booking-details ">
+        <button class="read-more-btn mt-16 px-8 py-3 bg-primary-lighter text-highlight font-bold rounded-full" data-target="booking-details">Descoperă</button>
+        <div id="booking-details" class="details">
             <!-- Booking Form -->
-            <form class="bg-white m-8 p-8 md:p-10 rounded-xl shadow-2xl space-y-6 text-left">
+            <form class="bg-white p-8 md:p-10 rounded-xl shadow-2xl space-y-6 text-left">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                         <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Nume</label>
@@ -269,7 +269,7 @@
                 <p class="text-xs text-center text-gray-500 mt-3">Nu vom împărtăși niciodată informațiile dvs. Așteptați un răspuns în termen de 24 de ore.</p>
             </form>
         </div>
-        <button class="read-less-btn mt-16 px-8 py-3 bg-primary-dark text-highlight font-bold rounded-full" id="booking-details-read-less" data-target="booking-details">Restrange</button>
+        <button class="read-less-btn mt-16 px-8 py-3 bg-primary-light text-highlight font-bold rounded-full" id="booking-details-read-less" data-target="booking-details">Restrange</button>
     </section>
 
     <!-- Contact/Footer Section -->
