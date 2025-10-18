@@ -15,12 +15,49 @@
 		0 4px 6px #00000030,
 		0 6px 10px #00000015;
 
+	--animation-longer: 500ms;
 	--animation-long: 300ms;
 	--animation-short: 200ms;
+
+	--primary-dark: oklch(0.508 0.05 135);
 }
 body {
 	font-family: 'Inter', sans-serif;
+	width: 100vw;
 }
+
+header {
+	opacity: 0;
+	background-color: transparent;
+	transition: background-color var(--animation-longer) ease;
+}
+
+header.scrolled {
+	opacity: 1;
+	background-color: var(--primary-dark);
+	transition: background-color var(--animation-longer) ease, 
+				opacity var(--animation-longer) ease;
+}
+
+#main-title {
+	font-size: 4.5rem;
+	padding-top: 40vh;
+	width: 100%;
+	transition: font-size var(--animation-longer) ease, padding-top var(--animation-longer) ease;
+}
+
+#main-title.scrolled {
+	font-size: 1.5rem;
+	padding-top: 1vh;
+	position: fixed;
+	transition: font-size var(--animation-longer) ease, padding-top var(--animation-longer) ease;
+}
+
+#subtitle{
+	padding-top: 45vh;
+	transition: opacity var(--animation-longer) ease;
+}
+
 .hero-background {
 	background-image:linear-gradient(rgba(0, 0, 0, 0.3), rgba(0,0,0, 0.7)),  url('/images/wedding2.jpg');
 	background-size: cover;
