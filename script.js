@@ -267,14 +267,14 @@ document.addEventListener('DOMContentLoaded', function() {
 				// Apply the sticky, shrunk state
 				nav.classList.add('scrolled');
 				title.classList.add('scrolled');
-				subtitle.classList.add('opacity-0'); // Hide subtitle
+				subtitle.classList.add('scrolled');
 			}
 		} else if (window.scrollY < thresholdUp) {
 			if (nav.classList.contains('scrolled')) {
 				// Revert to the initial, large state
 				nav.classList.remove('scrolled');
 				title.classList.remove('scrolled');
-				subtitle.classList.remove('opacity-0'); // Show subtitle
+				subtitle.classList.remove('scrolled'); // Show subtitle
 			}
 		}
 	}

@@ -59,7 +59,7 @@ header.scrolled {
 }
 
 .hero-background {
-	background-image:linear-gradient(rgba(0, 0, 0, 0.3), rgba(0,0,0, 0.7)),  url('/images/wedding2.jpg');
+	background-image:linear-gradient(rgba(0, 0, 0, 0.3), rgba(0,0,0, 0.7)),  url('/images/background.png');
 	background-size: cover;
 	background-position: center;
 	height: 70vh; /* Increased responsive height */
