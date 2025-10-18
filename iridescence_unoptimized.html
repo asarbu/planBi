@@ -58,7 +58,7 @@ I have converted the React component logic into vanilla JavaScript and included 
 
     <!-- Optional content to display on top of the effect -->
     <div class="content">
-        <h1>Iridescence</h1>
+        <h1>PlanBi</h1>
     </div>
 
     <script type="module">
@@ -104,54 +104,79 @@ I have converted the React component logic into vanilla JavaScript and included 
             `;
 
             const fragmentShader = `
-                // Set the default precision for floating-point numbers to high.
-                precision highp float;
+// Set the default precision for floating-point numbers to high.
+precision highp float;
 
-                // ----- UNIFORMS (Inputs from the CPU) -----
-                uniform float uTime;        // Current time, used for animation.
-                uniform vec3 uColor;         // The base color to tint the waves.
-                uniform vec2 uResolution;    // The resolution of the canvas (width, height).
-                uniform float uSpeed;         // A multiplier for the animation speed.
+// ----- UNIFORMS (Inputs from the CPU) -----
+uniform float uTime;        // Current time, used for animation.
+uniform vec3 uColor;         // The base color to tint the waves.
+uniform vec2 uResolution;    // The resolution of the canvas (width, height).
+uniform float uSpeed;         // A multiplier for the animation speed.
 
-                varying vec2 vUv;            // UV coordinates, typically from (0,0) to (1,1).
+// NOTE: The uAmplitude uniform is declared but not used.
+uniform float uAmplitude;
+
+// ----- VARYING (Input from the Vertex Shader) -----
+varying vec2 vUv;            // UV coordinates, typically from (0,0) to (1,1).
 
 
-                void main() {
-                    vec2 centeredCoords = (vUv * 2.0) - 1.0;
-                    float aspectRatio = uResolution.x / uResolution.y;
-                    centeredCoords.x *= aspectRatio;
+void main() {
+    // ----- 1. COORDINATE SETUP -----
 
-                    // This loop is the core of the pattern generation. It iteratively calculates two values that create a complex, organic, and flowing pattern.
-                    float patternAngle = 0.0;
-                    float patternPhase = 0.0;
-                    float timeOffset = uTime  * uSpeed;
-                    patternPhase -= timeOffset;
+    // Convert UV coordinates from the [0, 1] range to the [-1, 1] range.
+    vec2 centeredCoords = (vUv * 2.0) - 1.0;
 
-                    const float ITERATIONS = 8.0;
-                    for (float i = 0.0; i < ITERATIONS; ++i) {
-                        patternAngle += cos(i - patternPhase - patternAngle * centeredCoords.x);
-                        patternPhase += sin(centeredCoords.y * i + patternAngle);
-                    }
-                    patternPhase += timeOffset;
+    // Correct the aspect ratio to prevent stretching.
+    float aspectRatio = uResolution.x / uResolution.y;
+    centeredCoords.x *= aspectRatio;
 
-                    // Create an initial color pattern using the generated values.
-                    vec3 initialColor = vec3(
-                        cos(centeredCoords.x * patternPhase),
-                        cos(centeredCoords.y * patternAngle),
-                        cos(patternAngle + patternPhase)
-                    );
 
-                    // Apply a second, more complex transformation for added detail.
-                    vec3 colorModulator = cos(vec3(patternPhase, patternAngle, 2.5));
-                    vec3 complexColor = cos(initialColor * colorModulator);
-                    
-                    const vec3 LUMINANCE_VECTOR = vec3(0.2126, 0.7152, 0.0722);
-                    float luminance = dot(complexColor, LUMINANCE_VECTOR);
-                    vec3 finalTintedShade = uColor * luminance;
+    // ----- 2. ITERATIVE PATTERN GENERATION -----
 
-                    // Set the final color of the fragment (the pixel), with full opacity.
-                    gl_FragColor = vec4(finalTintedShade, 1.0);
-                }
+    // This loop is the core of the pattern generation. It iteratively calculates
+    // two values that create a complex, organic, and flowing pattern.
+    float patternAngle = 0.0;
+    float patternPhase = 0.0;
+    float timeOffset = uTime * 0.5 * uSpeed;
+    patternPhase -= timeOffset;
+
+    const float ITERATIONS = 8.0;
+    for (float i = 0.0; i < ITERATIONS; ++i) {
+        patternAngle += cos(i - patternPhase - patternAngle * centeredCoords.x);
+        patternPhase += sin(centeredCoords.y * i + patternAngle);
+    }
+
+    patternPhase += timeOffset;
+
+
+    // ----- 3. LUMINANCE CALCULATION -----
+
+    // Step 3a: Create an initial color pattern using the generated values.
+    vec3 initialColor = vec3(
+        cos(centeredCoords.x * patternPhase) * 0.6 + 0.4,
+        cos(centeredCoords.y * patternAngle) * 0.6 + 0.4,
+        cos(patternAngle + patternPhase) * 0.5 + 0.5
+    );
+
+    // Step 3b: Apply a second, more complex transformation for added detail.
+    vec3 colorModulator = cos(vec3(patternPhase, patternAngle, 2.5));
+    vec3 complexColor = cos(initialColor * colorModulator * 0.5 + 0.5);
+
+    // Step 3c: Convert the complex color to a single luminance value (0.0 to 1.0).
+    const vec3 LUMINANCE_VECTOR = vec3(0.2126, 0.7152, 0.0722);
+    float luminance = dot(complexColor, LUMINANCE_VECTOR);
+
+
+    // ----- 4. FINAL OUTPUT -----
+
+    // Multiply the base tint color by the luminance. This creates shades of uColor.
+    // - If luminance is 0, the result is black (uColor * 0.0).
+    // - If luminance is 1, the result is the full uColor (uColor * 1.0).
+    vec3 finalTintedShade = uColor * luminance;
+
+    // Set the final color of the fragment (the pixel), with full opacity.
+    gl_FragColor = vec4(finalTintedShade, 1.0);
+}
             `;
 
             // Create the shader program with uniforms
@@ -182,7 +207,7 @@ I have converted the React component logic into vanilla JavaScript and included 
 
             function animate(time) {
                 animationFrameId = requestAnimationFrame(animate);
-                program.uniforms.uTime.value = time; 
+                program.uniforms.uTime.value = time * 0.001; // Convert ms to seconds
                 renderer.render({ scene });
             }
 
@@ -198,8 +223,8 @@ I have converted the React component logic into vanilla JavaScript and included 
             const container = document.getElementById('iridescence-container');
             setupIridescenceEffect({ 
                 container: container,
-                color: [0.279, 0.374, 0.236], 
-                speed: 0.0004,
+                color: [0.28, 0.374, 0.23], 
+                speed: 0.8,
             });
         });
     </script>
