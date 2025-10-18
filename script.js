@@ -253,11 +253,10 @@ document.addEventListener('DOMContentLoaded', function() {
 	const nav = document.getElementsByTagName('header')[0];
 	const title = document.getElementById('main-title');
 	const subtitle = document.getElementById('subtitle');
-	const body = document.body;
 
 	// 1. Define the threshold based on 10% of the viewport height (10vh)
-	let thresholdUp = window.innerHeight * 0.11;
-	let thresholdDown = window.innerHeight * 0.09;
+	let thresholdUp = window.innerHeight * 0.31;
+	let thresholdDown = window.innerHeight * 0.29;
 
 	// 2. Function to handle scroll events
 	function handleScroll() {

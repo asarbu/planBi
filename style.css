@@ -27,34 +27,32 @@ body {
 }
 
 header {
+	height: 5vh;
 	opacity: 0;
-	background-color: transparent;
-	transition: background-color var(--animation-longer) ease;
+	background-color: var(--primary-dark);
+	transition: opacity var(--animation-longer) ease;
 }
 
 header.scrolled {
 	opacity: 1;
-	background-color: var(--primary-dark);
-	transition: background-color var(--animation-longer) ease, 
-				opacity var(--animation-longer) ease;
+	transition: opacity var(--animation-longer) ease;
 }
 
 #main-title {
 	font-size: 4.5rem;
-	padding-top: 40vh;
 	width: 100%;
-	transition: font-size var(--animation-longer) ease, padding-top var(--animation-longer) ease;
+	opacity: 1;
+	padding-top: 40vh;
+	transition: opacity var(--animation-longer) ease;
 }
 
 #main-title.scrolled {
-	font-size: 1.5rem;
-	padding-top: 1vh;
-	position: fixed;
-	transition: font-size var(--animation-longer) ease, padding-top var(--animation-longer) ease;
+	opacity: 0;
+	transition: opacity var(--animation-longer) ease;
 }
 
 #subtitle{
-	padding-top: 45vh;
+	padding-top: 30vh;
 	transition: opacity var(--animation-longer) ease;
 }
 
