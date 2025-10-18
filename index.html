@@ -44,38 +44,39 @@
         }
     </script>
 </head>
-<body class="text-text antialiased">
+<body class="text-text antialiased relative">
     <!-- Navigation Bar -->
-    <header class="bg-primary-lighter shadow-md sticky top-0 z-20">
+    <header class="top-0 fixed w-screen z-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-1 flex justify-between items-center">
             <h1 class="text-2xl font-serif font-bold text-primary tracking-wider">
-                <img src="images/logo.png" alt="PlanBi Description" class="h-10 inline-block mr-2">
-                <img src="images/desc.png" alt="PlanBi Description" class="h-10 inline-block mr-2">
+                <!--img src="images/logo.png" alt="PlanBi Description" class="h-10 inline-block mr-2">
+                <img src="images/desc.png" alt="PlanBi Description" class="h-10 inline-block mr-2"-->
             </h1>
-            <nav class="hidden sm:block">
-                <a href="#services" class="text-black hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition duration-150">Services</a>
-                <a href="#portfolio" class="text-black hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition duration-150">Portfolio</a>
-                <a href="#booking" class="text-black hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition duration-150">Consultation</a>
+            <nav class="hidden block">
+                <a href="#services" class="text-highlight hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition duration-150">Services</a>
+                <a href="#portfolio" class="text-highlight hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition duration-150">Portfolio</a>
+                <a href="#booking" class="text-highlight hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition duration-150">Consultation</a>
             </nav>
-            <button class="sm:hidden text-black focus:outline-none">
+            <button class="text-highlight focus:outline-none">
                 <!-- Hamburger Icon -->
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
         </button>
         </div>
+        
     </header>
 
     <!-- Hero Section (With Image & Overlay) -->
-    <div class="hero-background flex items-center justify-center text-center relative z-10">
-        <!-- Dark overlay for better text contrast over the placeholder image -->
-        <div class="absolute inset-0 bg-black opacity-30"></div>
-        <div class="p-8 md:p-12 relative z-10">
-            <h2 class="text-2xl sm:text-7xl font-serif font-extrabold text-white mb-4">
+    <div class="hero-background flex items-center justify-center text-center relative h-screen">
+        <div id="iridescence-container" class="absolute inset-0"></div>
+        <div id="main-title" class="font-serif font-extrabold text-white mb-4 absolute top-0 z-20">PlanBi</div>
+        <div id="subtitle" class="text-xl text-highlight w-auto font-normal block mx-4 z-20">
+            <h2 class="text-5xl font-serif font-extrabold text-white mb-4">
                 Because ordinary isn't enough
             </h2>
-            <p class="text-xl text-highlight max-w-2xl mx-auto mb-12 font-light">
+            <p class="text-xl text-highlight mx-auto font-normal mb-8">
                 Organizam celebrări de neuitat, fără stres. Create pe sufletul tău.
             </p>
-            <a href="#booking" class="inline-block px-8 py-3 bg-primary-dark text-white font-bold rounded-full shadow-lg hover:bg-opacity-90 transition duration-200 transform hover:scale-105">
+            <a href="#booking" class="px-8 py-3 bg-primary-dark text-highlight font-bold rounded-full shadow-lg">
                 Începe acum
             </a>
         </div>
@@ -290,7 +291,7 @@
             <p class="text-xs mt-6">&copy; 2025 PlanBi Events SRL. | Design by Alexandru-Sebastian SARBU.</p>
         </div>
     </footer>
-    <script src="script.js"></script>
+    <script src="script.js" type="module"></script>
 </body>
 </html>
 
