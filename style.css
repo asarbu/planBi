@@ -58,6 +58,11 @@ header.scrolled {
 	transition: opacity var(--animation-longer) ease;
 }
 
+#subtitle.scrolled {
+	opacity: 0;
+	transition: opacity var(--animation-longer) ease;
+}
+
 .hero-background {
 	background-image:linear-gradient(rgba(0, 0, 0, 0.3), rgba(0,0,0, 0.7)),  url('/images/background.png');
 	background-size: cover;
