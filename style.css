@@ -48,25 +48,19 @@ main {
 	padding-top: calc(1em + 1px);
 
 	background: transparent;
-	height: 60vh;
+	height: 60svh;
 	transition: background-color var(--animation-longer) ease var(--animation-short),
 		font-size var(--animation-longer) ease,
 		height var(--animation-longer) ease;
 }
 
-.stk.isSticky{
+.stk.isSticky {
 	background-color: var(--primary-dark);
 	font-size: 1rem;
 	height: 6vh;
 	transition: background-color var(--animation-longer) ease var(--animation-short),
 		font-size var(--animation-longer) ease,
 		height var(--animation-longer) ease;
-}
-
-.spacer {
-	height: 30vh;
-	z-index: 10;
-	background: transparent;
 }
 
 section {
@@ -79,7 +73,6 @@ section {
 	transform: translateX(0vh);
 	transition: font-size var(--animation-longer) ease var(--animation-longer),
 		transform var(--animation-longer) ease;
-	padding-bottom: 3vh;
 }
 
 #main-title.scrolled {
@@ -89,7 +82,7 @@ section {
 	transform var(--animation-longer) ease var(--animation-longer);
 }
 
-#subtitle{
+#subtitle {
 	opacity: 1;
 	transition: opacity var(--animation-longer) ease var(--animation-longer);
 }
