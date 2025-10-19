@@ -8,173 +8,44 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
     <style>
-        /* Set font and smooth scrolling */
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f7f7f7;
-            scroll-behavior: smooth;
-            padding-top: 0; /* Ensures content starts at the very top */
-        }
+    body{ height: 200vh; font:20px Arial; }
 
-        /* Initial state of the navbar/hero */
-        #main-nav {
-            height: 50vh;
-            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smooth transition for all properties */
-            box-shadow: 0 0 0 rgba(0, 0, 0, 0); /* Initial shadow is zero */
-        }
+section{
+  background: lightblue;
+  padding: 2em 1em;
+}
 
-        /* Initial state of the title */
-        #main-title {
-            font-size: 5rem; /* Large font size for hero */
-            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
+header{
+  position: sticky;
+  top: -1px;                       /* ➜ the trick */
 
-        /* ------------------------------------------------------------------ */
-        /* SCROLLED STATE: Applied by JavaScript after scrolling 10vh */
-        /* ------------------------------------------------------------------ */
+  padding: 1em;
+  padding-top: calc(1em + 1px);    /* ➜ compensate for the trick */
 
-        /* Scrolled class for the Navbar/Hero */
-        #main-nav.scrolled {
-            height: 80px; /* Final smaller height */
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 100;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow when sticky */
-        }
+  background: salmon;
+  transition: .1s;
+}
 
-        /* Scrolled class for the Title */
-        #main-title.scrolled-title {
-            font-size: 1.5rem; /* Final smaller font size for sticky nav */
-        }
-
-        /* On larger screens, make the title even bigger initially */
-        @media (min-width: 1024px) {
-            #main-title {
-                font-size: 8rem;
-            }
-        }
-
-        /* Add padding to the body when the nav is sticky to prevent content jump */
-        .scrolled-body {
-            padding-top: 80px; /* Matches the final height of the sticky nav */
-        }
+/* styles for when the header is in sticky mode */
+header.isSticky{
+  font-size: .8em;
+  opacity: .5;
+}
     </style>
 </head>
 <body>
+<section>Space</section>
+<header>Sticky Header</header>
+<script>
+    // get the sticky element
+const stickyElm = document.querySelector('header')
 
-    <!-- Main Navigation / Hero Section -->
-    <nav id="main-nav" class="bg-indigo-600 text-white flex items-center justify-center p-6 w-full">
-        <div class="text-center">
-            <h1 id="main-title" class="font-extrabold tracking-tight">
-                Project Zenith
-            </h1>
-            <p id="subtitle" class="text-xl mt-2 transition-opacity duration-300">
-                A Dynamic Web Experience
-            </p>
-        </div>
-    </nav>
+const observer = new IntersectionObserver( 
+  ([e]) => e.target.classList.toggle('isSticky', e.intersectionRatio < 1),
+  {threshold: [1]}
+);
 
-    <!-- Main Content Area -->
-    <main id="main-content" class="container mx-auto p-6 md:p-12 transition-all duration-300">
-        <div class="bg-white p-8 md:p-12 rounded-xl shadow-lg">
-            <h2 class="text-4xl font-bold mb-4 text-gray-800">Welcome to the Zenith Demo</h2>
-            <p class="text-lg text-gray-600 mb-6">
-                This page demonstrates a dynamic navbar that also serves as the hero section. Watch the space above as you scroll down.
-                The section will shrink only after you cross the 10vh scroll threshold, then it becomes fixed/sticky.
-            </p>
-
-            <!-- Placeholder content to force scrolling -->
-            <div class="space-y-10 mt-12">
-                <!-- Content Block 1 -->
-                <div class="p-6 bg-gray-50 rounded-lg border-l-4 border-indigo-500">
-                    <h3 class="text-2xl font-semibold text-gray-700 mb-2">Section One: Adaptive Design</h3>
-                    <p class="text-gray-600">
-                        Modern web design thrives on adaptability. The viewport height (vh) is calculated dynamically, ensuring the shrinking threshold is always 10% of the user's screen height, regardless of device size. This guarantees the intended user experience on mobile, tablet, and desktop.
-                    </p>
-                </div>
-
-                <!-- Content Block 2 (Longer) -->
-                <div class="p-6 bg-gray-50 rounded-lg border-l-4 border-indigo-500">
-                    <h3 class="text-2xl font-semibold text-gray-700 mb-2">Section Two: The Sticky Transition</h3>
-                    <p class="text-gray-600">
-                        The use of CSS transitions combined with JavaScript class toggling provides a buttery-smooth effect. Instead of an abrupt change, the height and font size animate gracefully, leading to a much more polished and engaging visual experience. Notice how the large title becomes a concise header upon scrolling.
-                    </p>
-                    <div class="mt-4 h-48 bg-indigo-100 rounded-lg flex items-center justify-center text-indigo-700 font-medium">
-                        More Content Placeholder
-                    </div>
-                </div>
-
-                <!-- Content Block 3 (Even Longer) -->
-                <div class="p-6 bg-gray-50 rounded-lg border-l-4 border-indigo-500">
-                    <h3 class="text-2xl font-semibold text-gray-700 mb-2">Section Three: Ensuring Readability</h3>
-                    <p class="text-gray-600">
-                        When the navigation shrinks, its purpose shifts from a dramatic hero banner to a functional, persistent tool. The title is resized to maintain clarity without dominating the page, and the fixed position ensures access to navigation elements (if they were present) at all times.
-                    </p>
-                    <p class="text-gray-600 mt-2">
-                        Scroll further down to confirm the sticky behavior persists. This large block of content ensures you have plenty of scrolling space to test the feature effectively and confirm the sticky nav remains at the top. The smooth transition class also prevents content from "jumping" when the navbar switches from relative to fixed positioning.
-                    </p>
-                    <p class="text-gray-600 mt-2">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero.
-                    </p>
-                    <p class="text-gray-600 mt-2">
-                        Nunc eu est vitae magna congue elementum. Maecenas porttitor magna ac velit. Fusce mollis tristique ligula. Curabitur dapibus interdum ipsum. Phasellus non eros quis ante lobortis scelerisque. Vivamus feugiat egestas lectus. Etiam vitae ligula vitae eleifend.
-                    </p>
-                </div>
-
-                <!-- Footer Spacer -->
-                <div class="text-center py-10 text-gray-400">
-                    End of Content
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const nav = document.getElementById('main-nav');
-            const title = document.getElementById('main-title');
-            const subtitle = document.getElementById('subtitle');
-            const body = document.body;
-
-            // 1. Define the threshold based on 10% of the viewport height (10vh)
-            let thresholdUp = window.innerHeight * 0.11;
-            let thresholdDown = window.innerHeight * 0.09;
-
-            // 2. Function to handle scroll events
-            function handleScroll() {
-                // Check if the user has scrolled past the threshold
-                if (window.scrollY > thresholdDown) {
-                    if (!nav.classList.contains('scrolled')) {
-                        // Apply the sticky, shrunk state
-                        nav.classList.add('scrolled');
-                        title.classList.add('scrolled-title');
-                        body.classList.add('scrolled-body');
-                        subtitle.classList.add('opacity-0'); // Hide subtitle
-                    }
-                } else if (window.scrollY < thresholdUp) {
-                    if (nav.classList.contains('scrolled')) {
-                        // Revert to the initial, large state
-                        nav.classList.remove('scrolled');
-                        title.classList.remove('scrolled-title');
-                        body.classList.remove('scrolled-body');
-                        subtitle.classList.remove('opacity-0'); // Show subtitle
-                    }
-                }
-            }
-
-            // 3. Update the threshold on window resize to maintain 10vh accuracy
-            window.addEventListener('resize', () => {
-                threshold = window.innerHeight * 0.1;
-                handleScroll(); // Check immediately after resize
-            });
-
-            // 4. Attach the scroll listener
-            window.addEventListener('scroll', handleScroll);
-
-            // 5. Initial check (in case the page loads already scrolled, e.g., on refresh)
-            handleScroll();
-        });
-    </script>
+observer.observe(stickyElm)
+</script>
 </body>
 </html>

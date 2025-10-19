@@ -249,7 +249,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			});
 		}
 	});
-
+/*
 	const nav = document.getElementsByTagName('header')[0];
 	const title = document.getElementById('main-title');
 	const subtitle = document.getElementById('subtitle');
@@ -282,5 +282,20 @@ document.addEventListener('DOMContentLoaded', function() {
 	window.addEventListener('scroll', handleScroll);
 
 	// 5. Initial check (in case the page loads already scrolled, e.g., on refresh)
-	handleScroll();
+	handleScroll();*/
+
+	// get the sticky element
+const stickyElm = document.querySelectorAll('.stk')[0]
+
+const observer = new IntersectionObserver( 
+  ([e]) =>  {
+	console.log(e.intersectionRatio)
+	e.target.classList.toggle('isSticky', e.intersectionRatio < 1)
+	document.getElementById('main-title').classList.toggle('scrolled', e.intersectionRatio < 1)
+	document.getElementById('subtitle').classList.toggle('scrolled', e.intersectionRatio < 1)
+  },
+  {threshold: [1]}
+);
+
+observer.observe(stickyElm)
 });

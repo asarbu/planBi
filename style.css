@@ -23,37 +23,70 @@
 }
 body {
 	font-family: 'Inter', sans-serif;
-	width: 100vw;
+	margin: 0;
+	overflow-x: hidden;
 }
 
 header {
-	height: 5vh;
-	opacity: 0;
-	background-color: var(--primary-dark);
-	transition: opacity var(--animation-longer) ease;
+	height: 100vh;
 }
 
-header.scrolled {
-	opacity: 1;
-	transition: opacity var(--animation-longer) ease;
+main {
+	margin-top: -60vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+}
+
+.stk {
+	position: sticky;
+	top: -1px;
+
+	padding: 1em;
+	padding-top: calc(1em + 1px);
+
+	background: transparent;
+	height: 60vh;
+	transition: background-color var(--animation-longer) ease var(--animation-short),
+		font-size var(--animation-longer) ease,
+		height var(--animation-longer) ease;
+}
+
+.stk.isSticky{
+	background-color: var(--primary-dark);
+	font-size: 1rem;
+	height: 6vh;
+	transition: background-color var(--animation-longer) ease var(--animation-short),
+		font-size var(--animation-longer) ease,
+		height var(--animation-longer) ease;
+}
+
+.spacer {
+	height: 30vh;
+	z-index: 10;
+	background: transparent;
 }
 
 #main-title {
-	font-size: 4.5rem;
+	font-size: 4rem;
 	width: 100%;
-	opacity: 1;
-	padding-top: 40vh;
-	transition: opacity var(--animation-longer) ease;
+	transform: translateX(0vh);
+	transition: font-size var(--animation-longer) ease var(--animation-longer),
+		transform var(--animation-longer) ease;
+	padding-bottom: 3vh;
 }
 
 #main-title.scrolled {
-	opacity: 0;
-	transition: opacity var(--animation-longer) ease;
+	transform: translateX(-40vw);
+	font-size: 1rem;
+	transition: font-size var(--animation-longer) ease,
+	transform var(--animation-longer) ease var(--animation-longer);
 }
 
 #subtitle{
-	padding-top: 30vh;
-	transition: opacity var(--animation-longer) ease;
+	opacity: 1;
+	transition: opacity var(--animation-longer) ease var(--animation-longer);
 }
 
 #subtitle.scrolled {

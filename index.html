@@ -44,9 +44,11 @@
         }
     </script>
 </head>
-<body class="text-text antialiased relative">
+<body class="text-text antialiased">    
     <!-- Navigation Bar -->
-    <header class="top-0 fixed w-screen z-20">
+    <header class="z-20">
+        <div id="iridescence-container" class="w-screen h-screen"></div>
+        
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-1 flex justify-between items-center">
             <h1 class="text-2xl font-serif font-bold text-primary tracking-wider">
                 <!--img src="images/logo.png" alt="PlanBi Description" class="h-10 inline-block mr-2">
@@ -62,26 +64,22 @@
             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
         </button>
         </div>
-        
     </header>
-
-    <!-- Hero Section (With Image & Overlay) -->
-    <div class="hero-background flex items-center justify-center text-center relative h-screen">
-        <div id="iridescence-container" class="absolute inset-0"></div>
-        <div id="main-title" class="font-serif font-extrabold text-white mb-4 absolute top-0 z-20">PlanBi</div>
-        <div id="subtitle" class="text-xl text-highlight w-auto font-normal block mx-4 z-20">
-            <h2 class="text-5xl font-serif font-extrabold text-white mb-4">
-                Because ordinary isn't enough
-            </h2>
-            <p class="text-xl text-highlight mx-auto font-normal mb-8">
-                Organizam celebrări de neuitat, fără stres. Create pe sufletul tău.
-            </p>
-            <a href="#booking" class="px-8 py-3 bg-primary-dark text-highlight font-bold rounded-full shadow-lg">
-                Începe acum
-            </a>
+    <main>
+        <div class="stk">
+            <div id="main-title" class="font-serif font-extrabold text-white mb-4 top-0 z-20">PlanBi</div>
+            <div id="subtitle" class="text-xl text-highlight w-auto font-normal block mx-4 z-20">
+                <h2 class="text-5xl font-serif font-extrabold text-white mb-4">
+                    Because ordinary isn't enough
+                </h2>
+                <p class="text-xl text-highlight mx-auto font-normal mb-8">
+                    Organizam celebrări de neuitat, fără stres. Create pe sufletul tău.
+                </p>
+                <a href="#booking" class="px-8 py-3 bg-primary-dark text-highlight font-bold rounded-full shadow-lg">
+                    Începe acum
+                </a>
+            </div>
         </div>
-    </div>
-
     <section id="portfolio" class="mx-auto px-4 sm:px-6 lg:px-8 py-16 bg-primary-darker text-center">
         <h3 class="font-serif pt-16 pb-2 text-5xl md:text-4xl font-bold text-gray-50">Evenimentele Noastre</h3>
         <h2 class="text-xl text-gray-100 font-medium pb-6">
@@ -273,7 +271,7 @@
         </div>
         <button class="read-less-btn mt-16 px-8 py-3 bg-primary-dark text-highlight font-bold rounded-full shadow-lg" id="booking-details-read-less" data-target="booking-details">Restrange</button>
     </section>
-
+</main>
     <!-- Contact/Footer Section -->
     <footer id="contact" class="bg-primary-xxdark py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-300">
