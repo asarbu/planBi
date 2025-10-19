@@ -43,13 +43,12 @@ main {
 	position: sticky;
 	top: -1px;
 	bottom: -1px;
-
 	padding: 1em;
 	padding-top: calc(1em + 1px);
-
 	background: transparent;
 	height: 60svh;
-	transition: background-color var(--animation-longer) ease var(--animation-short),
+	z-index: 100;
+	transition: background-color var(--animation-longer) ease,
 		font-size var(--animation-longer) ease,
 		height var(--animation-longer) ease;
 }
