@@ -8,7 +8,14 @@ export async function onRequestPost(context) {
 			|| !requestBody.service_type
 			|| !requestBody.date
 			|| !requestBody.timeslot) {
-			return Response.json({ error: 'Missing required fields' }, { status: 400 });
+				const missingFields = [];
+				if (!requestBody.name) missingFields.push('name');
+				if (!requestBody.email) missingFields.push('email');
+				if (!requestBody.telephone) missingFields.push('telephone');
+				if (!requestBody.service_type) missingFields.push('service_type');
+				if (!requestBody.date) missingFields.push('date');
+				if (!requestBody.timeslot) missingFields.push('timeslot');
+				return Response.json({ error: 'Missing required fields', missingFields }, { status: 400 });
 		}
 
 		const messageBody = `

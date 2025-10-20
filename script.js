@@ -278,6 +278,9 @@ document.addEventListener('DOMContentLoaded', function() {
 				name: consultationForm.name.value,
 				email: consultationForm.email.value,
 				telephone: consultationForm.telephone.value,
+				service_type: consultationForm.service_type.value,
+				timeslot: consultationForm.timeslot.value,
+				message: consultationForm.message.value,
 				date: new Date().toISOString()
 			};
 			submitConsultation(formData);
