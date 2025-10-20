@@ -1,5 +1,5 @@
 import { Resend } from 'resend';
-export async function onRequestPost(context) {
+export async function onRequest(context) {
   try {
     // Using text instead of email so that I don't need to sanitize it
     const resend = new Resend(context.env.RESEND_API_KEY);
