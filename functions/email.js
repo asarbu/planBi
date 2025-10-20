@@ -4,9 +4,9 @@ export async function onRequest(context) {
 		// Using text instead of email so that I don't need to sanitize it
 		const resend = new Resend(context.env.RESEND_API_KEY);
 		const { data, error } = await resend.emails.send({
-			from: "contact@planbi.ro",
+			from: context.env.EMAIL_HELLO,
 			reply_to: 'output@email.ro',
-			to: "sarbu_alexandru_92@yahoo.com",
+			to: context.env.EMAIL_CONTACT,
 			subject: `This is a test`,
 			text: "This is a test email sent.",
 		});
