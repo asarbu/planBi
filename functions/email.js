@@ -30,7 +30,7 @@ export async function onRequestPost(context) {
 
 		const resend = new Resend(context.env.RESEND_API_KEY);
 		const { data, error } = await resend.emails.send({
-			from: `PlanBi <${context.env.EMAIL_HELLO}>`,
+			from: context.env.EMAIL_HELLO,
 			reply_to: requestBody.email,
 			to: context.env.EMAIL_CONTACT,
 			subject: `New Consultation Request from ${requestBody.name}`,
