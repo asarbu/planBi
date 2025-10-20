@@ -272,6 +272,8 @@ document.addEventListener('DOMContentLoaded', function() {
 	if (consultationForm) {
 		consultationForm.addEventListener('submit', function(e) {
 			e.preventDefault();
+			document.getElementById('consultation-submit-button').disabled = true;
+			document.getElementById('consultation-submit-button').textContent = 'Submitting...';
 			const formData = {
 				name: consultationForm.name.value,
 				email: consultationForm.email.value,
@@ -292,10 +294,10 @@ document.addEventListener('DOMContentLoaded', function() {
 		})
 		.then(response => response.json())
 		.then(data => {
-			resultDiv.textContent = JSON.stringify(data);
+			document.getElementById('consultation-submit-button').textContent = JSON.stringify(data);
 		})
 		.catch(() => {
-			resultDiv.textContent = 'There was an error connecting to the server.';
+			document.getElementById('consultation-submit-button').textContent = 'There was an error connecting to the server.';
 		});
 	}
 });
