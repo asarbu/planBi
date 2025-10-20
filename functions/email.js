@@ -2,18 +2,32 @@ import { Resend } from 'resend';
 export async function onRequestPost(context) {
 	try {
 		const requestBody = await context.request.json();
-		if(!requestBody.name || !requestBody.email || !requestBody.telephone || !requestBody.date) {
+		if (!requestBody.name
+			|| !requestBody.email
+			|| !requestBody.telephone
+			|| !requestBody.service_type
+			|| !requestBody.date
+			|| !requestBody.timeslot) {
 			return Response.json({ error: 'Missing required fields' }, { status: 400 });
 		}
 
-		// Using text instead of email so that I don't need to sanitize it
+		const messageBody = `
+			Name: ${requestBody.name}
+			Email: ${requestBody.email}
+			Telephone: ${requestBody.telephone}
+			Service Type: ${requestBody.service_type}
+			Date: ${requestBody.date}
+			Timeslot: ${requestBody.timeslot}
+			Message: ${requestBody.message || ''}
+			`;
+
 		const resend = new Resend(context.env.RESEND_API_KEY);
 		const { data, error } = await resend.emails.send({
-			from: context.env.EMAIL_HELLO,
-			reply_to: 'output@email.ro',
+			from: `PlanBi <${context.env.EMAIL_HELLO}>`,
+			reply_to: requestBody.email,
 			to: context.env.EMAIL_CONTACT,
-			subject: `This is a test`,
-			text: JSON.stringify(requestBody),
+			subject: `New Consultation Request from ${requestBody.name}`,
+			text: messageBody,
 		});
 		return Response.json({ data: data, error: error });
 	} catch (err) {

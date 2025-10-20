@@ -236,11 +236,7 @@
                     </div>
                     <div>
                         <label for="telephone" class="block text-sm font-medium text-gray-700 mb-1">Număr de telefon</label>
-                        <input type="tel" id="telephone" name="telephone" placeholder="(770) 123-4567" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition duration-150">
-                    </div>
-                    <div>
-                        <label for="date" class="block text-sm font-medium text-gray-700 mb-1">Data evenimentului</label>
-                        <input type="date" id="date" name="date" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition duration-150">
+                        <input type="tel" id="telephone" name="telephone" placeholder="(770) 123-4567" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition duration-150">
                     </div>
                     <div class="md:col-span-1">
                         <label for="service_type" class="block text-sm font-medium text-gray-700 mb-1">Ce fel de serviciu vă interesează?</label>
@@ -252,6 +248,10 @@
                             <option value="unsure">Nu sunt sigur încă</option>
                         </select>
                     </div>
+                    <div>
+                        <label for="date" class="block text-sm font-medium text-gray-700 mb-1">Data consultanței</label>
+                        <input type="date" id="date" name="date" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition duration-150">
+                    </div>
                     <div class="md:col-span-1">
                         <label for="timeslot" class="block text-sm font-medium text-gray-700 mb-1">Alegeți intervalul orar dorit</label>
                         <select id="timeslot" name="timeslot" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition duration-150 appearance-none">
@@ -261,7 +261,7 @@
                         </select>
                     </div>
                     <div class="md:col-span-1">
-                        <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Spuneți-ne despre viziunea evenimentului dvs. (Oaspeți, Locație, Stil)</label>
+                        <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Alte notițe...</label>
                         <textarea id="message" name="message" rows="4" placeholder="Planificăm un eveniment rustic pentru 150 de oaspeți în munți..." required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition duration-150"></textarea>
                     </div>
                 </div>
