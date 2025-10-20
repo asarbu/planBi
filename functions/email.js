@@ -32,7 +32,7 @@ export async function onRequestPost(context) {
 		const emailRequest = {
 			from: context.env.EMAIL_HELLO,
 			reply_to: 'noreply@planbi.ro',
-			to: context.env.EMAIL_CONTACT,
+			to: context.env.EMAIL_SEBI,
 			subject: `New Consultation Request from ${requestBody.name}`,
 			text: messageBody,
 		}
