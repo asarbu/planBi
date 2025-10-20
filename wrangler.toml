@@ -7,7 +7,7 @@ compatibility_date = "2025-09-30"
 mode = "off"
 
 [env.production]
-placement = { }
+placement = { mode: "Default" }
 
 [[env.production.d1_databases]]
 database_id = "22dd41ec-8c35-4b4b-8031-1a9bfde14087"
