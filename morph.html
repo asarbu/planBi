@@ -44,15 +44,14 @@
         }
     </script>
 </head>
-<body class="text-text antialiased">    
+<body class="text-text antialiased relative">
     <!-- Navigation Bar -->
-    <header class="z-20">
-        <div id="iridescence-container" class="w-screen h-screen"></div>
-        
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-1 flex justify-between items-center">
+    <header class="bg-primary top-0 fixed w-screen h-12 z-20">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-1 flex justify-between items-center">
             <h1 class="text-2xl font-serif font-bold text-primary tracking-wider">
                 <!--img src="images/logo.png" alt="PlanBi Description" class="h-10 inline-block mr-2">
                 <img src="images/desc.png" alt="PlanBi Description" class="h-10 inline-block mr-2"-->
+                <p class="font-serif font-extrabold text-white mb-4 absolute top-0 z-20">PlanBi</p>
             </h1>
             <nav class="hidden block">
                 <a href="#services" class="text-highlight hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition duration-150">Services</a>
@@ -64,23 +63,44 @@
             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
         </button>
         </div>
+        
     </header>
-    <main>
-        <div class="stk w-full">
-            <div id="main-title" class="font-serif font-extrabold text-white top-0 z-20">PlanBi</div>
-            <div id="subtitle" class="text-xl text-highlight w-auto font-normal block mx-4 z-20">
-                <h2 class="text-4xl font-serif font-extrabold text-white mb-4">
-                    Because ordinary isn't enough
-                </h2>
-                <p class="text-xl text-highlight mx-auto font-serif mb-8 mt-16">
-                    Organizam celebrări de neuitat, fără stres. Create pe sufletul tău.
-                </p>
-                <a href="#portfolio" class="px-8 py-3 bg-primary-dark text-highlight font-bold rounded-full shadow-lg">
-                    Începe acum
-                </a>
-            </div>
+
+    <!-- Hero Section (With Image & Overlay) -->
+    <div class="hero-background fixed w-screen h-screen">
+        <!--div id="iridescence-container" class="absolute inset-0"></div-->
+        <div id="main-title" class="font-serif font-extrabold text-white mb-4 absolute top-0 z-20">PlanBi</div>
+        <div id="subtitle" class="text-xl text-highlight w-auto font-normal block mx-4 z-200 text-center">
+            <h2 class="text-5xl font-serif font-extrabold text-white mb-4">
+                Because ordinary isn't enough
+            </h2>
+            <p class="text-xl text-highlight mx-auto font-normal mb-8">
+                Organizam celebrări de neuitat, fără stres. Create pe sufletul tău.
+            </p>
+            <a id="start" class="px-8 py-3 bg-primary-dark text-highlight font-bold rounded-full shadow-lg">
+                Începe acum
+            </a>
         </div>
-    <section id="portfolio" class=" bg-primary-darker text-center">
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var header =   document.querySelector('header');
+        var startBtn = document.getElementById('start');
+        var heroSection = document.querySelector('.hero-background');
+        if (startBtn && heroSection) {
+            startBtn.addEventListener('click', function(e) {
+                heroSection.classList.add('shrink');
+                header.classList.add('scrolled');
+            });
+        }
+    });
+    </script>
+            </a>
+        </div>
+    </div>
+
+    <section id="portfolio" class="mx-auto px-4 sm:px-6 lg:px-8 py-16 bg-primary-darker text-center">
         <h3 class="font-serif pt-16 pb-2 text-5xl md:text-4xl font-bold text-gray-50">Evenimentele Noastre</h3>
         <h2 class="text-xl text-gray-100 font-medium pb-6">
             Amintiri Prețioase & Recenzii Strălucitoare
@@ -88,7 +108,6 @@
         <p class="pb-16 text-lg max-w-3xl mx-auto text-gray-200">
             Vedeți magia pe care am creat-o și ascultați ce au de spus clienții noștri fericiți despre experiența lor cu PlanBi.
         </p>
-        <button class="read-more-btn mt-16 px-8 py-3 bg-primary-dark text-white font-bold rounded-full shadow-lg mb-16" data-target="portfolio-details">Descoperă</button>
         <div id="portfolio-details" class="portfolio-details">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
                 <div class="shadow-lg relative event1-background p-6 rounded-xl border-t-4 border-primary-xxdark hover:shadow-2xl transition duration-200 transform hover:-translate-y-1 border border-primary/50">
@@ -105,11 +124,11 @@
                 </div>
             </div>
         </div>
-        <button class="read-less-btn mt-16 px-8 py-3 bg-primary-dark text-highlight font-bold rounded-full shadow-lg mb-16" id="portfolio-details-read-less" data-target="portfolio-details">Restrange</button>
+        <button class="read-less-btn mt-16 px-8 py-3 bg-primary-dark text-highlight font-bold rounded-full shadow-lg" id="portfolio-details-read-less" data-target="portfolio-details">Restrange</button>
     </section>
 
     <!-- Services Section -->
-    <section id="services" class="w-full mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center bg-primary-xxlight">
+    <section id="services" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center bg-primary-xxlight">
         <h3 class="font-serif pt-16 pb-2 text-5xl md:text-4xl font-bold text-gray-800">Ofertele Noastre</h3>
         <h2 class="text-xl text-gray-700 font-medium pb-6">
             Soluții de Planificare pentru Fiecare Eveniment
@@ -117,7 +136,6 @@
         <p class="text-lg max-w-3xl mx-auto text-gray-600">
             Vă transformăm viziunea într-un eveniment de neuitat. De la prima discuție la momentul culminant, asigurăm un parcurs plăcut și o zi perfectă.
         </p>
-        <button class="read-more-btn mt-16 px-8 py-3 bg-primary-darker text-highlight font-bold rounded-full shadow-lg" data-target="services-details" data-collapse="services-details-read-less">Descoperă</button>
         <div id="services-details" class="services-details">
             <!-- Service Cards Grid -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
@@ -271,7 +289,7 @@
         </div>
         <button class="read-less-btn mt-16 px-8 py-3 bg-primary-dark text-highlight font-bold rounded-full shadow-lg" id="booking-details-read-less" data-target="booking-details">Restrange</button>
     </section>
-</main>
+
     <!-- Contact/Footer Section -->
     <footer id="contact" class="bg-primary-xxdark py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-300">

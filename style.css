@@ -15,14 +15,84 @@
 		0 4px 6px #00000030,
 		0 6px 10px #00000015;
 
+	--animation-longer: 500ms;
 	--animation-long: 300ms;
 	--animation-short: 200ms;
+
+	--primary-dark: oklch(0.508 0.05 135);
 }
 body {
 	font-family: 'Inter', sans-serif;
+	margin: 0;
+	overflow-x: hidden;
 }
+
+header {
+	height: 100svh;
+}
+
+main {
+	margin-top: -60svh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+}
+
+.stk {
+	position: sticky;
+	top: -1px;
+	bottom: -1px;
+	padding: 1em;
+	padding-top: calc(1em + 1px);
+	background: transparent;
+	height: 60svh;
+	z-index: 100;
+	transition: background-color var(--animation-longer) ease,
+		font-size var(--animation-longer) ease,
+		height var(--animation-longer) ease;
+}
+
+.stk.isSticky {
+	background-color: var(--primary-dark);
+	font-size: 1rem;
+	height: 6vh;
+	transition: background-color var(--animation-longer) ease var(--animation-short),
+		font-size var(--animation-longer) ease,
+		height var(--animation-longer) ease;
+}
+
+section {
+	width: 100%;
+}
+
+#main-title {
+	font-size: 4rem;
+	width: 100%;
+	transform: translateX(0vh);
+	transition: font-size var(--animation-longer) ease var(--animation-longer),
+		transform var(--animation-longer) ease;
+}
+
+#main-title.scrolled {
+	transform: translateX(-40vw);
+	font-size: 1rem;
+	transition: font-size var(--animation-longer) ease,
+	transform var(--animation-longer) ease var(--animation-longer);
+}
+
+#subtitle {
+	opacity: 1;
+	transition: opacity var(--animation-longer) ease var(--animation-longer);
+}
+
+#subtitle.scrolled {
+	opacity: 0;
+	transition: opacity var(--animation-longer) ease;
+}
+
 .hero-background {
-	background-image:linear-gradient(rgba(0, 0, 0, 0.3), rgba(0,0,0, 0.7)),  url('/images/wedding2.jpg');
+	background-image:linear-gradient(rgba(0, 0, 0, 0.3), rgba(0,0,0, 0.7)),  url('/images/background.png');
 	background-size: cover;
 	background-position: center;
 	height: 70vh; /* Increased responsive height */

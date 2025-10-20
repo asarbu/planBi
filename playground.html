@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Sticky Nav Demo</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+    body{ height: 200vh; font:20px Arial; }
+
+section{
+  background: lightblue;
+  padding: 2em 1em;
+}
+
+header{
+  position: sticky;
+  top: -1px;                       /* ➜ the trick */
+
+  padding: 1em;
+  padding-top: calc(1em + 1px);    /* ➜ compensate for the trick */
+
+  background: salmon;
+  transition: .1s;
+}
+
+/* styles for when the header is in sticky mode */
+header.isSticky{
+  font-size: .8em;
+  opacity: .5;
+}
+    </style>
+</head>
+<body>
+<section>Space</section>
+<header>Sticky Header</header>
+<script>
+    // get the sticky element
+const stickyElm = document.querySelector('header')
+
+const observer = new IntersectionObserver( 
+  ([e]) => e.target.classList.toggle('isSticky', e.intersectionRatio < 1),
+  {threshold: [1]}
+);
+
+observer.observe(stickyElm)
+</script>
+</body>
+</html>
