@@ -13,6 +13,6 @@ export async function onRequest(context) {
     console.log({data, error});
     return Response.json({ data: data, error: error });
   } catch (err) {
-    return Response.json({ exception: err });
+    return Response.json({ exception: JSON.stringify(err) });
   }
 }
