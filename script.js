@@ -297,10 +297,10 @@ document.addEventListener('DOMContentLoaded', function() {
 		})
 		.then(response => response.json())
 		.then(data => {
-			document.getElementById('consultation-submit-button').textContent = JSON.stringify(data);
+			document.getElementById('consultation-submit-button').textContent = "Succes. Te vom contacta în curând!";
 		})
 		.catch(() => {
-			document.getElementById('consultation-submit-button').textContent = 'There was an error connecting to the server.';
+			document.getElementById('consultation-submit-button').textContent = 'A apărut o eroare la conectarea la server.';
 		});
 	}
 });
