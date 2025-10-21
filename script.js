@@ -217,40 +217,6 @@ document.addEventListener('DOMContentLoaded', function() {
 			});
 		}
 	});
-/*
-	const nav = document.getElementsByTagName('header')[0];
-	const title = document.getElementById('main-title');
-	const subtitle = document.getElementById('subtitle');
-
-	// 1. Define the threshold based on 10% of the viewport height (10vh)
-	let thresholdUp = window.innerHeight * 0.31;
-	let thresholdDown = window.innerHeight * 0.29;
-
-	// 2. Function to handle scroll events
-	function handleScroll() {
-		// Check if the user has scrolled past the threshold
-		if (window.scrollY > thresholdDown) {
-			if (!nav.classList.contains('scrolled')) {
-				// Apply the sticky, shrunk state
-				nav.classList.add('scrolled');
-				title.classList.add('scrolled');
-				subtitle.classList.add('scrolled');
-			}
-		} else if (window.scrollY < thresholdUp) {
-			if (nav.classList.contains('scrolled')) {
-				// Revert to the initial, large state
-				nav.classList.remove('scrolled');
-				title.classList.remove('scrolled');
-				subtitle.classList.remove('scrolled'); // Show subtitle
-			}
-		}
-	}
-
-	// 4. Attach the scroll listener
-	window.addEventListener('scroll', handleScroll);
-
-	// 5. Initial check (in case the page loads already scrolled, e.g., on refresh)
-	handleScroll();*/
 
 	// get the sticky element
 	const stickyElm = document.querySelectorAll('.stk')[0]
@@ -289,7 +255,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	// Handle consultation form submission
 	function submitConsultation(formData) {
-		const resultDiv = document.getElementById('consultationResult');
 		fetch('/email', {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
