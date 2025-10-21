@@ -1,14 +1,13 @@
-import { Resend } from 'resend';
 export async function onRequestPost(context) {
 	try {
-		   const requestBody = await context.request.json();
-		   const requiredFields = ['name', 'email', 'telephone', 'service_type', 'date', 'timeslot'];
-		   const missingFields = requiredFields.filter(f => !requestBody[f]);
-		   if (missingFields.length) {
-			   return Response.json({ error: 'Campuri lipsa', missingFields }, { status: 400 });
-		   }
+		const requestBody = await context.request.json();
+		const requiredFields = ['name', 'email', 'telephone', 'service_type', 'date', 'timeslot'];
+		const missingFields = requiredFields.filter(f => !requestBody[f]);
+		if (missingFields.length) {
+			return Response.json({ error: 'Campuri lipsa', missingFields }, { status: 400 });
+		}
 
-		const messageBody = `
+		const emailContent = `
 			Nume: ${requestBody.name}
 			Email: ${requestBody.email}
 			Telefon: ${requestBody.telephone}
@@ -18,23 +17,36 @@ export async function onRequestPost(context) {
 			Mesaj: ${requestBody.message || ''}
 			`;
 
-		//TODO Replace with fetch api. Remove build deps, clear build command in dashboard
-		const resend = new Resend(context.env.RESEND_API_KEY);
 		const emailRequest = {
 			from: `PlanBi <${context.env.EMAIL_HELLO}>`,
 			reply_to: 'noreply@planbi.ro',
 			to: context.env.EMAIL_CONTACT,
 			subject: `Solicitare nouă de la ${requestBody.name}`,
-			text: messageBody,
+			text: emailContent,
+		};
+
+		const response = await fetch('https://api.resend.com/emails', {
+			method: 'POST',
+			headers: {
+				'Authorization': `Bearer ${context.env.RESEND_API_KEY}`,
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(emailRequest),
+		});
+
+		if (!response.ok) {
+			const result = { status: response.status, response: response.statusText };
+			// TODO Throw error and log in middleware
+			return Response.json({ /* req: emailRequest, */ result: result }, { status: 500 });
 		}
-		const { data, error } = await resend.emails.send(emailRequest);
-		if(error) {
-			// TODO Log error somewhere
-			return Response.json({ req: emailRequest, data: data, error: error }, { status: 500 });
-		}
-		return Response.json({ id: data.id });
+		
+		const result = await response.json().catch((err) => {
+			return { error: 'Failed to parse Resend response', details: err.toString() };
+		});
+		
+		return Response.json({ id: result.id });
 	} catch (err) {
-		// TODO Log error somewhere
+		// TODO Throw error and log in middleware
 		return Response.json({ exception: JSON.stringify(err) });
 	}
 }
