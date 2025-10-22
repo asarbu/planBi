@@ -245,10 +245,10 @@ document.addEventListener('DOMContentLoaded', function() {
 				email: consultationForm.email.value,
 				telephone: consultationForm.telephone.value,
 				service_type: consultationForm.service_type.value,
+				date: consultationForm.date.value,
 				timeslot: consultationForm.timeslot.value,
 				location: consultationForm.location.value,
 				message: consultationForm.message.value,
-				date: new Date().toISOString()
 			};
 			submitConsultation(formData);
 		});
@@ -268,7 +268,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		})
 		.catch((err) => {
 			document.getElementById('consultation-submit-button').textContent = 'A apărut o eroare la conectarea la server.';
-			document.getElementById('message').textContent += JSON.stringify(err);
+			document.getElementById('message').textContent += JSON.stringify(err, Object.getOwnPropertyNames(err));
 		});
 
 		fetch('/consultation', {
@@ -283,7 +283,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		})
 		.catch((err) => {
 			document.getElementById('consultation-submit-button').textContent = 'A apărut o eroare la conectarea la server.';
-			document.getElementById('message').textContent += JSON.stringify(data);
+			document.getElementById('message').textContent += JSON.stringify(err, Object.getOwnPropertyNames(err));
 		});
 	}
 });
