@@ -1,7 +1,7 @@
 export async function onRequestPost(context) {
 	try {
 		const requestBody = await context.request.json();
-		const requiredFields = ['name', 'email', 'telephone', 'service_type', 'date', 'timeslot'];
+		const requiredFields = ['name', 'email', 'telephone', 'service_type', 'date', 'timeslot', 'location'];
 		const missingFields = requiredFields.filter(f => !requestBody[f]);
 		if (missingFields.length) {
 			return Response.json({ error: 'Campuri lipsa', missingFields }, { status: 400 });
@@ -14,7 +14,8 @@ export async function onRequestPost(context) {
 			Tip Serviciu: ${requestBody.service_type}
 			Dată: ${requestBody.date}
 			Fereastră: ${requestBody.timeslot}
-			Mesaj: ${requestBody.message || ''}
+			Locație: ${requestBody.location}
+			Notițe: ${requestBody.message || ''}
 			`;
 
 		const emailRequest = {

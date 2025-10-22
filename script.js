@@ -246,6 +246,7 @@ document.addEventListener('DOMContentLoaded', function() {
 				telephone: consultationForm.telephone.value,
 				service_type: consultationForm.service_type.value,
 				timeslot: consultationForm.timeslot.value,
+				location: consultationForm.location.value,
 				message: consultationForm.message.value,
 				date: new Date().toISOString()
 			};
