@@ -263,7 +263,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		})
 		.then(response => response.json())
 		.then(data => {
-			document.getElementById('consultation-submit-button').textContent = "Succes. Te vom contacta în curând!";
+			document.getElementById('consultation-submit-button').textContent = `Succes. Te vom contacta în curând! (ID: ${data.id})`;
 		})
 		.catch(() => {
 			document.getElementById('consultation-submit-button').textContent = 'A apărut o eroare la conectarea la server.';
