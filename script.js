@@ -263,10 +263,27 @@ document.addEventListener('DOMContentLoaded', function() {
 		})
 		.then(response => response.json())
 		.then(data => {
-			document.getElementById('consultation-submit-button').textContent = `Succes. Te vom contacta în curând! (ID: ${data.id})`;
+			document.getElementById('consultation-submit-button').textContent = `Succes. Te vom contacta în curând!`;
+			document.getElementById('message').textContent += JSON.stringify(data);
 		})
-		.catch(() => {
+		.catch((err) => {
 			document.getElementById('consultation-submit-button').textContent = 'A apărut o eroare la conectarea la server.';
+			document.getElementById('message').textContent += JSON.stringify(err);
+		});
+
+		fetch('/consultation', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(formData)
+		})
+		.then(response => response.json())
+		.then(data => {
+			document.getElementById('consultation-submit-button').textContent = `Succes. Te vom contacta în curând!`;
+			document.getElementById('message').textContent += JSON.stringify(data);
+		})
+		.catch((err) => {
+			document.getElementById('consultation-submit-button').textContent = 'A apărut o eroare la conectarea la server.';
+			document.getElementById('message').textContent += JSON.stringify(data);
 		});
 	}
 });
