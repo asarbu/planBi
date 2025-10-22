@@ -12,7 +12,7 @@ export async function onRequestPost(context) {
 			Email: ${requestBody.email}
 			Telefon: ${requestBody.telephone}
 			Tip Serviciu: ${requestBody.service_type}
-			Dată: ${requestBody.date.toLocaleDateString("ro-RO", options)}
+			Dată: ${requestBody.date.toLocaleDateString("ro-RO")}
 			Fereastră: ${requestBody.timeslot}
 			Locație: ${requestBody.location}
 			Notițe: ${requestBody.message || ''}
