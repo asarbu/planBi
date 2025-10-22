@@ -268,7 +268,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		})
 		.catch((err) => {
 			document.getElementById('consultation-submit-button').textContent = 'A apărut o eroare la conectarea la server.';
-			document.getElementById('message').textContent += JSON.stringify(err, Object.getOwnPropertyNames(err));
+			document.getElementById('message').textContent += err.message;
 		});
 
 		fetch('/consultation', {
@@ -283,7 +283,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		})
 		.catch((err) => {
 			document.getElementById('consultation-submit-button').textContent = 'A apărut o eroare la conectarea la server.';
-			document.getElementById('message').textContent += JSON.stringify(err, Object.getOwnPropertyNames(err));
+			document.getElementById('message').textContent += err.message;
 		});
 	}
 });

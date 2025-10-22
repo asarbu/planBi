@@ -48,6 +48,6 @@ export async function onRequestPost(context) {
 		return Response.json({ id: result.id });
 	} catch (err) {
 		// TODO Throw error and log in middleware
-		return Response.json({ exception: JSON.stringify(err) });
+		return Response.json({ error: err.message });
 	}
 }
