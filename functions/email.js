@@ -21,7 +21,7 @@ export async function onRequestPost(context) {
 		const emailRequest = {
 			from: `PlanBi <${context.env.EMAIL_HELLO}>`,
 			reply_to: 'noreply@planbi.ro',
-			to: context.env.EMAIL_CONTACT,
+			to: [ context.env.EMAIL_CONTACT, context.env.EMAIL_HELLO ],
 			subject: `Solicitare nouă de la ${requestBody.name}`,
 			text: emailContent,
 		};
