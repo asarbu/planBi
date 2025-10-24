@@ -282,4 +282,15 @@ document.addEventListener('DOMContentLoaded', function() {
 			document.getElementById('message').textContent += err.message;
 		});
 	}
+
+	document.getElementById('book-read-more').addEventListener('click', function() {
+		fetch('/calendar')
+		.then(response => response.json())
+		.then(events => {
+			console.log('Fetched events:', events);
+		})
+		.catch(err => {
+			console.error('Error fetching calendar events:', err);
+		});
+	});
 });
