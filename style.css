@@ -19,6 +19,10 @@
 	--animation-long: 300ms;
 	--animation-short: 200ms;
 
+
+	--gray-500: oklch(55.1% 0.027 264.364);
+	--gray-600: oklch(44.6% 0.03 256.802);
+	--gray-700: oklch(37.3% 0.034 259.733);
 	--bg: oklch(0.979 0.05 135);
     --text: oklch(0 0 0);
     --highlight: oklch(1 0 0);
@@ -84,6 +88,28 @@ main {
 
 section {
 	width: 100%;
+	padding-block: 8rem;
+	padding-inline: 4rem;
+	text-align: center;
+}
+
+section h3 {
+	font-family: 'Times New Roman', serif;
+	font-size: 2.5rem;
+	font-weight: bold;
+	margin-bottom: 0.5rem;
+}
+
+section h2 {
+	font-size: 1.25rem;
+	font-weight: 500;
+	margin-bottom: 1rem;
+}
+
+section p {
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 4rem;
 }
 
 #main-title {
@@ -144,31 +170,18 @@ section {
 }
 
 #portfolio {
-	padding-block: 8rem;
-	padding-inline: 4rem;
 	background-color: var(--primary-darker);
-	text-align: center;
 }
 
 #portfolio h3 {
-	font-family: 'Times New Roman', serif;
-	font-size: 2.5rem;
-	font-weight: bold;
-	margin-bottom: 0.5rem;
 	color: oklch(98.5% 0.002 247.839);
 }
 
 #portfolio h2 {
-	font-size: 1.25rem;
-	font-weight: 500;
-	margin-bottom: 1rem;
 	color: oklch(96.7% 0.003 264.542);
 }
 
 #portfolio p {
-	margin-left: auto;
-	margin-right: auto;
-	margin-bottom: 4rem;
 	color: oklch(93.3% 0.005 261.538);
 }
 
@@ -245,6 +258,28 @@ button {
 
 .card {
 	box-shadow: var(--shadow-l);
+	background-color: var(--highlight);
+	padding: 2rem;
+	border-radius: 1rem;
+	position: relative;
+}
+
+.card h4 {
+	color: var(--text);
+	font-family: 'Times New Roman', serif;
+	font-size: 1.5rem;
+	line-height: 1.25;
+	font-weight: bold;
+	margin-bottom: 1rem;
+	color: var(--gray-600);
+}
+
+.card ul {
+	margin-top: 1rem;
+	margin-bottom: 3rem;
+	text-align: left;
+	color: var(--gray-500);
+	font-size: 0.875rem;
 }
 
 .read-more-btn {
@@ -341,6 +376,25 @@ button {
 		opacity: 0;
 		translate: 0 1em;
 	}
+}
+#services {
+	background-color: var(--primary-xxlight);
+}
+
+#services h3 {
+	color: oklch(27.8% 0.033 256.848);
+}
+
+#services h2 {
+	color: oklch(37.3% 0.034 259.733);
+}
+
+#services p {
+	color: oklch(44.6% 0.03 256.802);
+}
+
+#services .read-more-btn {
+	background-color: var(--primary-darker);
 }
 
 .services-details { 
