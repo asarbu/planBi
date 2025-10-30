@@ -262,9 +262,8 @@ button {
 	padding: 2rem;
 	border-radius: 1rem;
 	position: relative;
-}
-
-.card h4 {
+	
+	h4 {
 	color: var(--text);
 	font-family: 'Times New Roman', serif;
 	font-size: 1.5rem;
@@ -272,14 +271,80 @@ button {
 	font-weight: bold;
 	margin-bottom: 1rem;
 	color: var(--gray-600);
+	}
+
+	ul {
+		margin-top: 1rem;
+		margin-bottom: 3rem;
+		text-align: left;
+		color: var(--gray-500);
+		font-size: 0.875rem;
+
+		li {
+			display: flex;
+			align-items: left;
+
+			span {
+				color: var(--primary-light);
+				margin-right: 0.5rem;
+			}
+		}
+	}
+
+	.price {
+		position: absolute;
+		bottom: 1rem;
+		left: 1rem;
+		right: 1rem;
+		padding: 0.5rem 1.5rem;
+		transform: translateX(-50%);
+		background-color: var(--primary);
+		color: var(--highlight);
+		font-weight: bold;
+		border-radius: 9999px;
+		box-shadow: var(--shadow-m);
+		text-align: center;
+		color: var(--highlight);
+	}
 }
 
-.card ul {
-	margin-top: 1rem;
-	margin-bottom: 3rem;
+.small-card{
+	box-shadow: var(--shadow-l);
+	background-color: var(--highlight);
+	padding: 2rem;
+	border-radius: 1rem;
+	display: flex;
+	flex-direction: column;
 	text-align: left;
-	color: var(--gray-500);
-	font-size: 0.875rem;
+	border: 4px solid var(--primary);
+  	justify-content: space-between;
+
+	h4 {
+		color: var(--text);
+		font-family: 'Times New Roman', serif;
+		font-size: 1.25rem;
+		line-height: 1.25;
+		font-weight: bold;
+		margin-bottom: 1rem;
+	}
+
+	p {
+		color: var(--gray-500);
+		font-size: 1rem;
+	}
+
+	div {
+		margin-top: 1rem;
+		padding: 0.5rem 1.5rem;
+		border-top: 1px solid var(--primary-xxdark);
+		color: var(--highlight);
+		background: var(--primary);
+		font-size: 0.75rem;
+		font-style: italic;
+		border-radius: 9999px;
+		box-shadow: var(--shadow-m);
+		text-align: center;
+	}
 }
 
 .read-more-btn {
