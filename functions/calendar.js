@@ -71,16 +71,13 @@ export async function onRequestPost(context) {
 			Notițe: ${requestBody.message || ''}
 			`;
 	const startDateTime = new Date(`${requestBody.date.split('.').reverse().join('-')}T${requestBody.timeslot.split('-')[0]}:00`);
-	const endDateTime = new Date(startDateTime);
-	endDateTime.setMinutes(endDateTime.getMinutes() + 60);
+	const endDateTime = new Date(`${requestBody.date.split('.').reverse().join('-')}T${requestBody.timeslot.split('-')[1]}:00`);
 	const event = {
 		summary: "PlanBi - " + requestBody.name,
 		description: description,
-		start: { dateTime: startDateTime, timeZone: "Europe/Bucharest" },
-		end: { dateTime: endDateTime, timeZone: "Europe/Bucharest" },
+		start: { dateTime: startDateTime },
+		end: { dateTime: endDateTime },
 	};
-
-	console.log("Inserting event:", JSON.stringify(event));
 
 	// Insert event into Google Calendar
 	const eventRes = await fetch(`https://www.googleapis.com/calendar/v3/calendars/${context.env.CALENDAR}/events`, {
