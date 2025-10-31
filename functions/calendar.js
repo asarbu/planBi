@@ -59,11 +59,25 @@ export async function onRequestPost(context) {
 
 	const accessToken = tokenData.access_token;
 
+	// read event details from request body
+	const description = `
+			Nume: ${requestBody.name}
+			Email: ${requestBody.email}
+			Telefon: ${requestBody.telephone}
+			Tip Serviciu: ${requestBody.service_type}
+			Dată: ${requestBody.date}
+			Fereastră: ${requestBody.timeslot}
+			Locație: ${requestBody.location}
+			Notițe: ${requestBody.message || ''}
+			`;
+	const startDateTime = new Date(`${requestBody.date}T${requestBody.timeslot.split('-')[0]}:00`);
+	const endDateTime = new Date(startDateTime);
+	endDateTime.setMinutes(endDateTime.getMinutes() + 60);
 	const event = {
-		summary: "No-lib Cloudflare Worker Test Event",
-		description: "Created directly using Web Crypto.",
-		start: { dateTime: "2025-11-02T09:00:00-07:00", timeZone: "America/Los_Angeles" },
-		end: { dateTime: "2025-11-02T10:00:00-07:00", timeZone: "America/Los_Angeles" },
+		summary: "PlanBi - " + requestBody.name,
+		description: description,
+		start: { dateTime: startDateTime, timeZone: "Europe/Bucharest" },
+		end: { dateTime: endDateTime, timeZone: "Europe/Bucharest" },
 	};
 
 	// Insert event into Google Calendar
