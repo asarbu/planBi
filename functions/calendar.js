@@ -70,7 +70,7 @@ export async function onRequestPost(context) {
 			Locație: ${requestBody.location}
 			Notițe: ${requestBody.message || ''}
 			`;
-	const startDateTime = new Date(`${requestBody.date}T${requestBody.timeslot.split('-')[0]}:00`);
+	const startDateTime = new Date(`${requestBody.date.split('.').reverse().join('-')}T${requestBody.timeslot.split('-')[0]}:00`);
 	const endDateTime = new Date(startDateTime);
 	endDateTime.setMinutes(endDateTime.getMinutes() + 60);
 	const event = {
