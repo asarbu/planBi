@@ -15,6 +15,7 @@ export async function onRequestGet(context) {
 }
 
 export async function onRequestPost(context) {
+	try {
 	const now = Math.floor(Date.now() / 1000);
 
 	const header = {
@@ -58,7 +59,7 @@ export async function onRequestPost(context) {
 	}
 
 	const accessToken = tokenData.access_token;
-
+	const requestBody = await context.request.json();
 	// read event details from request body
 	const description = `
 			Nume: ${requestBody.name}
@@ -99,6 +100,9 @@ export async function onRequestPost(context) {
 	return new Response(JSON.stringify(eventData, null, 2), {
 		headers: { "Content-Type": "application/json" },
 	});
+	} catch (err) {
+		return new Response(`Error: ${err.message}`, { status: 500 });
+	}
 }
 
 function base64urlEncode(input) {
