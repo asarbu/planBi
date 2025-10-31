@@ -80,6 +80,8 @@ export async function onRequestPost(context) {
 		end: { dateTime: endDateTime, timeZone: "Europe/Bucharest" },
 	};
 
+	console.log("Inserting event:", JSON.stringify(event));
+
 	// Insert event into Google Calendar
 	const eventRes = await fetch(`https://www.googleapis.com/calendar/v3/calendars/${context.env.CALENDAR}/events`, {
 		method: "POST",
