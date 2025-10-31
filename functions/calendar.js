@@ -102,7 +102,7 @@ async function importPrivateKey(pem) {
 	const b64 = pem
 		.replace(/-----BEGIN PRIVATE KEY-----/, "")
 		.replace(/-----END PRIVATE KEY-----/, "")
-		.replace(/\n/g, "");
+		.replace(/(\r\n|\n|\\n)/g, "");
 	console.log(b64);
 	const binary = Uint8Array.from(atob(b64), (c) => c.charCodeAt(0));
 	return crypto.subtle.importKey(
