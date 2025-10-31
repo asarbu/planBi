@@ -219,7 +219,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	const observer = new IntersectionObserver( 
 	([e]) =>  {
-		console.log(e.intersectionRatio)
 		e.target.classList.toggle('isSticky', e.intersectionRatio < 1)
 		document.getElementById('main-title').classList.toggle('scrolled', e.intersectionRatio < 1)
 		document.getElementById('subtitle').classList.toggle('scrolled', e.intersectionRatio < 1)
@@ -297,15 +296,4 @@ document.addEventListener('DOMContentLoaded', function() {
 			document.getElementById('message').textContent += err.message;
 		});
 	}
-
-	document.getElementById('book-read-more').addEventListener('click', function() {
-		fetch('/calendar')
-		.then(response => response.json())
-		.then(events => {
-			console.log('Fetched events:', events);
-		})
-		.catch(err => {
-			console.error('Error fetching calendar events:', err);
-		});
-	});
 });
