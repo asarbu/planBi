@@ -70,15 +70,18 @@ export async function onRequestPost(context) {
 			Locație: ${requestBody.location}
 			Notițe: ${requestBody.message || ''}
 			`;
+	
+	console.log(description);
 	const startDateTime = new Date(`${requestBody.date.split('.').reverse().join('-')}T${requestBody.timeslot.split('-')[0]}:00`);
 	const endDateTime = new Date(`${requestBody.date.split('.').reverse().join('-')}T${requestBody.timeslot.split('-')[1]}:00`);
 	const event = {
 		summary: "PlanBi - " + requestBody.name,
 		description: description,
-		start: { dateTime: startDateTime },
-		end: { dateTime: endDateTime },
+		start: { dateTime: startDateTime, timezone: "Europe/Bucharest" },
+		end: { dateTime: endDateTime, timezone: "Europe/Bucharest" },
 	};
 
+	console.log(JSON.stringify(event), startDateTime, endDateTime);
 	// Insert event into Google Calendar
 	const eventRes = await fetch(`https://www.googleapis.com/calendar/v3/calendars/${context.env.CALENDAR}/events`, {
 		method: "POST",
