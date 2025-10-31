@@ -103,6 +103,7 @@ async function importPrivateKey(pem) {
 		.replace(/-----BEGIN PRIVATE KEY-----/, "")
 		.replace(/-----END PRIVATE KEY-----/, "")
 		.replace(/\s+/g, "");
+	console.log(b64);
 	const binary = Uint8Array.from(atob(b64), (c) => c.charCodeAt(0));
 	return crypto.subtle.importKey(
 		"pkcs8",
