@@ -77,8 +77,8 @@ export async function onRequestPost(context) {
 	const event = {
 		summary: "PlanBi - " + requestBody.name,
 		description: description,
-		start: { dateTime: startDateTime, timezone: "Europe/Bucharest" },
-		end: { dateTime: endDateTime, timezone: "Europe/Bucharest" },
+		start: { dateTime: startDateTime, timeZone: "Europe/Bucharest" },
+		end: { dateTime: endDateTime, timeZone: "Europe/Bucharest" },
 	};
 
 	console.log(JSON.stringify(event), startDateTime, endDateTime);
