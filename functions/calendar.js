@@ -15,7 +15,6 @@ export async function onRequestGet(context) {
 }
 
 export async function onRequestPost(context) {
-	try {
 	const now = Math.floor(Date.now() / 1000);
 
 	const header = {
@@ -100,9 +99,6 @@ export async function onRequestPost(context) {
 	return new Response(JSON.stringify(eventData, null, 2), {
 		headers: { "Content-Type": "application/json" },
 	});
-	} catch (err) {
-		return new Response(`Error: ${err.message}`, { status: 500 });
-	}
 }
 
 function base64urlEncode(input) {
