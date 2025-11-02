@@ -503,6 +503,15 @@ button {
 	color: var(--gray-700);
 }
 
+.booking {
+	background-color: var(--primary-darker);
+	margin-inline: auto;
+	padding: 1rem 4rem;
+	border-radius: 1rem;
+	box-shadow: var(--shadow-l);
+	text-align: center;
+}
+
 .booking-details { 
 	display: none;
 	height: 0;
@@ -528,6 +537,54 @@ button {
 		height: 0;
 		opacity: 0;
 		translate: 0 1em;
+	}
+}
+
+.consultation-form {
+	background-color: var(--highlight);
+	padding: 2rem;
+	border-radius: 1rem;
+	box-shadow: var(--shadow-l);
+	text-align: left;
+	
+	.content {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 2rem;
+	}
+}
+
+.consultation-label {
+	display: block;
+	font-size: 1rem;
+	font-weight: 500;
+	margin-bottom: 0.5rem;
+	color: var(--gray-700);
+}
+
+.consultation-input {
+	width: 100%;
+	padding: 0.75rem;
+	border: 1px solid var(--gray-300);
+	border-radius: 0.5rem;
+	font-size: 1rem;
+
+	focus {
+		outline: none;
+		border-color: var(--primary);
+		box-shadow: 0 0 0 2px var(--primary-light);
+	}
+}
+
+.consultation-submit-button {
+	background-color: var(--primary-dark);
+	color: var(--highlight);
+	font-weight: bold;
+	border-radius: 9999px;
+	box-shadow: var(--shadow-l);
+
+	hover {
+		background-color: var(--primary-darker);
 	}
 }
 
@@ -557,5 +614,9 @@ button {
 
 	.booking-details.animate {
 		height: 60em;
+	}
+
+	.consultation-form {
+		grid-template-columns: 1;
 	}
 }
