@@ -60,6 +60,7 @@ main {
 	align-items: center;
 	text-align: center;
 	z-index: 20;
+	position: relative;
 }
 
 h2 {
