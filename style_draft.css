@@ -177,6 +177,7 @@ section > p {
 	position: absolute;
 	bottom: 2rem;
 	transform: translateX(-50%);
+	text-decoration: none;
 }
 
 #portfolio {
@@ -515,7 +516,6 @@ button {
 
 .booking {
 	background-color: var(--primary-darker);
-	box-shadow: var(--shadow-l);
 	text-align: center;
 	color: var(--highlight);
 }
@@ -604,6 +604,24 @@ button {
 
 	hover {
 		background-color: var(--primary-darker);
+	}
+}
+
+footer {
+	background-color: var(--primary-xxdark);
+	color: var(--highlight);
+	padding: 2rem;
+	text-align: center;
+
+	h4 {
+		margin: 0;
+		font-size: 1.25rem;
+		font-weight: bold;
+	}
+
+	a {
+		color: var(--highlight);
+		text-decoration: underline;
 	}
 }
 
