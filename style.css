@@ -35,19 +35,22 @@
 	--primary-xxdark: oklch(0.378 0.05 135);
 }
 
-body {
+html, body {
 	margin: 0;
 	padding: 0;
+	width: 100%;
+}
+
+body {
 	font-family: 'Inter', sans-serif;
 	overflow-x: hidden;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	color: var(--text);
 }
 
 header {
 	height: 100svh;
-	z-index: 20;
+	z-index: 10;
 }
 
 main {
@@ -56,6 +59,7 @@ main {
 	flex-direction: column;
 	align-items: center;
 	text-align: center;
+	z-index: 20;
 }
 
 h2 {
@@ -91,7 +95,7 @@ h3 {
 	background: transparent;
 	height: calc(80svh - 1rem - 1px);
 	width: 100%;
-	z-index: 100;
+	z-index: 30;
 	transition: background-color var(--animation-longer) ease,
 		font-size var(--animation-longer) ease,
 		height var(--animation-longer) ease;
@@ -124,7 +128,6 @@ section > p {
 	font-family: 'Times New Roman', serif;
 	color: var(--highlight);
 	font-weight: bolder;
-	z-index: 20;
 	font-size: 4rem;
 	width: 100%;
 	transform: translateX(0vh);
