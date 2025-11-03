@@ -405,7 +405,6 @@ button {
 	}
 }
 
-
 .portfolio-details { 
    display: none;
    height: 0;
@@ -424,7 +423,6 @@ button {
    display: grid;
    grid-template-columns: repeat(3, 1fr);
    gap: 2rem;
-   padding: 2rem;
    min-height: 40rem;
    height: auto;
    opacity: 1;
@@ -665,6 +663,18 @@ footer {
 }
 
 @media screen and (max-width: 768px) {
+	.portfolio-details { 
+		padding: 1rem;
+	}
+
+	.consultation-form {
+		padding: 1rem;
+	}
+
+	.consultation-form .content {
+		grid-template-columns: repeat(1, minmax(0, 1fr));
+	}
+
 	.additional-details {
 		grid-template-columns:  repeat(1, minmax(0, 1fr));
 	}
