@@ -251,37 +251,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	// Handle consultation form submission
 	function submitConsultation(formData) {
-		/** fetch('/email', {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify(formData)
-		})
-		.then(response => response.json())
-		.then(data => {
-			document.getElementById('consultation-submit-button').textContent = `Succes. Te vom contacta în curând!`;
-			document.getElementById('message').textContent += JSON.stringify(data);
-		})
-		.catch((err) => {
-			document.getElementById('consultation-submit-button').textContent = 'A apărut o eroare la conectarea la server.';
-			document.getElementById('message').textContent += err.message;
-		}); 
-
 		fetch('/consultation', {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify(formData)
-		})
-		.then(response => response.json())
-		.then(data => {
-			document.getElementById('consultation-submit-button').textContent = `Succes. Te vom contacta în curând!`;
-			document.getElementById('message').textContent += JSON.stringify(data);
-		})
-		.catch((err) => {
-			document.getElementById('consultation-submit-button').textContent = 'A apărut o eroare la conectarea la server.';
-			document.getElementById('message').textContent += err.message;
-		}); **/
-
-		fetch('/calendar', {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify(formData)
