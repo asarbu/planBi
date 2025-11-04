@@ -145,18 +145,21 @@ section > p {
 
 #subtitle {
 	opacity: 1;
-	transition: opacity var(--animation-short) ease var(--animation-longer);
+	transition: opacity var(--animation-short) ease var(--animation-longer),
+		display var(--animation-long) ease-in allow-discrete;
 	font-size: 1.25rem;
 	color: var(--highlight);
 	width: auto;
 	font-weight: 400;
-	display: relative;
+	display: block;
 	margin-inline: 1rem ;
 }
 
 #subtitle.scrolled {
 	opacity: 0;
-	transition: opacity var(--animation-short) ease;
+	display: none;
+	transition: opacity var(--animation-short) ease,
+		display var(--animation-long) ease-in allow-discrete;
 }
 
 #subtitle h2 {
@@ -587,6 +590,7 @@ button {
 	border: 1px solid var(--gray-300);
 	border-radius: 0.5rem;
 	font-size: 1rem;
+	box-sizing: border-box;
 
 	focus {
 		border-color: var(--primary);
