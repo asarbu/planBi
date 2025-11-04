@@ -1,26 +1,33 @@
-import { onRequestPost as database } from "./database.js";
-import { onRequestPost as email } from "./email.js";
-import { onRequestPost as calendar } from "./calendar.js";
+import { persistToDatabase } from "./database.js";
+import { sendEmail } from "./email.js";
+import { createCalendarEvent } from "./calendar.js";
 
 export async function onRequestPost(context) {
+	const requestBody = await context.request.json();
+	const requiredFields = ['name', 'email', 'telephone', 'service_type', 'date', 'timeslot', 'location'];
+	const missingFields = requiredFields.filter(f => !requestBody[f]);
+	if (missingFields.length) {
+		return Response.json({ error: 'Campuri lipsa', missingFields }, { status: 400 });
+	}
+
 	let errors = [];
 	let databaseResponse;
 	try {
-		databaseResponse = await database(context);
+		databaseResponse = await persistToDatabase(context, requestBody);
 	} catch (error) {
 		errors.push(`Database error: ${error.message}`);
 	}
 
 	let emailResponse;
 	try {
-		emailResponse = await email(context);
+		emailResponse = await sendEmail(context, requestBody);
 	} catch (error) {
 		errors.push(`Email error: ${error.message}`);
 	}
 
 	let calendarResponse;
 	try {
-		calendarResponse = await calendar(context);
+		calendarResponse = await createCalendarEvent(context, requestBody);
 	} catch (error) {
 		errors.push(`Calendar error: ${error.message}`);
 	}

@@ -15,6 +15,11 @@ export async function onRequestGet(context) {
 }
 
 export async function onRequestPost(context) {
+	const requestBody = await context.request.json();
+	return createCalendarEvent(context, requestBody);
+}
+
+export async function createCalendarEvent(context, data) {
 	const now = Math.floor(Date.now() / 1000);
 
 	const header = {
@@ -58,23 +63,22 @@ export async function onRequestPost(context) {
 	}
 
 	const accessToken = tokenData.access_token;
-	const requestBody = await context.request.json();
 	// read event details from request body
 	const description = `
-			Nume: ${requestBody.name}
-			Email: ${requestBody.email}
-			Telefon: ${requestBody.telephone}
-			Tip Serviciu: ${requestBody.service_type}
-			Dată: ${requestBody.date}
-			Fereastră: ${requestBody.timeslot}
-			Locație: ${requestBody.location}
-			Notițe: ${requestBody.message || ''}
+			Nume: ${data.name}
+			Email: ${data.email}
+			Telefon: ${data.telephone}
+			Tip Serviciu: ${data.service_type}
+			Dată: ${data.date}
+			Fereastră: ${data.timeslot}
+			Locație: ${data.location}
+			Notițe: ${data.message || ''}
 			`;
 	
-	const startDateTime = `${requestBody.date.split('.').reverse().join('-')}T${requestBody.timeslot.split('-')[0]}:00`;
-	const endDateTime = `${requestBody.date.split('.').reverse().join('-')}T${requestBody.timeslot.split('-')[1]}:00`;
+	const startDateTime = `${data.date.split('.').reverse().join('-')}T${data.timeslot.split('-')[0]}:00`;
+	const endDateTime = `${data.date.split('.').reverse().join('-')}T${data.timeslot.split('-')[1]}:00`;
 	const event = {
-		summary: "PlanBi - " + requestBody.name,
+		summary: "PlanBi - " + data.name,
 		description: description,
 		start: { dateTime: startDateTime, timeZone: "Europe/Bucharest" },
 		end: { dateTime: endDateTime, timeZone: "Europe/Bucharest" },

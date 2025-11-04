@@ -6,9 +6,7 @@ export async function onRequestPost(context) {
 		return Response.json({ error: 'Campuri lipsa', missingFields }, { status: 400 });
 	}
 
-    const result = await context.env.plan_bi.prepare("INSERT INTO Consultations (name, email, telephone, service_type, date, timeslot, location, message) VALUES (?, ?, ?, ?, ?, ?, ?, ?)")
-        .bind(requestBody.name, requestBody.email, requestBody.telephone, requestBody.service_type, requestBody.date, requestBody.timeslot, requestBody.location, requestBody.message)
-        .run();
+    const result = await persistToDatabase(context, requestBody);
 
 	if(result.success)
 		return Response.json({ success: result.success });
@@ -16,6 +14,14 @@ export async function onRequestPost(context) {
 		return Response.json({ error: 'Failed to insert meeting data' }, { status: 500 });
 	}
 };
+
+export async function persistToDatabase(context, data) {
+	const result = await context.env.plan_bi.prepare("INSERT INTO Consultations (name, email, telephone, service_type, date, timeslot, location, message) VALUES (?, ?, ?, ?, ?, ?, ?, ?)")
+		.bind(data.name, data.email, data.telephone, data.service_type, data.date, data.timeslot, data.location, data.message)
+		.run();
+
+	return result;
+}
 
 export async function onRequestGet(context) {
 	const url = new URL(context.request.url);
