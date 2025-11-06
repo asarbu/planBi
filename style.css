@@ -218,31 +218,34 @@ section > p {
 	border-radius: 1rem;
 	border: 1px solid var(--primary-xxdark);
 	border-top: 0.25rem solid var(--primary-xxdark);
-	padding: 1.5rem;
+	padding: 0;
+	overflow: hidden;
+	min-height: 24rem;
+	height: 100%;
 }
 
-.event1-background {
-	height: 70vh; /* Increased responsive height */
-	min-height: 500px;
-	background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)), url('https://pashabelman.com/wp-content/uploads/2023/09/Best-Wedding-Poses-Wedding-Posing-Ideas.webp');
-	background-size: cover;
-	background-position: center;
+.event::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 2;
+	background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5));
 }
 
-.event2-background {
-	height: 70vh; /* Increased responsive height */
-	min-height: 500px;
-	background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)), url('https://media.gettyimages.com/id/2150114199/photo/young-mother-holding-her-baby-during-christening-in-orthodox-church.jpg?s=1024x1024&w=gi&k=20&c=lazeFMgUrULZwOsUl1jsKmQLIHeybf-zeCM-dEV_No0=');
-	background-size: cover;
-	background-position: center;
-}
-
-.event3-background {
-	height: 70vh; /* Increased responsive height */
-	min-height: 500px;
-	background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)), url('https://www.pinkvilla.com/images/2023-04/675743304_shutterstock_1230401362_1280*720.jpg');
-	background-size: cover;
-	background-position: calc(10%) center; /* Shifted right for better composition */
+.event img {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	margin: 0;
+	z-index: 1;
+	scale: 150%;
+	margin-bottom: 1.5rem;
 }
 
 .fancy-text {
@@ -253,6 +256,8 @@ section > p {
 	letter-spacing: 0.03em;
 	position: absolute;
 	margin-block-end: 0 !important;
+	pointer-events: none;
+	z-index: 2;
 }
 
 .fancy-text.gallery {

@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			readMoreBtn.addEventListener('transitionend', () => {
 				readLessBtn.classList.add('animate');
 				target.classList.add('animate');
+				updatePortfolioParallax();
 			}, { once: true });
 		});
 	});
@@ -269,4 +270,39 @@ document.addEventListener('DOMContentLoaded', function() {
 			document.getElementById('consultation-submit-button').textContent = 'Error.' + err.message;
 		});
 	}
+
+	const iridescence = document.getElementById('iridescence-container');
+	let lastScrollY = 0;
+	let ticking = false;
+	function updateParallax() {
+		if (iridescence) {
+			iridescence.style.transform = `translateY(${lastScrollY * 0.8}px)`;
+		}
+	}
+	function updatePortfolioParallax() {
+		const portfolioImages = document.querySelectorAll('#portfolio-details .event img');
+		const viewportHeight = window.innerHeight;
+		portfolioImages.forEach(img => {
+			const parent = img.parentElement;
+			const rect = parent.getBoundingClientRect();
+			if (rect.bottom > 0 && rect.top < viewportHeight) {
+				// Parallax continues as long as image is in viewport
+				const progress = (viewportHeight - rect.top) / (viewportHeight + rect.height);
+				const offset = progress * 100; // px, upward only
+				img.style.transform = `translateY(${offset}px)`;
+			} else {
+				img.style.transform = '';
+			}
+		});
+	}
+
+	function onScrollAll() {
+		lastScrollY = window.scrollY || window.pageYOffset;
+		window.requestAnimationFrame(() => {
+			updateParallax();
+			updatePortfolioParallax();
+		});
+	}
+	window.addEventListener('scroll', onScrollAll);
+	// do not remove this comment - it is needed
 });
