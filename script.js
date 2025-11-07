@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
 				target.classList.add('animate');
 				updatePortfolioParallax();
 			}, { once: true });
-		});
+		}, { passive: true });
 	});
 
 	document.querySelectorAll('.read-less-btn').forEach((readLessBtn) => {
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			target.parentElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
 			readLessBtn.classList.remove('animate');
 			readMoreBtn.classList.remove('animate');
-					});
+		}, { passive: true });
 	});
 
 	// Velvet effect setup (Vanilla WebGL)
@@ -181,7 +181,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			gl.drawArrays(gl.TRIANGLES, 0, 3);
 		}
 
-		window.addEventListener('resize', resize);
+		window.addEventListener('resize', resize, { passive: true });
 		resize();
 		animate(0);
 	}
@@ -211,7 +211,7 @@ document.addEventListener('DOMContentLoaded', function() {
 					serviceTypeSelect.scrollIntoView({ behavior: 'smooth', block: 'center' });
 					serviceTypeSelect.focus();
 				}
-			});
+			}, { passive: true });
 		}
 	});
 
@@ -247,7 +247,7 @@ document.addEventListener('DOMContentLoaded', function() {
 				message: consultationForm.message.value,
 			};
 			submitConsultation(formData);
-		});
+		}, { passive: true });
 	}
 
 	// Handle consultation form submission
@@ -279,30 +279,39 @@ document.addEventListener('DOMContentLoaded', function() {
 			iridescence.style.transform = `translateY(${lastScrollY * 0.8}px)`;
 		}
 	}
+
+	const portfolioImages = Array.from(document.querySelectorAll('#portfolio-details .event img'));
+	const portfolioParents = portfolioImages.map(img => img.parentElement);
+
 	function updatePortfolioParallax() {
-		const portfolioImages = document.querySelectorAll('#portfolio-details .event img');
 		const viewportHeight = window.innerHeight;
-		portfolioImages.forEach(img => {
-			const parent = img.parentElement;
-			const rect = parent.getBoundingClientRect();
+		// First, read all rects
+		const rects = portfolioParents.map(parent => parent.getBoundingClientRect());
+		// Then, update styles only if changed
+		portfolioImages.forEach((img, i) => {
+			const rect = rects[i];
+			let newTransform = '';
 			if (rect.bottom > 0 && rect.top < viewportHeight) {
-				// Parallax continues as long as image is in viewport
 				const progress = (viewportHeight - rect.top) / (viewportHeight + rect.height);
 				const offset = progress * 100; // px, upward only
-				img.style.transform = `translateY(${offset}px)`;
-			} else {
-				img.style.transform = '';
+				newTransform = `translateY(${offset}px)`;
+			}
+			if (img.style.transform !== newTransform) {
+				img.style.transform = newTransform;
 			}
 		});
 	}
 
 	function onScrollAll() {
 		lastScrollY = window.scrollY || window.pageYOffset;
-		window.requestAnimationFrame(() => {
-			updateParallax();
-			updatePortfolioParallax();
-		});
+		if (!ticking) {
+			ticking = true;
+			window.requestAnimationFrame(() => {
+				updateParallax();
+				updatePortfolioParallax();
+				ticking = false;
+			});
+		}
 	}
-	window.addEventListener('scroll', onScrollAll);
-	// do not remove this comment - it is needed
+	window.addEventListener('scroll', onScrollAll, { passive: true });
 });
