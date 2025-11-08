@@ -414,7 +414,7 @@ button {
    height: 0;
    opacity: 0;
    width: 100%;
-   padding: 2rem;
+   padding-block: 2rem;
    box-sizing: border-box;
    translate: 0 1em;
    transition: height var(--animation-long) ease var(--animation-long),
@@ -494,8 +494,6 @@ button {
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
 	gap: 2rem;
-	padding-left: 2rem;
-	padding-right: 2rem;
 	margin-top: 2rem;
 }
 
@@ -517,7 +515,7 @@ button {
 	gap: 2rem;
 	margin-top: 2rem;
 	margin-bottom: 4rem;
-	padding: 2rem;
+	padding-block: 2rem;
 }
 
 .booking {
@@ -632,24 +630,16 @@ footer {
 	}
 }
 
-@media screen and (max-width: 1024px) {
-	section {
-		padding-inline: 1rem;
-	}
-
+@media screen and (max-width: 768px) {
 	.additional-details {
 		grid-template-columns: repeat(2, 1fr);
 		gap: 1rem;
-		padding-left: 1rem;
-		padding-right: 1rem;
 		margin-top: 1rem;
 	}
 
 	.main-services {
 		grid-template-columns:  repeat(1, minmax(0, 1fr));
 		gap: 1rem;
-		padding-left: 1rem;
-		padding-right: 1rem;
 		margin-top: 1rem;
 	}
 
@@ -659,7 +649,7 @@ footer {
 	}
 
 	.services-details.animate {
-		height: 120rem;
+		height: 125rem;
 	}
 
 	.booking-details.animate {
@@ -667,11 +657,10 @@ footer {
 	}
 }
 
-@media screen and (max-width: 768px) {
-	.portfolio-details { 
-		padding: 1rem;
+@media screen and (max-width: 425px) {
+	section {
+		padding-inline: 1rem;
 	}
-
 	.consultation-form {
 		padding: 1rem;
 	}
@@ -685,11 +674,11 @@ footer {
 	}
 
 	.card {
-		height: 27rem;
+		height: 25rem;
 	}
 
 	.small-card {
-		height: 12rem;
+		height: 8rem;
 	}
 
 	.portfolio-details.animate {
@@ -697,7 +686,7 @@ footer {
 	}
 
 	.services-details.animate {
-		height: 240rem;
+		height: 210rem;
 	}
 
 	.booking-details.animate {
@@ -707,17 +696,4 @@ footer {
 	.consultation-form {
 		grid-template-columns: 1;
 	}
-}
-
-@supports not (transition-behavior: allow-discrete) {
-  .portfolio-details,
-  .services-details,
-  .booking-details {
-    display: none !important;
-  }
-  .portfolio-details.animate,
-  .services-details.animate,
-  .booking-details.animate {
-    display: block !important;
-  }
 }
