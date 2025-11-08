@@ -6,13 +6,15 @@ document.addEventListener('DOMContentLoaded', function() {
 		var targetParent = target.parentElement;
 		var readLessBtn = document.getElementById(targetId + '-read-less');
 		readMoreBtn.addEventListener('click', function() {
-		targetParent.scrollIntoView({ behavior: 'smooth', block: 'start' });
+			targetParent.scrollIntoView({ behavior: 'smooth', block: 'start' });
 			readMoreBtn.classList.add('animate');
 			readMoreBtn.addEventListener('transitionend', () => {
+				readMoreBtn.style.display = 'none';
+				readLessBtn.style.display = 'inline-block';
 				readLessBtn.classList.add('animate');
 				target.classList.add('animate');
 				updatePortfolioParallax();
-			}, { once: true });
+			}, { once: true, passive: true });
 		}, { passive: true });
 	});
 
@@ -21,10 +23,14 @@ document.addEventListener('DOMContentLoaded', function() {
 		var target = document.getElementById(targetId);
 		var readMoreBtn = document.querySelector('.read-more-btn[data-target="' + targetId + '"]');
 		readLessBtn.addEventListener('click', function() {
-			target.classList.remove('animate');
-			target.parentElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
 			readLessBtn.classList.remove('animate');
-			readMoreBtn.classList.remove('animate');
+			target.classList.remove('animate');
+			readLessBtn.addEventListener('transitionend', () => {
+				readLessBtn.style.display = 'none';
+				readMoreBtn.style.display = 'inline-block';
+				target.parentElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+				readMoreBtn.classList.remove('animate');
+			}, { once: true, passive: true });
 		}, { passive: true });
 	});
 

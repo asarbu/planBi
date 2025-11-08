@@ -367,18 +367,15 @@ button {
 	translate: 0 0;
 	transition:
 		opacity var(--animation-long) ease-in,
-		translate var(--animation-long) ease-in,
-		display var(--animation-long) ease-in allow-discrete;
+		translate var(--animation-long) ease-in;
 }
 
 .read-more-btn.animate {
-	display: none;
 	opacity: 0;
 	translate: 0 1em;
 	transition:
 		opacity var(--animation-long) ease-in,
-		translate var(--animation-long) ease-in,
-		display var(--animation-long) ease-in allow-discrete;
+		translate var(--animation-long) ease-in;
 
 	@starting-style {
 		opacity: 1;
@@ -410,7 +407,7 @@ button {
 }
 
 .portfolio-details { 
-   display: none;
+   display: grid;
    height: 0;
    opacity: 0;
    width: 100%;
@@ -418,23 +415,19 @@ button {
    box-sizing: border-box;
    translate: 0 1em;
    transition: height var(--animation-long) ease var(--animation-long),
-	   opacity var(--animation-long) ease 0s,
-	   translate var(--animation-long) ease 0s,
-	   display var(--animation-long) ease var(--animation-long) allow-discrete;
+	   opacity var(--animation-long) ease,
+	   translate var(--animation-long) ease;
 }
 
 .portfolio-details.animate {
-   display: grid;
    grid-template-columns: repeat(3, 1fr);
    gap: 2rem;
-   min-height: 40rem;
-   height: auto;
+   height: 40rem;
    opacity: 1;
    translate: 0 0;
-   transition: min-height var(--animation-long) ease 0s,
+   transition: height var(--animation-long) ease 0s,
 	   opacity var(--animation-long) ease var(--animation-long),
-	   translate var(--animation-long) ease var(--animation-long),
-	   display var(--animation-long) ease var(--animation-long) allow-discrete;
+	   translate var(--animation-long) ease var(--animation-long);
 
    @starting-style {
 	   min-height: 0;
@@ -475,7 +468,7 @@ button {
 
 .services-details.animate {
 	display: block;
-	height: 82.5em;
+	height: 82rem;
 	opacity: 1;
 	translate: 0 0;
 	transition: height var(--animation-long) ease 0s,
