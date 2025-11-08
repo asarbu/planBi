@@ -708,3 +708,16 @@ footer {
 		grid-template-columns: 1;
 	}
 }
+
+@supports not (transition-behavior: allow-discrete) {
+  .portfolio-details,
+  .services-details,
+  .booking-details {
+    display: none !important;
+  }
+  .portfolio-details.animate,
+  .services-details.animate,
+  .booking-details.animate {
+    display: block !important;
+  }
+}
