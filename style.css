@@ -260,6 +260,10 @@ section > p {
 	transform: translateX(0vh);
 	transition: font-size var(--animation-longer) ease var(--animation-longer),
 		transform var(--animation-longer) ease;
+	user-select: none;
+	 -webkit-user-select: none;
+	 -moz-user-select: none;
+	 -ms-user-select: none;
 }
 
 #main-title.scrolled {
@@ -279,6 +283,10 @@ section > p {
 	font-weight: 400;
 	display: block;
 	margin-inline: 1rem ;
+	user-select: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
 }
 
 #subtitle.scrolled {
