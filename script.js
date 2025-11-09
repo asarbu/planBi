@@ -229,6 +229,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		e.target.classList.toggle('isSticky', e.intersectionRatio < 1)
 		document.getElementById('main-title').classList.toggle('scrolled', e.intersectionRatio < 1)
 		document.getElementById('subtitle').classList.toggle('scrolled', e.intersectionRatio < 1)
+		document.getElementById('navbar-toggle').classList.toggle('scrolled', e.intersectionRatio < 1)
 	},
 	{threshold: [1]}
 	);
@@ -320,4 +321,19 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 	}
 	window.addEventListener('scroll', onScrollAll, { passive: true });
+
+	// Navbar menu toggle logic
+	const toggle = document.getElementById('navbar-toggle');
+	const menu = document.getElementById('navbar-menu');
+	if (toggle && menu) {
+		toggle.addEventListener('click', function () {
+			menu.classList.toggle('active');
+		});
+		// Hide menu when a link is clicked
+		menu.querySelectorAll('a').forEach(link => {
+			link.addEventListener('click', function () {
+				menu.classList.remove('active');
+			});
+		});
+	}
 });
