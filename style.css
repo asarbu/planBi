@@ -301,12 +301,8 @@ section > p {
 }
 
 #subtitle a {
-	padding: 0.75rem 2rem;
-	background-color: var(--primary-dark);
 	color: var(--highlight);
 	font-weight: bold;
-	border-radius: 9999px;
-	box-shadow: var(--shadow-l);
 	position: absolute;
 	bottom: 2rem;
 	transform: translateX(-50%);
