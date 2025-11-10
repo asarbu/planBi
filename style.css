@@ -92,9 +92,83 @@ h3 {
 	height: calc(80svh - 1rem - 1px);
 	width: 100%;
 	z-index: 30;
+
+	.navbar-toggle {
+		opacity: 0;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		background: transparent;
+		border: none;
+		cursor: pointer;
+		z-index: 100;
+		position: absolute;
+		top: 1rem;
+		right: 4vw;
+		height: 0;
+
+		.bar {
+			display: block;
+			width: 2rem;
+			height: 2px;
+			margin: .125rem auto;
+			border-radius: 1px;
+			background-color: var(--highlight);
+		}
+	}
+	.navbar-toggle.scrolled {
+		height: 1.5rem;
+		opacity: 1;
+		transition: opacity var(--animation-longer) ease var(--animation-longer);
+	}
+
 	transition: background-color var(--animation-longer) ease,
 		font-size var(--animation-longer) ease,
 		height var(--animation-longer) ease;
+	
+	.navbar-menu {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100vw;
+			height: 100vh;
+			background: var(--primary-dark);
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			z-index: 99;
+			opacity: 0;
+			pointer-events: none;
+			transform: translateY(-100vh);
+			transition:
+				opacity 0.4s cubic-bezier(0.23, 1, 0.32, 1),
+				transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+	}
+	.navbar-menu.active {
+			opacity: 1;
+			pointer-events: auto;
+			transform: translateY(0);
+	}
+	.navbar-menu ul {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+	.navbar-menu li {
+		margin: 2rem 0;
+	}
+	.navbar-menu a {
+		color: var(--highlight);
+		font-size: 2rem;
+		text-decoration: none;
+		font-weight: bold;
+		transition: color 0.2s;
+	}
+	.navbar-menu a:hover {
+		color: var(--primary-dark);
+	}
 }
 
 .stk.isSticky {
@@ -113,6 +187,63 @@ section {
 	text-align: center;
 	box-sizing: border-box;
 }
+/* About Me Section Styles */
+#about-me {
+	background-color: var(--highlight);
+}
+
+#about-me h3 {
+	color: oklch(27.8% 0.033 256.848);
+}
+
+#about-me h2 {
+	color: oklch(37.3% 0.034 259.733);
+}
+
+.about-me-content {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	gap: 4rem;
+	margin-top: 3rem;
+	margin-bottom: 3rem;
+}
+
+.about-me-image {
+	flex: 0 0 20rem;
+	max-width: 20rem;
+	height: 20rem;
+	border-radius: 1rem;
+	box-shadow: var(--shadow-l);
+	overflow: hidden;
+}
+
+.about-me-image img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	border-radius: 1rem;
+}
+
+.about-me-text {
+	flex: 1;
+	text-align: left;
+	color: var(--highlight);
+	font-size: 1.25rem;
+	line-height: 1.7;
+	background: var(--primary);
+	padding: 2rem;
+	border-radius: 1rem;
+	box-shadow: var(--shadow-l);
+}
+
+@media screen and (max-width: 800px) {
+	.about-me-content {
+		flex-direction: column;
+		gap: 2rem;
+	}
+}
 
 section > p {
 	margin-left: auto;
@@ -129,6 +260,10 @@ section > p {
 	transform: translateX(0vh);
 	transition: font-size var(--animation-longer) ease var(--animation-longer),
 		transform var(--animation-longer) ease;
+	user-select: none;
+	 -webkit-user-select: none;
+	 -moz-user-select: none;
+	 -ms-user-select: none;
 }
 
 #main-title.scrolled {
@@ -148,6 +283,10 @@ section > p {
 	font-weight: 400;
 	display: block;
 	margin-inline: 1rem ;
+	user-select: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
 }
 
 #subtitle.scrolled {
@@ -170,12 +309,8 @@ section > p {
 }
 
 #subtitle a {
-	padding: 0.75rem 2rem;
-	background-color: var(--primary-dark);
 	color: var(--highlight);
 	font-weight: bold;
-	border-radius: 9999px;
-	box-shadow: var(--shadow-l);
 	position: absolute;
 	bottom: 2rem;
 	transform: translateX(-50%);
@@ -350,6 +485,7 @@ button {
 }
 
 .btn {
+	display: block;
 	margin-top: 2rem;
 	padding: 0.75rem 2rem;
 	background-color: var(--primary-dark);
@@ -366,18 +502,15 @@ button {
 	translate: 0 0;
 	transition:
 		opacity var(--animation-long) ease-in,
-		translate var(--animation-long) ease-in,
-		display var(--animation-long) ease-in allow-discrete;
+		translate var(--animation-long) ease-in;
 }
 
 .read-more-btn.animate {
-	display: none;
 	opacity: 0;
 	translate: 0 1em;
 	transition:
 		opacity var(--animation-long) ease-in,
-		translate var(--animation-long) ease-in,
-		display var(--animation-long) ease-in allow-discrete;
+		translate var(--animation-long) ease-in;
 
 	@starting-style {
 		opacity: 1;
@@ -409,31 +542,27 @@ button {
 }
 
 .portfolio-details { 
-   display: none;
+   display: grid;
    height: 0;
    opacity: 0;
    width: 100%;
-   padding: 2rem;
+   padding-block: 2rem;
    box-sizing: border-box;
    translate: 0 1em;
    transition: height var(--animation-long) ease var(--animation-long),
-	   opacity var(--animation-long) ease 0s,
-	   translate var(--animation-long) ease 0s,
-	   display var(--animation-long) ease var(--animation-long) allow-discrete;
+	   opacity var(--animation-long) ease,
+	   translate var(--animation-long) ease;
 }
 
 .portfolio-details.animate {
-   display: grid;
    grid-template-columns: repeat(3, 1fr);
    gap: 2rem;
-   min-height: 40rem;
-   height: auto;
+   height: 40rem;
    opacity: 1;
    translate: 0 0;
-   transition: min-height var(--animation-long) ease 0s,
+   transition: height var(--animation-long) ease 0s,
 	   opacity var(--animation-long) ease var(--animation-long),
-	   translate var(--animation-long) ease var(--animation-long),
-	   display var(--animation-long) ease var(--animation-long) allow-discrete;
+	   translate var(--animation-long) ease var(--animation-long);
 
    @starting-style {
 	   min-height: 0;
@@ -474,7 +603,7 @@ button {
 
 .services-details.animate {
 	display: block;
-	height: 82.5em;
+	height: 82rem;
 	opacity: 1;
 	translate: 0 0;
 	transition: height var(--animation-long) ease 0s,
@@ -493,8 +622,6 @@ button {
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
 	gap: 2rem;
-	padding-left: 2rem;
-	padding-right: 2rem;
 	margin-top: 2rem;
 }
 
@@ -516,7 +643,7 @@ button {
 	gap: 2rem;
 	margin-top: 2rem;
 	margin-bottom: 4rem;
-	padding: 2rem;
+	padding-block: 2rem;
 }
 
 .booking {
@@ -538,7 +665,7 @@ button {
 
 .booking-details.animate {
 	display: block;
-	height: 40em;
+	height: 45em;
 	opacity: 1;
 	translate: 0 0;
 	transition: height var(--animation-long) ease 0s,
@@ -631,24 +758,16 @@ footer {
 	}
 }
 
-@media screen and (max-width: 1024px) {
-	section {
-		padding-inline: 1rem;
-	}
-
+@media screen and (max-width: 800px) {
 	.additional-details {
 		grid-template-columns: repeat(2, 1fr);
 		gap: 1rem;
-		padding-left: 1rem;
-		padding-right: 1rem;
 		margin-top: 1rem;
 	}
 
 	.main-services {
 		grid-template-columns:  repeat(1, minmax(0, 1fr));
 		gap: 1rem;
-		padding-left: 1rem;
-		padding-right: 1rem;
 		margin-top: 1rem;
 	}
 
@@ -658,19 +777,18 @@ footer {
 	}
 
 	.services-details.animate {
-		height: 120rem;
+		height: 125rem;
 	}
 
 	.booking-details.animate {
-		height: 40rem;
+		height: 45rem;
 	}
 }
 
-@media screen and (max-width: 768px) {
-	.portfolio-details { 
-		padding: 1rem;
+@media screen and (max-width: 425px) {
+	section {
+		padding-inline: 1rem;
 	}
-
 	.consultation-form {
 		padding: 1rem;
 	}
@@ -683,16 +801,24 @@ footer {
 		grid-template-columns:  repeat(1, minmax(0, 1fr));
 	}
 
+	.card {
+		height: 25rem;
+	}
+
+	.small-card {
+		height: 8rem;
+	}
+
 	.portfolio-details.animate {
 		height: 115rem;
 	}
 
 	.services-details.animate {
-		height: 170rem;
+		height: 210rem;
 	}
 
 	.booking-details.animate {
-		height: 60rem;
+		height: 70rem;
 	}
 
 	.consultation-form {
