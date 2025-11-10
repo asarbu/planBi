@@ -50,7 +50,7 @@ export async function sendEmail(context, data) {
 	}
 	
 	const result = await response.json().catch((err) => {
-		return { error: 'Failed to parse Resend response', details: err.toString() };
+		return Response.json({ error: 'Failed to parse Resend response', details: err.toString() }, { status: 500 });
 	});
 	
 	return Response.json({ id: result.id });
