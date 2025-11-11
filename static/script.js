@@ -315,7 +315,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			ticking = true;
 			window.requestAnimationFrame(() => {
 				updateParallax();
-				updatePortfolioParallax();
+				// updatePortfolioParallax();
 				ticking = false;
 			});
 		}

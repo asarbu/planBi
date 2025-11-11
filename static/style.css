@@ -374,7 +374,7 @@ section > p {
 	object-fit: cover;
 	margin: 0;
 	z-index: 1;
-	scale: 150%;
+	/* Temporarily disable parallax scale: 150%; */
 	margin-bottom: 1.5rem;
 }
 
