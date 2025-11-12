@@ -541,35 +541,48 @@ button {
 	}
 }
 
-.portfolio-details { 
-   display: grid;
-   height: 0;
-   opacity: 0;
-   width: 100%;
-   padding-block: 2rem;
-   box-sizing: border-box;
-   translate: 0 1em;
-   transition: height var(--animation-long) ease var(--animation-long),
-	   opacity var(--animation-long) ease,
-	   translate var(--animation-long) ease;
+.portfolio-details {
+	width: 100%;
+	padding-block: 2rem;
+	box-sizing: border-box;
+	height: 0;
+	opacity: 0;
+	translate: 0 1em;
+	transition: height var(--animation-long) ease var(--animation-long),
+		opacity var(--animation-long) ease,
+		translate var(--animation-long) ease;
 }
 
 .portfolio-details.animate {
-   grid-template-columns: repeat(3, 1fr);
-   gap: 2rem;
-   height: 40rem;
-   opacity: 1;
-   translate: 0 0;
-   transition: height var(--animation-long) ease 0s,
-	   opacity var(--animation-long) ease var(--animation-long),
-	   translate var(--animation-long) ease var(--animation-long);
-
-   @starting-style {
-	   min-height: 0;
-	   opacity: 0;
-	   translate: 0 1em;
-   }
+	height: auto;
+	opacity: 1;
+	translate: 0 0;
+	transition: height var(--animation-long) ease 0s,
+		opacity var(--animation-long) ease var(--animation-long),
+		translate var(--animation-long) ease var(--animation-long);
+	@starting-style {
+		min-height: 0;
+		opacity: 0;
+		translate: 0 1em;
+	}
 }
+
+.portfolio-details .image-grid {
+	column-count: 3;
+	column-gap: 1rem;
+	width: 100%;
+	margin: 0 auto;
+}
+
+.portfolio-details .image-grid img {
+	width: 100%;
+	display: block;
+	margin-bottom: 1rem;
+	border-radius: 1rem;
+	box-shadow: var(--shadow-m);
+	break-inside: avoid;
+}
+
 #services {
 	background-color: var(--primary-xxlight);
 }
@@ -771,9 +784,12 @@ footer {
 		margin-top: 1rem;
 	}
 
+	.portfolio-details .image-grid {
+		column-count: 2;
+	}
+
 	.portfolio-details.animate {
 		height: 115rem;
-		grid-template-columns: repeat(1, minmax(0, 1fr));
 	}
 
 	.services-details.animate {
@@ -807,6 +823,10 @@ footer {
 
 	.small-card {
 		height: 8rem;
+	}
+
+	.portfolio-details .image-grid {
+		column-count: 1;
 	}
 
 	.portfolio-details.animate {
