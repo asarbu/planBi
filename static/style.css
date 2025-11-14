@@ -788,10 +788,6 @@ footer {
 		column-count: 2;
 	}
 
-	.portfolio-details.animate {
-		height: 115rem;
-	}
-
 	.services-details.animate {
 		height: 125rem;
 	}
@@ -828,11 +824,7 @@ footer {
 	.portfolio-details .image-grid {
 		column-count: 1;
 	}
-
-	.portfolio-details.animate {
-		height: 115rem;
-	}
-
+	
 	.services-details.animate {
 		height: 210rem;
 	}

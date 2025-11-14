@@ -3,49 +3,372 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dynamic Sticky Nav Demo</title>
+    <title>PlanBi Events</title>
     <!-- Load Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <!-- Load Font Awesome for Icons (Reviews, Portfolio) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Luxurious+Script&display=swap" rel="stylesheet">
     <style>
-    body{ height: 200vh; font:20px Arial; }
-
-section{
-  background: lightblue;
-  padding: 2em 1em;
-}
-
-header{
-  position: sticky;
-  top: -1px;                       /* ➜ the trick */
-
-  padding: 1em;
-  padding-top: calc(1em + 1px);    /* ➜ compensate for the trick */
-
-  background: salmon;
-  transition: .1s;
-}
-
-/* styles for when the header is in sticky mode */
-header.isSticky{
-  font-size: .8em;
-  opacity: .5;
-}
+      .portfolio-details .image-grid {
+        column-count: 2 !important; 
+      }
     </style>
-</head>
-<body>
-<section>Space</section>
-<header>Sticky Header</header>
-<script>
-    // get the sticky element
-const stickyElm = document.querySelector('header')
 
-const observer = new IntersectionObserver( 
-  ([e]) => e.target.classList.toggle('isSticky', e.intersectionRatio < 1),
-  {threshold: [1]}
-);
+  </head>
+<body>    
+    <!-- Navigation Bar -->
+    <header>
+        <div id="iridescence-container"></div>
+    </header>
+    <main>
+        <div class="stk">
+            <nav id="navbar" class="navbar">
+                <button id="navbar-toggle" aria-label="Open menu" class="navbar-toggle">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+                <div id="navbar-menu" class="navbar-menu">
+                    <ul>
+                        <li><a href="#about-me">Despre mine</a></li>
+                        <li><a href="#portfolio">Evenimente</a></li>
+                        <li><a href="#services">Servicii</a></li>
+                        <li><a href="#booking">Consultanță</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+            </nav>
+            <div id="main-title">PlanBi</div>
+            <div id="subtitle">
+                <h2>
+                    Because ordinary isn't enough
+                </h2>
+                <p class="text-xl text-highlight mx-auto font-serif mb-8 mt-16">
+                    Organizam celebrări de neuitat, fără stres.
+                </p>
+                <a href="#portfolio">
+                   ↓ Începe acum ↓
+                </a>
+            </div>
+        </div>
+        <section id="about-me">
+            <h3>Despre mine</h3>
+            <h2>Behind every great event, there's a kick-ass mom with a plan — PlanBi 😉</h2>
+            <div class="about-me-content">
+                <div class="about-me-image">
+                    <!-- Poziție pentru imaginea personală -->
+                    <img src="images/Bianca-1024.webp" 
+                        srcset="
+                        images/Bianca-360.webp 360w,
+                        images/Bianca-720.webp 720w,
+                        images/Bianca-1024.webp 1024w,
+                        images/Bianca-1440.webp 1440w,
+                        images/Bianca-1920.webp 1920w" 
+                        sizes="(max-width: 360px) 360px,
+                               (max-width: 720px) 720px,
+                               (max-width: 1024px) 1024px,
+                               (max-width: 1440px) 1440px,
+                               (max-width: 1920px) 1920px"
+                        alt="Despre mine" />
+                </div>
+                <div class="about-me-text">
+                    <p>
+                        I'm a dreamer, planner & kick-ass mom behind PlanBi 🎉
+                    </p>
+                    <p>
+                        PlanBi e copilul meu creativ (celălalt are deja jucării 😅) — un spațiu unde ideile prind viață, iar evenimentele devin povești cu personalitate. Organizez cu suflet, stil și un strop de haos frumos, pentru că știu că magia stă în detalii. Iubesc oamenii, momentele autentice și acel main character energy care face fiecare eveniment truly unforgettable.
+                    </p>
+                </div>
+            </div>
+        </section>
+        <section id="portfolio">
+            <h3>Evenimentele Noastre</h3>
+            <h2>
+                Amintiri Prețioase & Recenzii Strălucitoare
+            </h2>
+            <p>
+                Vedeți magia pe care am creat-o și ascultați ce au de spus clienții noștri fericiți despre experiența lor cu PlanBi.
+            </p>
+            <button class="btn read-more-btn" data-target="portfolio-details">Descoperă</button>
+            
+            <div id="portfolio-details" class="portfolio-details">
+                <div class="image-grid">
+                    <img src="images/Ballroom-1024.webp"
+                    srcset="
+                    images/Ballroom-360.webp 360w,
+                    images/Ballroom-720.webp 720w,
+                    images/Ballroom-1024.webp 1024w,
+                    images/Ballroom-1440.webp 1440w,
+                    images/Ballroom-1920.webp 1920w"
+                    sizes="(max-width: 360px) 360px,
+                           (max-width: 720px) 720px,
+                           (max-width: 1024px) 1024px,
+                           (max-width: 1440px) 1440px,
+                           (max-width: 1920px) 1920px"
+                    alt="Eveniment Ballroom" >
+                    <img src="images/Telephone-1024.webp"
+                    srcset="
+                    images/Telephone-360.webp 360w,
+                    images/Telephone-720.webp 720w,
+                    images/Telephone-1024.webp 1024w,
+                    images/Telephone-1440.webp 1440w,
+                    images/Telephone-1920.webp 1920w"
+                    sizes="(max-width: 360px) 360px,
+                           (max-width: 720px) 720px,
+                           (max-width: 1024px) 1024px,
+                           (max-width: 1440px) 1440px,
+                           (max-width: 1920px) 1920px"
+                    alt="Eveniment Telephone">
+                    <img src="images/Textwall-1024.webp"
+                    srcset="
+                    images/Textwall-360.webp 360w,
+                    images/Textwall-720.webp 720w,
+                    images/Textwall-1024.webp 1024w,
+                    images/Textwall-1440.webp 1440w,
+                    images/Textwall-1920.webp 1920w"
+                    sizes="(max-width: 360px) 360px,
+                           (max-width: 720px) 720px,
+                           (max-width: 1024px) 1024px,
+                           (max-width: 1440px) 1440px,
+                           (max-width: 1920px) 1920px"
+                    alt="Eveniment Textwall">
+                    <img src="images/Cake.jpeg"
+                    srcset="
+                    images/Cake-360.webp 360w,
+                    images/Cake-720.webp 720w,
+                    images/Cake-1024.webp 1024w,
+                    images/Cake-1440.webp 1440w,
+                    images/Cake-1920.webp 1920w"
+                    sizes="(max-width: 360px) 360px,
+                           (max-width: 720px) 720px,
+                           (max-width: 1024px) 1024px,
+                           (max-width: 1440px) 1440px,
+                           (max-width: 1920px) 1920px"
+                    alt="Eveniment Cake">
+                <img src="images/Flowers-1024.webp"
+                    srcset="
+                    images/Flowers-360.webp 360w,
+                    images/Flowers-720.webp 720w,
+                    images/Flowers-1024.webp 1024w,
+                    images/Flowers-1440.webp 1440w,
+                    images/Flowers-1920.webp 1920w"
+                    sizes="(max-width: 360px) 360px,
+                           (max-width: 720px) 720px,
+                           (max-width: 1024px) 1024px,
+                           (max-width: 1440px) 1440px,
+                           (max-width: 1920px) 1920px"
+                    alt="Eveniment Flowers">
+                    <img src="images/BOTEZ1-1024.webp"/>
+                    <img src="images/BOTEZ2-1024.webp"/>
+                    <img src="images/BOTEZ3-1024.webp"/>
+                    <img src="images/BOTEZ4-1024.webp"/>
+                    <img src="images/BOTEZ5-1024.webp"/>
+                    <img src="images/BOTEZ6-1024.webp"/>
+                    <img src="images/BOTEZ7-1024.webp"/>
+                    <img src="images/BOTEZ8-1024.webp"/>
+                    <img src="images/BOTEZ9-1024.webp"/>
+                    <img src="images/BOTEZ10-1024.webp"/>
+                    <img src="images/BOTEZ11-1024.webp"/>
+                    <img src="images/BOTEZ12-1024.webp"/>
+                    <img src="images/BOTEZ13-1024.webp"/>
+                    <img src="images/BOTEZ14-1024.webp"/>
+                    <img src="images/BOTEZ15-1024.webp"/>
+                    <img src="images/BOTEZ16-1024.webp"/>
+                    <img src="images/BOTEZ17-1024.webp"/>
+                    <img src="images/BOTEZ18-1024.webp"/>
+                    <img src="images/BOTEZ19-1024.webp"/>
+                    <img src="images/BOTEZ20-1024.webp"/>
+                </div>
+            </div>
+            <button class="btn read-less-btn" id="portfolio-details-read-less" data-target="portfolio-details">Restrange</button>
+        </section>
 
-observer.observe(stickyElm)
-</script>
+        <!-- Services Section -->
+        <section id="services">
+            <h3>Ofertele Noastre</h3>
+            <h2>
+                Soluții de Planificare pentru Fiecare Eveniment
+            </h2>
+            <p>
+                Vă transformăm viziunea într-un eveniment de neuitat. De la prima discuție la momentul culminant, asigurăm un parcurs plăcut și o zi perfectă.
+            </p>
+            <button class="btn read-more-btn" data-target="services-details" data-collapse="services-details-read-less">Descoperă</button>
+            <div id="services-details" class="services-details">
+                <!-- Service Cards Grid -->
+                <div class="main-services">
+                    <!-- Gold Planning Card -->
+                    <div class="card">
+                        <h4>Servicii Gold</h4>
+                        <p>Pentru persoanele care stiu ce vor, au locatia si o parte din furnizori, dar doresc o experienta completa fara griji.</p>
+                        <ul>
+                            <li><span><i class="fas fa-check-circle"></i></span> Coordonare in ziua evenimentului</li>
+                            <li><span><i class="fas fa-check-circle"></i></span> Doua sedinte de consultanta inaintea evenimentului</li>
+                            <li><span><i class="fas fa-check-circle"></i></span> Crearea unui plan detaliat de eveniment</li>
+                            <li><span><i class="fas fa-check-circle"></i></span> Coordonarea furnizorilor in ziua evenimentului</li>
+                            <li><span><i class="fas fa-check-circle"></i></span> Asistenta pe durata intregului eveniment (max. 12 ore)</li>
+                        </ul>
+                        <div id="gold_price" class="price hover:shadow-2xl transition duration-200 transform hover:-translate-y-1 border border-primary/50">
+                            800 Euro
+                        </div>
+                    </div>
+                    <!-- Platinum Planning -->
+                    <div class="card">
+                        <h4>Servicii Platinum</h4>
+                        <p>Aveti stabilita data si locatia, dar aveti nevoie de ajutor pentru a aduce totul impreuna.</p>
+                        <ul>
+                            <li><span><i class="fas fa-check-circle"></i></span> Tot ce contine pachetul "Gold"</li>
+                            <li><span><i class="fas fa-check-circle"></i></span> Asistenta in selectaerea furnizorilor pentru max. 5 categorii</li>
+                            <li><span><i class="fas fa-check-circle"></i></span> Trei sedinte suplimentare de consultanta</li>
+                        </ul>
+                        <div id="platinum_price" class="price hover:shadow-2xl transition duration-200 transform hover:-translate-y-1 border border-primary/50">
+                            1200 Euro
+                        </div>  
+                    </div>
+                    <!-- Diamond Card -->
+                    <div class="card">
+                        <h4>Servicii Diamond</h4>
+                        <p>Relaxați-vă complet, noi preluăm întreaga organizare. Gestionăm fiecare detaliu, de la A la Z.</p>
+                        <ul>
+                            <li><span><i class="fas fa-check-circle"></i></span> Coordonare integrala a evenimentului</li>
+                            <li><span><i class="fas fa-check-circle"></i></span> Crearea conceptului tematic si designului</li>
+                            <li><span><i class="fas fa-check-circle"></i></span> Selectarea, rezervarea si gestionarea tuturor furnizorilor</li>
+                            <li><span><i class="fas fa-check-circle"></i></span> Plan financiar si monitorizare buget</li>
+                            <li><span><i class="fas fa-check-circle"></i></span> Coordonare in ziua evenimentului, cu asistent</li>
+                        </ul>
+                        <div id="diamond_price" class="price hover:shadow-2xl transition duration-200 transform hover:-translate-y-1 border border-primary/50">2500 Euro</div>
+                    </div>
+                </div>
+                
+                <div id="additional-services">
+                    <h3>Servicii Suplimentare</h3>
+                    <h2>
+                        Opțiuni Extra Pentru Evenimentul Tău
+                    </h2>
+                    <p class="subtitle">
+                        Completează experiența cu servicii personalizate, pentru ca fiecare detaliu să fie perfect adaptat dorințelor tale.
+                    </p>
+                    <div id="additional-details" class="additional-details">
+                        <div class="small-card">
+                            <h4>Consultare inițială</h4>
+                            <p>Încercăm să te cunoastem, să îți înțelegem dorințele și să cădem de comun acord asupra detaliilor.</p>
+                            <div class="price">100 Euro</div>
+                        </div>
+                        <div class="small-card">
+                            <h4>Creare concept și design personalizat</h4>
+                            <p>Transformăm ideile tale în decoruri și tematici unice.</p>
+                            <div class="price">300-500 Euro</div>
+                        </div>
+                        <div class="small-card">
+                            <h4>Planificare cerere în căsătorie</h4>
+                            <p>Te ajutăm să creezi un moment memorabil pentru a spune "DA".</p>
+                            <div class="price">200 Euro</div>
+                        </div>
+                        <div class="small-card">
+                            <h4>Organizare petrecere logodnă</h4>
+                            <p>Petrecere de logodnă organizată cu atenție la detalii.</p>
+                            <div class="price">400 Euro</div>
+                        </div>
+                        <div class="small-card">
+                            <h4>Consiliere vestimentație</h4>
+                            <p>Sfaturi personalizate pentru alegerea ținutelor perfecte.</p>
+                            <div class="price">100 Euro / Persoană</div>
+                        </div>
+                        <div class="small-card">
+                            <h4>Coordonare evenimente conexe</h4>
+                            <p>Gestionăm cu profesionalism evenimentele asociate.</p>
+                            <div class="price">250-400 Euro</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="btn read-less-btn mt-16 px-8 py-3 bg-primary-darker text-highlight font-bold rounded-full shadow-lg" id="services-details-read-less" data-target="services-details">Restrange</button>
+        </section>
+
+        <!-- Consultation Booking Form Section -->
+        <section id="booking" class="booking">
+            <h3>Următorul pas</h3>
+            <h2>
+                Programați o sesiune de consultanță
+            </h2>
+            <p>
+                Spuneți-ne puțin despre viziunea evenimentului și vom programa o discuție rapidă pentru a vedea cum putem să o aducem la viață.
+            </p>
+            <button id="book-read-more" class="btn read-more-btn" data-target="booking-details">Descoperă</button>
+            <div id="booking-details" class="booking-details ">
+                <!-- Booking Form -->
+                <form id="consultationForm" class="consultation-form">
+                    <div class="content">
+                        <div>
+                            <label for="name" class="consultation-label">Nume</label>
+                            <input type="text" id="name" name="name" placeholder="Ion Popescu" required class="consultation-input">
+                        </div>
+                        <div>
+                            <label for="email" class="consultation-label">Adresă de email</label>
+                            <input type="email" id="email" name="email" placeholder="email@exemplu.com" required class="consultation-input">
+                        </div>
+                        <div>
+                            <label for="telephone" class="consultation-label">Număr de telefon</label>
+                            <input type="tel" id="telephone" name="telephone" placeholder="(770) 123-4567" required class="consultation-input">
+                        </div>
+                        <div>
+                            <label for="service_type" class="consultation-label">Ce fel de serviciu vă interesează?</label>
+                            <select id="service_type" name="service_type" required class="consultation-input">
+                                <option value="" disabled selected>Selectați un pachet de servicii</option>
+                                <option value="gold">Gold</option>
+                                <option value="platinum">Platinum</option>
+                                <option value="diamond">Diamond</option>
+                                <option value="nesigur">Nu sunt sigur încă</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="date" class="consultation-label">Data ședintei de consultanță</label>
+                            <input type="date" id="date" name="date" required class="consultation-input">
+                        </div>
+                        <div>
+                            <label for="timeslot" class="consultation-label">Alegeți intervalul orar dorit</label>
+                            <select id="timeslot" name="timeslot" required class="consultation-input">
+                                <option value="" disabled selected>Selectați un interval (ora României)</option>
+                                <option value="09:00-10:00">09:00 - 10:00</option>
+                                <option value="10:00-11:00">10:00 - 11:00</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="location" class="consultation-label">Alegeți locația de întâlnire</label>
+                            <select id="location" name="location" required class="consultation-input">
+                                <option value="" disabled selected>Selectați o locație</option>
+                                <option value="online">Online</option>
+                                <option value="sediu">La sediu (Urseni)</option>
+                                <option value="cafea">La o cafea (Timișoara)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="message" class="consultation-label">Alte notițe...</label>
+                            <textarea id="message" name="message" rows="4" placeholder="Alte notițe..." class="consultation-input"></textarea>
+                        </div>
+                    </div>
+                    <button id="consultation-submit-button" type="submit" class="consultation-submit-button">Trimiteți și solicitați un apel</button>
+                    <p>Nu vom împărtăși niciodată informațiile dvs. Așteptați un răspuns în termen de 24 de ore.</p>
+                </form>
+            </div>
+            <button class="btn read-less-btn" id="booking-details-read-less" data-target="booking-details">Restrange</button>
+        </section>
+    </main>
+    <!-- Contact/Footer Section -->
+    <footer id="contact">
+        <h4>
+            PlanBi Events
+        </h4>
+        <p>
+            Eleganta in Fiecare Detaliu
+        </p>
+        <div>
+            <a href="mailto:hello@planbi.com" class="hover:text-white transition duration-150">hello@planbi.com</a>
+            <span>|</span>
+            <a href="tel:+4077123456" class="hover:text-white transition duration-150">(771) 123-456</a>
+        </div>
+        <p>&copy; 2025 PlanBi Events SRL. | Design by Alexandru-Sebastian SARBU.</p>
+    </footer>
+    <script src="/static/script.js" type="module"></script>
 </body>
 </html>
