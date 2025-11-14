@@ -76,6 +76,12 @@ h3 {
 	margin-bottom: 0.5rem;
 }
 
+img {
+	user-select: none;
+	 -webkit-user-select: none;
+	 -moz-user-select: none;
+	 -ms-user-select: none;
+}
 
 #iridescence-container {
 	width: 100vw;
