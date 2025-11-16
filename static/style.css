@@ -551,6 +551,7 @@ button {
 	width: 100%;
 	padding-block: 2rem;
 	box-sizing: border-box;
+	overflow: hidden;
 	height: 0;
 	opacity: 0;
 	translate: 0 1em;
