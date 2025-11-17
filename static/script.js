@@ -389,7 +389,7 @@ function updateTimeslotForDate() {
 			});
 
 			if (availableSlots.length === 0) {
-				timeslot.innerHTML = `<option value="" disabled selected>Nu sunt intervale disponibile pentru această dată.</option>`;
+				timeslot.innerHTML = `<option value="" disabled selected>Nu sunt intervale disponibile.</option>`;
 			} else {
 				timeslot.innerHTML = `<option value="" disabled selected>Selectați un interval (ora României)</option>`;
 				availableSlots.forEach(slot => {
@@ -401,6 +401,6 @@ function updateTimeslotForDate() {
 			}
 		});
 	} else {
-		timeslot.innerHTML = `<option value="loading" disabled selected>Nu sunt intervale disponibile pentru această dată.</option>`;
+		timeslot.innerHTML = `<option value="loading" disabled selected>Nu sunt intervale disponibile.</option>`;
 	}
 }
