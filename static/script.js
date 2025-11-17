@@ -366,8 +366,8 @@ function updateTimeslotForDate() {
 	if (day >= 1 && day < 5) {
 		timeslot.innerHTML = `<option value="loading" disabled selected>Se încarcă...</option>`;
 		fetch(`/calendar?date=${selectedDate}`).then(res => res.json()).then(data => {
-			const bookedStartTimes = data.items.map(event => {
-				const start = event.start.dateTime || event.start.date;
+			const bookedStartTimes = data.map(event => {
+				const start = event.start.dateTime;
 				return start.split('T')[1]?.substring(0,5);
 			}).filter(Boolean);
 
