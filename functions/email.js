@@ -14,18 +14,7 @@ export async function onRequestPost(context) {
 	}
 }
 
-export async function sendEmail(context, data) {
-	const emailContent = `
-		Nume: ${data.name}
-		Email: ${data.email}
-		Telefon: ${data.telephone}
-		Tip Serviciu: ${data.service_type}
-		Dată: ${data.date}
-		Fereastră: ${data.timeslot}
-		Locație: ${data.location}
-		Notițe: ${data.message || ''}
-		`;
-
+export async function sendEmail(context, data, emailContent = '') {
 	const emailRequest = {
 		from: `PlanBi <${context.env.EMAIL_HELLO}>`,
 		reply_to: 'noreply@planbi.ro',

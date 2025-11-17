@@ -24,7 +24,7 @@ export async function onRequestPost(context) {
 	return createCalendarEvent(context, requestBody);
 }
 
-export async function createCalendarEvent(context, data) {
+export async function createCalendarEvent(context, data, calendarDescription = '') {
 	const now = Math.floor(Date.now() / 1000);
 
 	const header = {
@@ -68,23 +68,12 @@ export async function createCalendarEvent(context, data) {
 	}
 
 	const accessToken = tokenData.access_token;
-	// read event details from request body
-	const description = `
-			Nume: ${data.name}
-			Email: ${data.email}
-			Telefon: ${data.telephone}
-			Tip Serviciu: ${data.service_type}
-			Dată: ${data.date}
-			Fereastră: ${data.timeslot}
-			Locație: ${data.location}
-			Notițe: ${data.message || ''}
-			`;
 	
 	const startDateTime = `${data.date.split('.').reverse().join('-')}T${data.timeslot.split('-')[0]}:00`;
 	const endDateTime = `${data.date.split('.').reverse().join('-')}T${data.timeslot.split('-')[1]}:00`;
 	const event = {
 		summary: "PlanBi - " + data.name,
-		description: description,
+		description: calendarDescription,
 		start: { dateTime: startDateTime, timeZone: "Europe/Bucharest" },
 		end: { dateTime: endDateTime, timeZone: "Europe/Bucharest" },
 	};

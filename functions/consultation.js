@@ -18,54 +18,65 @@ export async function onRequestPost(context) {
 	}
 
 	// Check if date is in the next 60 days
-	const currentDate = new Date();
-	const maxDate = new Date();
-	maxDate.setDate(currentDate.getDate() + 60);
-	if (selectedDate <= currentDate || selectedDate > maxDate) {
+	const currentTime = new Date().getTime();
+	const maxDate = currentTime + 5184000000; // 60 days in milliseconds
+	const selectedTime = selectedDate.getTime();
+	if (selectedTime <= currentTime || selectedTime > maxDate) {
 		return Response.json({ error: 'Selectați o dată în următoarele 60 de zile' }, { status: 400 });
 	}
 
 	//Check if interval is valid
 	const timeslot = requestBody.timeslot;
-	if( timeslot !== "10:00-11:00" 
-		&& timeslot !== "11:00-12:00" 
-		&& timeslot !== "12:00-13:00" 
-		&& timeslot !== "13:00-14:00" 
-		&& timeslot !== "14:00-15:00" 
-		&& timeslot !== "15:00-16:00" 
-		&& timeslot !== "16:00-17:00" 
-		&& timeslot !== "17:00-18:00" 
+	if(timeslot === "10:00-11:00" 
+		|| timeslot === "11:00-12:00" 
+		|| timeslot === "12:00-13:00" 
+		|| timeslot === "13:00-14:00" 
+		|| timeslot === "14:00-15:00" 
+		|| timeslot === "15:00-16:00" 
+		|| timeslot === "16:00-17:00" 
+		|| timeslot === "17:00-18:00" 
 	) {
+		let errors = [];
+		let databaseResponse;
+		try {
+			databaseResponse = await persistToDatabase(context, requestBody);
+		} catch (error) {
+			errors.push(`Database error: ${error.message}`);
+		}
+
+		const description = `
+			Nume: ${requestBody.name}
+			Email: ${requestBody.email}
+			Telefon: ${requestBody.telephone}
+			Tip Serviciu: ${requestBody.service_type}
+			Dată: ${requestBody.date}
+			Fereastră: ${requestBody.timeslot}
+			Locație: ${requestBody.location}
+			Notițe: ${requestBody.message || ''}
+			`;
+
+		let emailResponse;
+		try {
+			emailResponse = await sendEmail(context, requestBody, description);
+		} catch (error) {
+			errors.push(`Email error: ${error.message}`);
+		}
+
+		let calendarResponse;
+		try {
+			calendarResponse = await createCalendarEvent(context, requestBody, description);
+		} catch (error) {
+			errors.push(`Calendar error: ${error.message}`);
+		}
+
+		if (errors.length > 0) {
+			return Response.json({ errors }, { status: 500 });
+		}
+
+		return Response.json({ databaseResponse, emailResponse, calendarResponse });
+	} else {
 		return Response.json({ error: 'Interval orar invalid' }, { status: 400 });
 	}
-
-	let errors = [];
-	let databaseResponse;
-	try {
-		databaseResponse = await persistToDatabase(context, requestBody);
-	} catch (error) {
-		errors.push(`Database error: ${error.message}`);
-	}
-
-	let emailResponse;
-	try {
-		emailResponse = await sendEmail(context, requestBody);
-	} catch (error) {
-		errors.push(`Email error: ${error.message}`);
-	}
-
-	let calendarResponse;
-	try {
-		calendarResponse = await createCalendarEvent(context, requestBody);
-	} catch (error) {
-		errors.push(`Calendar error: ${error.message}`);
-	}
-
-	if (errors.length > 0) {
-		return Response.json({ errors }, { status: 500 });
-	}
-
-	return Response.json({ databaseResponse, emailResponse, calendarResponse });
 };
 
 export async function onRequestGet(context) {
