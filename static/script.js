@@ -254,7 +254,7 @@ document.addEventListener('DOMContentLoaded', function() {
 				message: consultationForm.message.value,
 			};
 			submitConsultation(formData);
-		}, { passive: true });
+		});
 	}
 
 	// Handle consultation form submission
