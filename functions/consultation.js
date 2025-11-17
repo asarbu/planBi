@@ -17,6 +17,14 @@ export async function onRequestPost(context) {
 		return Response.json({ error: 'Selectați o dată lucrătoare (Luni-Joi)' }, { status: 400 });
 	}
 
+	// Check if date is in the next 60 days
+	const currentDate = new Date();
+	const maxDate = new Date();
+	maxDate.setDate(currentDate.getDate() + 60);
+	if (selectedDate <= currentDate || selectedDate > maxDate) {
+		return Response.json({ error: 'Selectați o dată în următoarele 60 de zile' }, { status: 400 });
+	}
+
 	//Check if interval is valid
 	const timeslot = requestBody.timeslot;
 	if( timeslot !== "10:00-11:00" 
