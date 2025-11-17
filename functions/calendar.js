@@ -1,9 +1,14 @@
 export async function onRequestGet(context) {
-	const now = new Date().toISOString();
-	const inTwoMonths = new Date();
-	inTwoMonths.setMonth(inTwoMonths.getMonth() + 2);
-	const timeMax = inTwoMonths.toISOString();
-	const response = await fetch(`https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(context.env.CALENDAR)}/events?key=${encodeURIComponent(context.env.CALENDAR_API_KEY)}&timeMin=${encodeURIComponent(now)}&timeMax=${encodeURIComponent(timeMax)}`)
+	//Fetch only data for the date received in the query parameter
+	const dateParam = context.request.url.split('?date=')[1];
+	if(!dateParam) {
+		return new Response('Date parameter is required', { status: 400 });
+	}
+	const selectedDate = new Date(dateParam).toISOString();
+	const oneDayAfter = new Date(selectedDate);
+	oneDayAfter.setDate(oneDayAfter.getDate() + 1);
+	const timeMax = oneDayAfter.toISOString();
+	const response = await fetch(`https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(context.env.CALENDAR)}/events?key=${encodeURIComponent(context.env.CALENDAR_API_KEY)}&timeMin=${encodeURIComponent(selectedDate)}&timeMax=${encodeURIComponent(timeMax)}`)
 	const calendar = await response.json();
 
 	/** @type {Array} */

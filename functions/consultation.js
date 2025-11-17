@@ -10,6 +10,27 @@ export async function onRequestPost(context) {
 		return Response.json({ error: 'Campuri lipsa', missingFields }, { status: 400 });
 	}
 
+	//Check if date is in the weekend
+	const selectedDate = new Date(requestBody.date);
+	const day = selectedDate.getDay();
+	if (day === 0 || day === 6 || day === 5) {
+		return Response.json({ error: 'Selectați o dată lucrătoare (Luni-Joi)' }, { status: 400 });
+	}
+
+	//Check if interval is valid
+	const timeslot = requestBody.timeslot;
+	if( timeslot !== "10:00-11:00" 
+		&& timeslot !== "11:00-12:00" 
+		&& timeslot !== "12:00-13:00" 
+		&& timeslot !== "13:00-14:00" 
+		&& timeslot !== "14:00-15:00" 
+		&& timeslot !== "15:00-16:00" 
+		&& timeslot !== "16:00-17:00" 
+		&& timeslot !== "17:00-18:00" 
+	) {
+		return Response.json({ error: 'Interval orar invalid' }, { status: 400 });
+	}
+
 	let errors = [];
 	let databaseResponse;
 	try {

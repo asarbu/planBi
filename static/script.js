@@ -336,4 +336,71 @@ document.addEventListener('DOMContentLoaded', function() {
 			});
 		});
 	}
+
+	// Date input constraints
+	const dateInput = document.getElementById('date');
+	if (!dateInput) return;
+	const min = new Date();
+	min.setDate(min.getDate() + 1); // tomorrow
+	const minDate = min.toISOString().split('T')[0];
+	const max = new Date();
+	max.setDate(max.getDate() + 60);
+	const maxDate = max.toISOString().split('T')[0];
+	dateInput.setAttribute('min', minDate);
+	dateInput.setAttribute('max', maxDate);
+
+	// Add event listener for timeslot update
+	dateInput.addEventListener('change', updateTimeslotForDate);
 });
+
+function updateTimeslotForDate() {
+	const dateInput = document.getElementById('date');
+	const timeslot = document.getElementById('timeslot');
+	if (!dateInput || !timeslot) return;
+
+	const selectedDate = dateInput.value;
+	if (!selectedDate) return;
+	const d = new Date(selectedDate);
+	const day = d.getDay(); // 0=Sunday, 6=Saturday
+
+	if (day >= 1 && day < 5) {
+		timeslot.innerHTML = `<option value="loading" disabled selected>Se încarcă...</option>`;
+		fetch(`/calendar?date=${selectedDate}`).then(res => res.json()).then(data => {
+			const bookedStartTimes = data.items.map(event => {
+				const start = event.start.dateTime || event.start.date;
+				return start.split('T')[1]?.substring(0,5);
+			}).filter(Boolean);
+
+			const allSlots = [
+				"10:00-11:00",
+				"11:00-12:00",
+				"12:00-13:00",
+				"13:00-14:00",
+				"14:00-15:00",
+				"15:00-16:00",
+				"16:00-17:00",
+				"17:00-18:00"
+			];
+
+			// Only show slots whose start time is not booked
+			const availableSlots = allSlots.filter(slot => {
+				const slotStart = slot.split('-')[0];
+				return !bookedStartTimes.includes(slotStart);
+			});
+
+			if (availableSlots.length === 0) {
+				timeslot.innerHTML = `<option value="" disabled selected>Nu sunt intervale disponibile pentru această dată.</option>`;
+			} else {
+				timeslot.innerHTML = `<option value="" disabled selected>Selectați un interval (ora României)</option>`;
+				availableSlots.forEach(slot => {
+					const option = document.createElement('option');
+					option.value = slot;
+					option.textContent = slot.replace('-', ' - ');
+					timeslot.appendChild(option);
+				});
+			}
+		});
+	} else {
+		timeslot.innerHTML = `<option value="loading" disabled selected>Se încarcă...</option>`;
+	}
+}
