@@ -110,17 +110,14 @@ function base64urlEncode(input) {
 }
 
 async function importPrivateKey(pem) {
-	// Convert multiline PEM to ArrayBuffer
-	const b64 = pem
-		.replace(/-----BEGIN PRIVATE KEY-----/, "")
-		.replace(/-----END PRIVATE KEY-----/, "")
-		.replace(/(\r\n|\n|\\n)/g, "");
-	const binary = Uint8Array.from(atob(b64), (c) => c.charCodeAt(0));
-	return crypto.subtle.importKey(
-		"pkcs8",
-		binary.buffer,
-		{ name: "RSASSA-PKCS1-v1_5", hash: "SHA-256" },
-		false,
-		["sign"]
-	);
+    // Convert multiline PEM to ArrayBuffer (single regex for all markers and whitespace)
+    const b64 = pem.replace(/-----BEGIN PRIVATE KEY-----|-----END PRIVATE KEY-----|\r?\n|\\n/g, "");
+    const binary = Uint8Array.from(atob(b64), (c) => c.charCodeAt(0));
+    return crypto.subtle.importKey(
+        "pkcs8",
+        binary.buffer,
+        { name: "RSASSA-PKCS1-v1_5", hash: "SHA-256" },
+        false,
+        ["sign"]
+    );
 }
