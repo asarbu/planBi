@@ -401,6 +401,6 @@ function updateTimeslotForDate() {
 			}
 		});
 	} else {
-		timeslot.innerHTML = `<option value="loading" disabled selected>Se încarcă...</option>`;
+		timeslot.innerHTML = `<option value="loading" disabled selected>Nu sunt intervale disponibile pentru această dată.</option>`;
 	}
 }
