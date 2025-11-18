@@ -40,10 +40,13 @@ export async function createCalendarEvent(context, data, calendarDescription = '
 		iat: now,
 	};
 
+	// const encodedHeader = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9";
+
 	// Encode and sign JWT manually
 	const jwtUnsigned = `${base64urlEncode(JSON.stringify(header))}.${base64urlEncode(JSON.stringify(claims))}`;
 
-	const privateKey = await importPrivateKey(context.env.GOOGLE_PRIVATE_KEY);
+	// SHORT KEY is the private key without line breaks and markers
+	const privateKey = await importPrivateKey(context.env.GOOGLE_SHORT_PRIVATE_KEY);
 	const signature = await crypto.subtle.sign(
 		{ name: "RSASSA-PKCS1-v1_5" },
 		privateKey,
@@ -111,8 +114,7 @@ function base64urlEncode(input) {
 
 async function importPrivateKey(pem) {
     // Convert multiline PEM to ArrayBuffer (single regex for all markers and whitespace)
-    const b64 = pem.replace(/-----BEGIN PRIVATE KEY-----|-----END PRIVATE KEY-----|\r?\n|\\n/g, "");
-    const binary = Uint8Array.from(atob(b64), (c) => c.charCodeAt(0));
+    const binary = Uint8Array.from(atob(pem), (c) => c.charCodeAt(0));
     return crypto.subtle.importKey(
         "pkcs8",
         binary.buffer,
