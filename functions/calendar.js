@@ -44,17 +44,13 @@ export async function createCalendarEvent(context, data, calendarDescription = '
 
 	// Encode and sign JWT manually
 	const jwtUnsigned = `${base64urlEncode(JSON.stringify(header))}.${base64urlEncode(JSON.stringify(claims))}`;
-	console.log('JWT Unsigned:', jwtUnsigned);
 	// SHORT KEY is the private key without line breaks and markers
-	console.log('Using GOOGLE_SHORT_PRIVATE_KEY for signing', context.env.GOOGLE_SHORT_PRIVATE_KEY);
 	const privateKey = await importPrivateKey(context.env.GOOGLE_SHORT_PRIVATE_KEY);
-	console.log('Private Key imported successfully', privateKey);
 	const signature = await crypto.subtle.sign(
 		{ name: "RSASSA-PKCS1-v1_5" },
 		privateKey,
 		new TextEncoder().encode(jwtUnsigned)
 	);
-	console.log('Signature created successfully', signature);
 	const jwt = `${jwtUnsigned}.${base64urlEncode(signature)}`;
 
 	// Exchange JWT for Access Token
