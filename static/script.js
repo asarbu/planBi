@@ -248,7 +248,7 @@ document.addEventListener('DOMContentLoaded', function() {
 				email: consultationForm.email.value,
 				telephone: consultationForm.telephone.value,
 				service_type: consultationForm.service_type.value,
-				date: consultationForm.date.valueAsDate.toLocaleDateString("ro-RO"),
+				date: consultationForm.date.valueAsDate.toISOString().split('T')[0],
 				timeslot: consultationForm.timeslot.value,
 				location: consultationForm.location.value,
 				message: consultationForm.message.value,

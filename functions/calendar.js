@@ -70,8 +70,8 @@ export async function createCalendarEvent(context, data, calendarDescription = '
 
 	const accessToken = tokenData.access_token;
 	
-	const startDateTime = `${data.date.split('.').reverse().join('-')}T${data.timeslot.split('-')[0]}:00`;
-	const endDateTime = `${data.date.split('.').reverse().join('-')}T${data.timeslot.split('-')[1]}:00`;
+	const startDateTime = `${data.date}T${data.timeslot.split('-')[0]}:00`;
+	const endDateTime = `${data.date}T${data.timeslot.split('-')[1]}:00`;
 	const event = {
 		summary: "PlanBi - " + data.name,
 		description: calendarDescription,
