@@ -12,7 +12,7 @@ const VALID_TIMESLOTS = new Set([
   "16:00-17:00",
   "17:00-18:00"
 ]);
-const SERVICES = new Set(['consultation', 'installation', 'maintenance', 'other']);
+const SERVICES = new Set(['gold', 'platinum', 'diamond', 'nesigur']);
 const LOCATIONS = new Set(['online', 'sediu', 'cafea']);
 const REQUIRED_FIELDS = ['name', 'email', 'telephone', 'service_type', 'date', 'timeslot', 'location'];
 
