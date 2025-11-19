@@ -264,9 +264,10 @@ document.addEventListener('DOMContentLoaded', function() {
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify(formData)
 		})
-		.then(response => {
+		.then(async response => {
 			if(!response.ok) {
-				throw new Error(`Server error: ${response.statusText}`);
+				const responseText = await response.text();
+				throw new Error(`Server error: ${response.statusText} ${responseText}`);
 			}
 			return response.json();
 		})
