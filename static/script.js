@@ -267,7 +267,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		.then(async response => {
 			if(!response.ok) {
 				const responseText = await response.text();
-				throw new Error(`Server error: ${response.statusText} ${responseText}`);
+				throw new Error(`${responseText}`);
 			}
 			return response.json();
 		})
@@ -275,7 +275,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			document.getElementById('consultation-submit-button').textContent = `Succes. Te vom contacta în curând!`;
 		})
 		.catch((err) => {
-			document.getElementById('consultation-submit-button').textContent = 'Error.' + err.message;
+			document.getElementById('consultation-submit-button').textContent = 'Error:' + err.message;
 		});
 	}
 
