@@ -269,6 +269,9 @@ document.addEventListener('DOMContentLoaded', function() {
 				const responseText = await response.text();
 				throw new Error(`${responseText}`);
 			}
+			if (response.redirected) {
+				window.location.href = response.url;
+			} 
 			return response.json();
 		})
 		.then(data => {
