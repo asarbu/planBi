@@ -111,7 +111,9 @@ export async function onRequestPost(context) {
 		return Response.json({ errors }, { status: 500 });
 	}
 
-	return Response.json({ databaseResponse, emailResponse, calendarResponse });
+	// Generate a random number and redirect to thankyou.html
+	const randomNumber = Math.floor(Math.random() * 1000000);
+	return Response.redirect(`/thankyou.html?number=${randomNumber}`, 302);
 };
 
 export async function onRequestGet(context) {
