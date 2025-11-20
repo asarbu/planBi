@@ -264,9 +264,10 @@ document.addEventListener('DOMContentLoaded', function() {
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify(formData)
 		})
-		.then(response => {
+		.then(async response => {
 			if(!response.ok) {
-				throw new Error(`Server error: ${response.statusText}`);
+				const responseText = await response.text();
+				throw new Error(`${responseText}`);
 			}
 			return response.json();
 		})
@@ -274,7 +275,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			document.getElementById('consultation-submit-button').textContent = `Succes. Te vom contacta în curând!`;
 		})
 		.catch((err) => {
-			document.getElementById('consultation-submit-button').textContent = 'Error.' + err.message;
+			document.getElementById('consultation-submit-button').textContent = 'Error:' + err.message;
 		});
 	}
 
