@@ -74,13 +74,6 @@ export async function onRequestPost(context) {
 	}
 
 	let errors = [];
-	let databaseResponse;
-	try {
-		databaseResponse = await persistToDatabase(context, requestBody);
-	} catch (error) {
-		errors.push(`Database error: ${error.message}`);
-	}
-
 	const description =
 		`Nume: ${requestBody.name}\n` +
 		`Email: ${requestBody.email}\n` +
@@ -91,18 +84,27 @@ export async function onRequestPost(context) {
 		`Locație: ${requestBody.location}\n` +
 		`Notițe: ${requestBody.message || ''}`;
 
-	let emailResponse;
-	try {
-		emailResponse = await sendEmail(context, requestBody, description);
-	} catch (error) {
-		errors.push(`Email error: ${error.message}`);
-	}
+	const [databaseResult, emailResult, calendarResult] = await Promise.allSettled([
+		persistToDatabase(context, requestBody),
+		sendEmail(context, requestBody, description),
+		createCalendarEvent(context, requestBody, description)
+	]);
 
-	let calendarResponse;
-	try {
-		calendarResponse = await createCalendarEvent(context, requestBody, description);
-	} catch (error) {
-		errors.push(`Calendar error: ${error.message}`);
+	let databaseResponse, emailResponse, calendarResponse;
+	if (databaseResult.status === 'fulfilled') {
+		databaseResponse = databaseResult.value;
+	} else {
+		errors.push(`Database error: ${databaseResult.reason?.message || databaseResult.reason}`);
+	}
+	if (emailResult.status === 'fulfilled') {
+		emailResponse = emailResult.value;
+	} else {
+		errors.push(`Email error: ${emailResult.reason?.message || emailResult.reason}`);
+	}
+	if (calendarResult.status === 'fulfilled') {
+		calendarResponse = calendarResult.value;
+	} else {
+		errors.push(`Calendar error: ${calendarResult.reason?.message || calendarResult.reason}`);
 	}
 
 	if (errors.length > 0) {
