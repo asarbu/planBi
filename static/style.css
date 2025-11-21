@@ -1,3 +1,11 @@
+#gdpr-policy-link {
+	color: var(--primary);
+	font-weight: bold;
+}
+#gdpr-policy-link:visited,
+#gdpr-policy-link:active {
+	color: var(--primary-dark);
+}
 /* Custom styles for elegance and mobile usability */
 :root {
 	--shadow-s: 
