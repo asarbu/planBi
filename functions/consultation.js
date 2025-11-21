@@ -22,6 +22,26 @@ export async function onRequestPost(context) {
 	if (missingFields.length) {
 		return Response.json({ error: 'Campuri lipsa', missingFields }, { status: 400 });
 	}
+
+	// GDPR consent timestamp check
+	if (!requestBody.gdprTimestamp) {
+		return Response.json({ error: 'Lipseste consimtamantul GDPR' }, { status: 400 });
+	}
+	try {
+		const gdprDate = new Date(requestBody.gdprTimestamp);
+		if (isNaN(gdprDate.valueOf())) {
+			return Response.json({ error: 'Timestamp GDPR invalid' }, { status: 400 });
+		}
+		const now = new Date();
+		// same day check (UTC)
+		if (!(gdprDate.getUTCFullYear() === now.getUTCFullYear() &&
+			  gdprDate.getUTCMonth() === now.getUTCMonth() &&
+			  gdprDate.getUTCDate() === now.getUTCDate())) {
+			return Response.json({ error: 'Consimtamantul GDPR nu a fost dat azi' }, { status: 400 });
+		}
+	} catch (e) {
+		return Response.json({ error: 'Eroare la verificarea consimtamantului GDPR' }, { status: 400 });
+	}
 	
 
 	//Check if name is valid

@@ -691,6 +691,7 @@ button {
 		grid-template-columns: repeat(2, minmax(0, 1fr));
 		gap: 2rem;
 		padding-bottom: 2rem;
+		color: var(--text);
 	}
 
 	> p {

@@ -249,6 +249,14 @@
                 <!-- Booking Form -->
                 <form id="consultationForm" class="consultation-form">
                     <div class="content">
+                        <style>
+                            .consultation-form .gdpr-checkbox {
+                                grid-column: 1 / -1;
+                            }
+                            .consultation-form textarea.consultation-input {
+                                grid-column: 1 / -1;
+                            }
+                        </style>
                         <div>
                             <label for="name" class="consultation-label">Nume</label>
                             <input type="text" id="name" name="name" placeholder="Ion Popescu" required class="consultation-input">
@@ -294,9 +302,32 @@
                             <label for="message" class="consultation-label">Alte notițe...</label>
                             <textarea id="message" name="message" rows="4" placeholder="Alte notițe..." class="consultation-input"></textarea>
                         </div>
+                        <div class="gdpr-checkbox" style="margin: 1.5em 0; column-span: 2;">
+                            <input type="checkbox" id="consentCheckbox" required>
+                            <label for="consentCheckbox" style="display:inline">
+                                Am citit și sunt de acord cu <a href="gdpr.html" target="_blank">politica de confidențialitate (GDPR)</a>.
+                            </label>
+                        </div>
+                        <input type="hidden" id="gdprTimestamp" name="gdprTimestamp" value="">
                     </div>
                     <button id="consultation-submit-button" type="submit" class="consultation-submit-button">Trimiteți și solicitați un apel</button>
                     <p>Nu vom împărtăși niciodată informațiile dvs. Așteptați un răspuns în termen de 24 de ore.</p>
+                    <script>
+                        const consentCheckbox = document.getElementById('consentCheckbox');
+                        const submitBtn = document.getElementById('consultation-submit-button');
+                        const gdprTimestamp = document.getElementById('gdprTimestamp');
+                        if (consentCheckbox && submitBtn) {
+                            submitBtn.disabled = !consentCheckbox.checked;
+                            consentCheckbox.addEventListener('change', function() {
+                                submitBtn.disabled = !this.checked;
+                                if (this.checked && gdprTimestamp) {
+                                    gdprTimestamp.value = new Date().toISOString();
+                                } else if (gdprTimestamp) {
+                                    gdprTimestamp.value = '';
+                                }
+                            });
+                        }
+                    </script>
                 </form>
             </div>
             <button class="btn read-less-btn" id="booking-details-read-less" data-target="booking-details">Restrange</button>
