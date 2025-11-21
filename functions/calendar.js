@@ -1,5 +1,4 @@
 export async function onRequestGet(context) {
-	//Fetch only data for the date received in the query parameter
 	const dateParam = context.request.url.split('?date=')[1];
 	if(!dateParam) {
 		return new Response('Date parameter is required', { status: 400 });
@@ -17,11 +16,6 @@ export async function onRequestGet(context) {
 		.filter((event) => event.status === 'confirmed' && event.start && event.end)
 		.map(event => ({ start: event.start, end: event.end }));
 	return new Response(JSON.stringify(events));
-}
-
-export async function onRequestPost(context) {
-	const requestBody = await context.request.json();
-	return createCalendarEvent(context, requestBody);
 }
 
 export async function createCalendarEvent(context, data, calendarDescription = '') {

@@ -1,19 +1,3 @@
-export async function onRequestPost(context) {
-	try {
-		const requestBody = await context.request.json();
-		const requiredFields = ['name', 'email', 'telephone', 'service_type', 'date', 'timeslot', 'location'];
-		const missingFields = requiredFields.filter(f => !requestBody[f]);
-		if (missingFields.length) {
-			return Response.json({ error: 'Campuri lipsa', missingFields }, { status: 400 });
-		}
-
-		return sendEmail(context, requestBody);
-	} catch (err) {
-		// TODO Throw error and log in middleware
-		return Response.json({ error: err.message });
-	}
-}
-
 export async function sendEmail(context, data, emailContent = '') {
 	const emailRequest = {
 		from: `PlanBi <${context.env.EMAIL_HELLO}>`,
