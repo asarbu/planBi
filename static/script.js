@@ -252,6 +252,7 @@ document.addEventListener('DOMContentLoaded', function() {
 				timeslot: consultationForm.timeslot.value,
 				location: consultationForm.location.value,
 				message: consultationForm.message.value,
+				gdprTimestamp: consultationForm.gdprTimestamp.value,
 			};
 			submitConsultation(formData);
 		});
