@@ -173,7 +173,7 @@ img {
 		transition: color 0.2s;
 	}
 	.navbar-menu a:hover {
-		color: var(--primary-dark);
+		color: var(--primary-xxdark);
 	}
 }
 
