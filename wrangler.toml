@@ -13,3 +13,7 @@ placement = { mode = "off" }
 database_id = "22dd41ec-8c35-4b4b-8031-1a9bfde14087"
 binding = "plan_bi"
 database_name = "plan_bi"
+
+[[kv_namespaces]]
+binding = "logs"
+id = "logs"
