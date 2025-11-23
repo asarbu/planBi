@@ -8,12 +8,9 @@ mode = "off"
 
 [env.production]
 placement = { mode = "off" }
+kv_namespaces = {binding = "logs", id = "3cb9d1003aff48288406aee30662b041"}
 
 [[env.production.d1_databases]]
 database_id = "22dd41ec-8c35-4b4b-8031-1a9bfde14087"
 binding = "plan_bi"
 database_name = "plan_bi"
-
-[[kv_namespaces]]
-binding = "logs"
-id = "logs"
