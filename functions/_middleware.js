@@ -1,7 +1,49 @@
 export async function onRequest(context) {
+	const { request, env, next, waitUntil } = context;
+
+	// We must clone because 'request' can only be consumed once.
+	const requestClone = request.clone();
+	let requestBody = "";
+
 	try {
-		return await context.next();
-	} catch (err) {
-		return new Response(`${err.message}\n${err.stack}`, { status: 500 });
+		requestBody = await requestClone.text();
+	} catch (e) {
+		requestBody = "[Error: Request data is unreadable]";
 	}
+
+	try {
+		const response = await next();
+
+		// We must clone because 'response' needs to be sent back to the user.
+		const responseClone = response.clone();
+		let responseBody = "";
+		responseBody = await responseClone.text();
+	} catch (e) {
+		responseBody = "[Error: Response data is unreadable]";
+	}
+
+	const ip = request.headers.get("cf-connecting-ip") || "unknown";
+	const logEntry = {
+		timestamp: new Date().toISOString(),
+		ip: ip,
+		request: {
+			url: request.url,
+			headers: Object.fromEntries(request.headers),
+			body: requestBody,
+		},
+		response: {
+			status: response.status,
+			headers: Object.fromEntries(response.headers),
+			body: responseBody,
+		}
+	};
+
+	const logKey = `log:${Date.now()}:${crypto.randomUUID()}`;
+	waitUntil(
+		env.logs.put(logKey, JSON.stringify(logEntry), {
+			expirationTtl: 63072000 // Auto-delete after 2 years
+		})
+	);
+
+	return response;
 }
