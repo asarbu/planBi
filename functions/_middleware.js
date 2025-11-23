@@ -3,7 +3,7 @@ export async function onRequest(context) {
 	if (request.method !== "POST") {
 		return next();
 	}
-	
+
 	// We must clone because 'request' can only be consumed once.
 	const requestClone = request.clone();
 	let requestBody = "";
@@ -25,10 +25,9 @@ export async function onRequest(context) {
 		responseBody = "[Error: Response data is unreadable]";
 	}
 
-	const ip = request.headers.get("cf-connecting-ip") || "unknown";
 	const logEntry = {
+		//TODO : Remove this and replace with object instance
 		timestamp: new Date().toISOString(),
-		ip: ip,
 		request: {
 			url: request.url,
 			headers: Object.fromEntries(request.headers),
@@ -41,6 +40,7 @@ export async function onRequest(context) {
 		}
 	};
 
+	//TODO remove date object
 	const logKey = `log:${Date.now()}:${crypto.randomUUID()}`;
 	waitUntil(
 		env.logs.put(logKey, JSON.stringify(logEntry), {
