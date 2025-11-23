@@ -10,13 +10,13 @@ export async function onRequest(context) {
 	} catch (e) {
 		requestBody = "[Error: Request data is unreadable]";
 	}
-
+	let response;
+	let responseBody = "";
 	try {
-		const response = await next();
+		response = await next();
 
 		// We must clone because 'response' needs to be sent back to the user.
 		const responseClone = response.clone();
-		let responseBody = "";
 		responseBody = await responseClone.text();
 	} catch (e) {
 		responseBody = "[Error: Response data is unreadable]";
