@@ -1,6 +1,9 @@
 export async function onRequest(context) {
 	const { request, env, next, waitUntil } = context;
-
+	if (request.method !== "POST") {
+		return next();
+	}
+	
 	// We must clone because 'request' can only be consumed once.
 	const requestClone = request.clone();
 	let requestBody = "";
