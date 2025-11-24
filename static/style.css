@@ -107,7 +107,11 @@ img {
 	width: 100%;
 	z-index: 30;
 
-	.navbar-toggle {
+	transition: background-color var(--animation-longer) ease,
+		font-size var(--animation-longer) ease,
+		height var(--animation-longer) ease;
+}
+.stk .navbar-toggle {
 		opacity: 0;
 		display: flex;
 		flex-direction: column;
@@ -121,8 +125,8 @@ img {
 		top: 1rem;
 		right: 4vw;
 		height: 0;
-
-		.bar {
+}
+.stk .bar {
 			display: block;
 			width: 2rem;
 			height: 2px;
@@ -130,18 +134,13 @@ img {
 			border-radius: 1px;
 			background-color: var(--highlight);
 		}
-	}
-	.navbar-toggle.scrolled {
+	.stk .navbar-toggle.scrolled {
 		height: 1.5rem;
 		opacity: 1;
 		transition: opacity var(--animation-longer) ease var(--animation-longer);
 	}
-
-	transition: background-color var(--animation-longer) ease,
-		font-size var(--animation-longer) ease,
-		height var(--animation-longer) ease;
 	
-	.navbar-menu {
+	.stk .navbar-menu {
 			position: fixed;
 			top: 0;
 			left: 0;
@@ -160,30 +159,29 @@ img {
 				opacity 0.4s cubic-bezier(0.23, 1, 0.32, 1),
 				transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
 	}
-	.navbar-menu.active {
+	.stk .navbar-menu.active {
 			opacity: 1;
 			pointer-events: auto;
 			transform: translateY(0);
 	}
-	.navbar-menu ul {
+	.stk .navbar-menu ul {
 		list-style: none;
 		padding: 0;
 		margin: 0;
 	}
-	.navbar-menu li {
+	.stk .navbar-menu li {
 		margin: 2rem 0;
 	}
-	.navbar-menu a {
+	.stk .navbar-menu a {
 		color: var(--highlight);
 		font-size: 2rem;
 		text-decoration: none;
 		font-weight: bold;
 		transition: color 0.2s;
 	}
-	.navbar-menu a:hover {
+	.stk .navbar-menu a:hover {
 		color: var(--primary-xxdark);
 	}
-}
 
 .stk.isSticky {
 	background-color: var(--primary-dark);
@@ -409,8 +407,8 @@ button {
 	border-top: 4px solid var(--primary);
 	border-radius: 1rem;
 	position: relative;
-	
-	h4 {
+}
+.card h4 {
 		color: var(--text);
 		font-family: 'Times New Roman', serif;
 		font-size: 1.5rem;
@@ -419,24 +417,21 @@ button {
 		margin-bottom: 1rem;
 	}
 
-	ul {
+.card ul {
 		margin-top: 1rem;
 		margin-bottom: 3rem;
 		text-align: left;
 		color: var(--gray-500);
 		font-size: 0.875rem;
 		padding: 0;
-
-		li {
-			display: flex;
-			align-items: left;
-
-			span {
-				color: var(--primary-light);
-				margin-right: 0.5rem;
-			}
-		}
-	}
+}
+.card ul li {
+		display: flex;
+		align-items: left;
+}
+.card ul li span {
+	color: var(--primary-light);
+	margin-right: 0.5rem;
 }
 
 .small-card{
@@ -447,8 +442,8 @@ button {
     border-top: 4px solid var(--primary); /* Only top border */
     border-radius: 1rem;
 	position: relative;
-
-	h4 {
+}
+.small-card h4 {
 		margin: 0;
 		color: var(--text);
 		font-family: 'Times New Roman', serif;
@@ -458,11 +453,10 @@ button {
 		margin-bottom: 1rem;
 	}
 
-	p {
+	.small-card p {
 		color: var(--gray-500);
 		font-size: 1rem;
 	}
-}
 
 .price {
 	position: absolute;
@@ -709,6 +703,15 @@ button {
 		padding-top: 1rem;
 		color: var(--gray-600);
 	}
+}
+
+.consultation-form .gdpr-checkbox {
+	grid-column: 1 / -1;
+	margin: 1.5em 0;
+	column-span: 2;
+}
+.consultation-form textarea.consultation-input {
+	grid-column: 1 / -1;
 }
 
 .consultation-label {

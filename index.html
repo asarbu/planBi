@@ -5,11 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PlanBi Events</title>
     <!-- Load Tailwind CSS -->
-    <!-- Load Font Awesome for Icons (Reviews, Portfolio) -->
+    <!-- Load Font Awesome for Icons (Checkmarks in cards) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="/static/style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Luxurious+Script&display=swap" rel="stylesheet">
 </head>
 <body>    
     <!-- Navigation Bar -->
@@ -103,32 +101,7 @@
                     <img src="images/BOTEZ17-1024.webp"/>
                     <img src="images/BOTEZ18-1024.webp"/>
                     <img src="images/BOTEZ20-1024.webp"/>
-                    <img src="images/Textwall-1024.webp"
-                    srcset="
-                    images/Textwall-360.webp 360w,
-                    images/Textwall-720.webp 720w,
-                    images/Textwall-1024.webp 1024w,
-                    images/Textwall-1440.webp 1440w,
-                    images/Textwall-1920.webp 1920w"
-                    sizes="(max-width: 360px) 360px,
-                           (max-width: 720px) 720px,
-                           (max-width: 1024px) 1024px,
-                           (max-width: 1440px) 1440px,
-                           (max-width: 1920px) 1920px"
-                    alt="Eveniment Textwall">
-                    <img src="images/Telephone-1024.webp"
-                    srcset="
-                    images/Telephone-360.webp 360w,
-                    images/Telephone-720.webp 720w,
-                    images/Telephone-1024.webp 1024w,
-                    images/Telephone-1440.webp 1440w,
-                    images/Telephone-1920.webp 1920w"
-                    sizes="(max-width: 360px) 360px,
-                           (max-width: 720px) 720px,
-                           (max-width: 1024px) 1024px,
-                           (max-width: 1440px) 1440px,
-                           (max-width: 1920px) 1920px"
-                    alt="Eveniment Telephone">
+                    
                 </div>
             </div>
             <button class="btn read-less-btn" id="portfolio-details-read-less" data-target="portfolio-details">Restrange</button>
@@ -249,14 +222,6 @@
                 <!-- Booking Form -->
                 <form id="consultationForm" class="consultation-form">
                     <div class="content">
-                        <style>
-                            .consultation-form .gdpr-checkbox {
-                                grid-column: 1 / -1;
-                            }
-                            .consultation-form textarea.consultation-input {
-                                grid-column: 1 / -1;
-                            }
-                        </style>
                         <div>
                             <label for="name" class="consultation-label">Nume</label>
                             <input type="text" id="name" name="name" placeholder="Ion Popescu" required class="consultation-input">
@@ -302,10 +267,10 @@
                             <label for="message" class="consultation-label">Alte notițe...</label>
                             <textarea id="message" name="message" rows="4" placeholder="Alte notițe..." class="consultation-input"></textarea>
                         </div>
-                        <div class="gdpr-checkbox" style="margin: 1.5em 0; column-span: 2;">
+                        <div class="gdpr-checkbox">
                             <input type="checkbox" id="consentCheckbox" required>
                             <input type="hidden" id="gdprTimestamp" name="gdprTimestamp" value="">
-                            <label for="consentCheckbox" style="display:inline">
+                            <label for="consentCheckbox">
                                 Am citit și sunt de acord cu <a href="gdpr.html" target="_blank" id="gdpr-policy-link">politica de confidențialitate (GDPR)</a>
                             </label>
                         </div>
