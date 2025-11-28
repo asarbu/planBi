@@ -17,6 +17,7 @@ export async function onRequest(context) {
 	let responseBody = "";
 	try {
 		response = await next();
+		console.log('Response:', response);
 
 		// We must clone because 'response' needs to be sent back to the user.
 		const responseClone = response.clone();
@@ -25,6 +26,7 @@ export async function onRequest(context) {
 		responseBody = "[Error: Response data is unreadable]";
 	}
 
+	console.log('Response:', response, "Request:", request);
 	const logEntry = {
 		//TODO : Remove this and replace with object instance
 		timestamp: new Date().toISOString(),
