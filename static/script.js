@@ -377,14 +377,9 @@ function updateTimeslotForDate() {
 			}).filter(Boolean);
 
 			const allSlots = [
-				"10:00-11:00",
-				"11:00-12:00",
-				"12:00-13:00",
-				"13:00-14:00",
-				"14:00-15:00",
-				"15:00-16:00",
-				"16:00-17:00",
-				"17:00-18:00"
+				"10:00-12:00",
+				"13:00-15:00",
+				"15:30-17:30",
 			];
 
 			// Only show slots whose start time is not booked

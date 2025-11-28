@@ -3,14 +3,9 @@ import { sendEmail } from "./email.js";
 import { createCalendarEvent } from "./calendar.js";
 
 const VALID_TIMESLOTS = new Set([
-  "10:00-11:00",
-  "11:00-12:00",
-  "12:00-13:00",
-  "13:00-14:00",
-  "14:00-15:00",
-  "15:00-16:00",
-  "16:00-17:00",
-  "17:00-18:00"
+	"10:00-12:00",
+	"13:00-15:00",
+	"15:30-17:30",
 ]);
 const SERVICES = new Set(['gold', 'platinum', 'diamond', 'nesigur']);
 const LOCATIONS = new Set(['online', 'sediu', 'cafea']);
