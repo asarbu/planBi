@@ -192,7 +192,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		animate(0);
 	}
 
-	const container = document.getElementById('iridescence-container');
+	const container = document.getElementById('velvet-container');
 	if (container) {
 		setupVelvetEffect({
 			container: container,
@@ -283,12 +283,12 @@ document.addEventListener('DOMContentLoaded', function() {
 		});
 	}
 
-	const iridescence = document.getElementById('iridescence-container');
+	const velvet = document.getElementById('velvet-container');
 	let lastScrollY = 0;
 	let ticking = false;
 	function updateParallax() {
-		if (iridescence) {
-			iridescence.style.transform = `translateY(${lastScrollY * 0.8}px)`;
+		if (velvet) {
+			velvet.style.transform = `translateY(${lastScrollY * 0.8}px)`;
 		}
 	}
 
