@@ -23,10 +23,11 @@ export async function onRequest(context) {
 		const responseClone = response.clone();
 		responseBody = await responseClone.text();
 	} catch (e) {
+		response = new Response('Internal Server Error:' + e.message, { status: 500 });
 		responseBody = "[Error: Response data is unreadable]";
 	}
 
-	console.log('Response:', response, "Request:", request);
+	console.log('Response:', response, "Request:", request, "Request Body:", requestBody, "Response Body:", responseBody);
 	const logEntry = {
 		//TODO : Remove this and replace with object instance
 		timestamp: new Date().toISOString(),
