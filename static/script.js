@@ -272,10 +272,11 @@ document.addEventListener('DOMContentLoaded', function() {
 			}
 			if (response.redirected) {
 				window.location.href = response.url;
+				return response;
 			} 
 			return response.json();
 		})
-		.then(data => {
+		.then(() => {
 			document.getElementById('consultation-submit-button').textContent = `Succes. Te vom contacta în curând!`;
 		})
 		.catch((err) => {
