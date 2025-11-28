@@ -15,12 +15,12 @@
     <header>
         <div id="velvet-container"></div>
     </header>
-    <main>
+    <main style="margin-top: -90svh;">
         <div class="stk"
             style="min-height: 60vh; display: flex; flex-direction: column; align-items: center; justify-content: center;">
             <div id="main-title" style="margin-bottom: 0.5em;">PlanBi</div>
 
-            <section>
+            <section style="width: 100%; display: flex; justify-content: center; align-items: center; padding: 1em;">
                 <div class="card" style="max-width: 500px; margin: 0 auto; text-align: center;">
                     <h2 style="position: static; font-size: 2.5rem; margin-bottom: 1rem;color: black;">Mulțumim!</h2>
                     <p class="text-xl text-highlight font-serif mb-8 mt-8">Cererea ta a fost primită cu succes.</p>
@@ -31,10 +31,6 @@
             </section>
         </div>
     </main>
-    <footer>
-        <h4>PlanBi Events &copy; 2025</h4>
-        <a href="mailto:contact@planbi.ro">contact@planbi.ro</a>
-    </footer>
     <script>
         // Get random number from URL query string
         function getQueryParam(param) {
@@ -42,7 +38,7 @@
             return urlParams.get(param);
         }
         const number = getQueryParam('number');
-        document.getElementById('number').textContent = number ? `Solicitarea ta poate fi identificată cu numărul: ${number}` : '';
+        document.getElementById('number').textContent = number ? `Solicitarea poate fi identificată cu numărul: ${number}` : '';
     </script>
     <script src="/static/script.js"></script>
 </body>
