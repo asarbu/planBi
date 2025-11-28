@@ -105,7 +105,6 @@ export async function onRequestPost(context) {
 		createCalendarEvent(context, requestBody, description)
 	]);
 
-	let databaseResponse, emailResponse, calendarResponse;
 	if (databaseResult.status === 'fulfilled') {
 		databaseResponse = databaseResult.value;
 	} else {
