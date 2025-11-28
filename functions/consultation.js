@@ -108,6 +108,7 @@ export async function onRequestPost(context) {
 	let databaseResponse, emailResponse, calendarResponse;
 	if (databaseResult.status === 'fulfilled') {
 		databaseResponse = databaseResult.value;
+		console.log('Database response:', databaseResponse, 'id:', databaseResponse?.meta?.last_row_id);
 	} else {
 		errors.push(`Database error: ${databaseResult.reason?.message || databaseResult.reason}`);
 	}
