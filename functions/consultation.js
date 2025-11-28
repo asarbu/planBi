@@ -105,6 +105,7 @@ export async function onRequestPost(context) {
 		createCalendarEvent(context, requestBody, description)
 	]);
 
+	let databaseResponse, emailResponse, calendarResponse;
 	if (databaseResult.status === 'fulfilled') {
 		databaseResponse = databaseResult.value;
 	} else {
@@ -122,12 +123,13 @@ export async function onRequestPost(context) {
 	}
 
 	if (errors.length > 0) {
+		// TODO Redirect to an error page instead
 		return Response.json({ errors }, { status: 500 });
 	}
 
 	// Generate a random number and redirect to thankyou.html
 	const randomNumber = Math.floor(Math.random() * 1000000);
-	return Response.redirect(`https://planbi.ro/thankyou?number=${randomNumber}`, 302);
+	return Response.redirect(`https://planbi.ro/thankyou?number=${randomNumber}&${databaseResponse}`, 302);
 };
 
 export async function onRequestGet(context) {
