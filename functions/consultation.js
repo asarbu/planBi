@@ -128,9 +128,7 @@ export async function onRequestPost(context) {
 		return Response.json({ errors }, { status: 500 });
 	}
 
-	// Generate a random number and redirect to thankyou.html
-	const randomNumber = Math.floor(Math.random() * 1000000);
-	return Response.redirect(`https://planbi.ro/thankyou?number=${randomNumber}&${databaseResponse}`, 302);
+	return Response.redirect(`https://planbi.ro/thankyou?number=${databaseResponse?.meta?.last_row_id}`, 302);
 };
 
 export async function onRequestGet(context) {
