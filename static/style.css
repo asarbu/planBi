@@ -218,8 +218,7 @@ section {
 	align-items: center;
 	justify-content: center;
 	gap: 4rem;
-	margin-top: 3rem;
-	margin-bottom: 3rem;
+	margin-top: 3rem 0;
 }
 
 .about-me-image {
@@ -400,6 +399,16 @@ button {
 	font-size: 1.25rem;
 }
 
+.card h4, .small-card h4 {
+  color: var(--text);
+  font-family: 'Times New Roman', serif;
+  line-height: 1.25;
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+.card h4 { font-size: 1.5rem; }
+.small-card h4 { font-size: 1.25rem; margin: 0 0 1rem 0; }
+
 .card {
 	box-shadow: var(--shadow-l);
 	background-color: var(--highlight);
@@ -408,18 +417,9 @@ button {
 	border-radius: 1rem;
 	position: relative;
 }
-.card h4 {
-		color: var(--text);
-		font-family: 'Times New Roman', serif;
-		font-size: 1.5rem;
-		line-height: 1.25;
-		font-weight: bold;
-		margin-bottom: 1rem;
-	}
 
 .card ul {
-		margin-top: 1rem;
-		margin-bottom: 3rem;
+		margin-top: 1rem 0 3rem 0;
 		text-align: left;
 		color: var(--gray-500);
 		font-size: 0.875rem;
@@ -444,19 +444,14 @@ button {
 	position: relative;
 }
 .small-card h4 {
-		margin: 0;
-		color: var(--text);
-		font-family: 'Times New Roman', serif;
-		font-size: 1.25rem;
-		line-height: 1.25;
-		font-weight: bolder;
-		margin-bottom: 1rem;
-	}
+	margin: 0;
+	font-size: 1.25rem;
+}
 
-	.small-card p {
-		color: var(--gray-500);
-		font-size: 1rem;
-	}
+.small-card p {
+	color: var(--gray-500);
+	font-size: 1rem;
+}
 
 .price {
 	position: absolute;
@@ -767,6 +762,27 @@ footer {
 		color: var(--highlight);
 		text-decoration: underline;
 	}
+}
+
+.gdpr-container {
+	max-width: 700px;
+	margin: 40px auto;
+	background: #fff;
+	padding: 2rem;
+	border-radius: 8px;
+	box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+.gdpr-title {
+	font-size: 2rem;
+	margin-bottom: 1rem;
+}
+.gdpr-text {
+	font-size: 1rem;
+	margin-bottom: 1.5rem;
+}
+
+main.thankyou {
+	margin-top: -90svh;
 }
 
 @media screen and (max-width: 800px) {
