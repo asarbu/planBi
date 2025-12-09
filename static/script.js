@@ -1,4 +1,21 @@
 document.addEventListener('DOMContentLoaded', function() {
+	// get the sticky element
+	const stickyElm = document.getElementsByClassName('isSticky')[0];
+
+	if (stickyElm) {
+		const observer = new IntersectionObserver( 
+		([e]) =>  {
+			e.target.classList.toggle('shrinked', e.intersectionRatio < 1)
+			e.target.classList.toggle('tinted', e.intersectionRatio < 1)
+			document.getElementsByClassName('main-title')[0].classList.toggle('condensed', e.intersectionRatio < 1)
+			document.getElementsByClassName('subtitle')[0]?.classList.toggle('faded', e.intersectionRatio < 1)
+			document.getElementById('navbar-toggle')?.classList.toggle('unfaded', e.intersectionRatio < 1)		},
+		{threshold: [1]}
+		);
+
+		observer.observe(stickyElm)
+	}
+	
 	// Read more button logic
 	document.querySelectorAll('.read-more-btn').forEach(function(readMoreBtn) {
 		var targetId = readMoreBtn.getAttribute('data-target');
@@ -13,7 +30,6 @@ document.addEventListener('DOMContentLoaded', function() {
 				readLessBtn.style.display = 'inline-block';
 				readLessBtn.classList.add('animate');
 				target.classList.add('animate');
-				updatePortfolioParallax();
 			}, { once: true, passive: true });
 		}, { passive: true });
 	});
@@ -221,21 +237,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 	});
 
-	// get the sticky element
-	const stickyElm = document.querySelectorAll('.stk')[0]
-
-	const observer = new IntersectionObserver( 
-	([e]) =>  {
-		e.target.classList.toggle('isSticky', e.intersectionRatio < 1)
-		document.getElementById('main-title').classList.toggle('scrolled', e.intersectionRatio < 1)
-		document.getElementById('subtitle').classList.toggle('scrolled', e.intersectionRatio < 1)
-		document.getElementById('navbar-toggle').classList.toggle('scrolled', e.intersectionRatio < 1)
-	},
-	{threshold: [1]}
-	);
-
-	observer.observe(stickyElm)
-
 	// Consultation form event listener
 	const consultationForm = document.getElementById('consultationForm');
 	if (consultationForm) {
@@ -291,28 +292,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		if (velvet) {
 			velvet.style.transform = `translateY(${lastScrollY * 0.8}px)`;
 		}
-	}
-
-	const portfolioImages = Array.from(document.querySelectorAll('#portfolio-details .event img'));
-	const portfolioParents = portfolioImages.map(img => img.parentElement);
-
-	function updatePortfolioParallax() {
-		const viewportHeight = window.innerHeight;
-		// First, read all rects
-		const rects = portfolioParents.map(parent => parent.getBoundingClientRect());
-		// Then, update styles only if changed
-		portfolioImages.forEach((img, i) => {
-			const rect = rects[i];
-			let newTransform = '';
-			if (rect.bottom > 0 && rect.top < viewportHeight) {
-				const progress = (viewportHeight - rect.top) / (viewportHeight + rect.height);
-				const offset = progress * 100; // px, upward only
-				newTransform = `translateY(${offset}px)`;
-			}
-			if (img.style.transform !== newTransform) {
-				img.style.transform = newTransform;
-			}
-		});
 	}
 
 	function onScrollAll() {
