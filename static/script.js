@@ -1,11 +1,125 @@
 document.addEventListener('DOMContentLoaded', function() {
-	// get the sticky element
-	const stickyElm = document.getElementsByClassName('isSticky')[0];
+	const mainTitle = document.getElementsByClassName('main-title')[0]
+	document.getElementsByTagName('nav')[0]?.classList.add('faded');
+	const headerEl = document.getElementById('header');
 
+	// MUST match the CSS height of the header (h-header = 16rem = 256px)
+	const HEADER_HEIGHT = document.defaultView.innerHeight; 
+	// 20% of the header height is the DOWN-SCROLL threshold
+	const SNAP_THRESHOLD_DOWN = HEADER_HEIGHT * 0.2; // 51.2 pixels
+
+	// State variables:
+	let isSnapping = false;   // Prevents re-entrant calls from smooth scrolling.
+	let isTicking = false;    // Controls requestAnimationFrame execution.
+	let lastScrollY = window.scrollY;
+
+	/**
+	 * Contains the core scroll snapping logic and visual morph logic.
+	 * Runs only once per animation frame.
+	 */
+	function processSnapLogic() {
+		const currentScrollY = window.scrollY;
+		const scrollDirection = currentScrollY > lastScrollY ? 'down' : 'up';
+
+		// Only act within the transition zone (0 to HEADER_HEIGHT)
+		const inTransitionZone = currentScrollY > 0 && currentScrollY < HEADER_HEIGHT;
+
+		// Update lastScrollY here so it reflects the value at the time of frame rendering
+		lastScrollY = currentScrollY;
+
+		// --- 1. DOWN SNAP LOGIC (Header Open -> Header Hidden) ---
+		// Trigger: Scrolling down, currently within the transition zone, AND past the 20% threshold.
+		if (scrollDirection === 'down' && inTransitionZone && currentScrollY > SNAP_THRESHOLD_DOWN) {
+			
+			isSnapping = true;
+			
+			// Snap DOWN to the main content view
+			window.scrollTo({
+				top: HEADER_HEIGHT,
+				behavior: 'smooth'
+			});
+
+			mainTitle.classList.add('condensed');
+			//document.getElementsByClassName('isSticky')[0]?.classList.add('shrinked');
+			document.getElementsByClassName('isSticky')[0]?.classList.add('tinted');
+			document.getElementsByClassName('subtitle')[0]?.classList.add('faded');
+			document.getElementsByTagName('nav')[0]?.classList.remove('faded');
+			// Debounce: Re-enable scrolling checks after the smooth scroll finishes (approx 300ms)
+			setTimeout(() => { isSnapping = false; mainTitle.style.display='none'; }, 300);
+		}
+
+		// --- 2. UP SNAP LOGIC (Header Hidden/Partial -> Header Open) ---
+		// Trigger: Scrolling up, and we are not already at the top (currentScrollY > 0)
+		else if (scrollDirection === 'up' && currentScrollY > 0 && currentScrollY <= HEADER_HEIGHT) {
+			
+			isSnapping = true;
+			
+			// Snap UP to the top of the header
+			window.scrollTo({
+				top: 0,
+				behavior: 'smooth'
+			});
+
+			// Debounce: Re-enable scrolling checks
+			setTimeout(() => { isSnapping = false; }, 300);
+		}
+		
+		// --- 3. VISUAL MORPH LOGIC (Always applied regardless of snap) ---
+		// If scrolled past the header snap point, morph it into the navbar
+		if (currentScrollY >= HEADER_HEIGHT) {
+			headerEl.classList.add('snapped-navbar');
+		} else {
+			headerEl.classList.remove('snapped-navbar');
+		}
+		
+		// Reset the ticking flag to allow the next scroll event to request a frame
+		isTicking = false;
+	}
+
+	/**
+	 * Handles the scroll event by scheduling the logic inside requestAnimationFrame.
+	 */
+	function onScrollHandler() {
+		// If a snap is in progress, ignore subsequent scroll events to prevent loop
+		if (isSnapping) return;
+
+		if (!isTicking) {
+			window.requestAnimationFrame(processSnapLogic);
+			isTicking = true;
+		}
+	}
+
+	// Attach the handler to the window scroll event
+	window.addEventListener('scroll', onScrollHandler, { passive: true });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	// get the sticky element
+	const stickyElm = null;//document.getElementsByClassName('isSticky')[0];
 	if (stickyElm) {
 		const observer = new IntersectionObserver( 
 		([e]) =>  {
-			e.target.classList.toggle('shrinked', e.intersectionRatio < 1)
+			console.log(e.intersectionRatio);
+			if (e.intersectionRatio < 1) {
+				document.getElementById('about-me').scrollIntoView({ behavior: 'smooth'});
+			}
+			//e.target.classList.toggle('shrinked', e.intersectionRatio < 1)
 			e.target.classList.toggle('tinted', e.intersectionRatio < 1)
 			document.getElementsByClassName('main-title')[0].classList.toggle('condensed', e.intersectionRatio < 1)
 			document.getElementsByClassName('subtitle')[0]?.classList.toggle('faded', e.intersectionRatio < 1)
@@ -13,7 +127,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		{threshold: [1]}
 		);
 
-		observer.observe(stickyElm)
+		//observer.observe(stickyElm)
 	}
 	
 	// Read more button logic
@@ -63,7 +177,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		const canvas = document.createElement('canvas');
 		canvas.style.width = '100%';
 		canvas.style.height = '100%';
-		canvas.style.display = 'block';
+		canvas.style.display = 'inline-block';
 		container.appendChild(canvas);
 		const gl = canvas.getContext('webgl');
 		if (!gl) {
@@ -284,28 +398,6 @@ document.addEventListener('DOMContentLoaded', function() {
 			document.getElementById('consultation-submit-button').textContent = 'Error:' + err.message;
 		});
 	}
-
-	const velvet = document.getElementById('velvet-container');
-	let lastScrollY = 0;
-	let ticking = false;
-	function updateParallax() {
-		if (velvet) {
-			velvet.style.transform = `translateY(${lastScrollY * 0.8}px)`;
-		}
-	}
-
-	function onScrollAll() {
-		lastScrollY = window.scrollY || window.pageYOffset;
-		if (!ticking) {
-			ticking = true;
-			window.requestAnimationFrame(() => {
-				updateParallax();
-				// updatePortfolioParallax();
-				ticking = false;
-			});
-		}
-	}
-	window.addEventListener('scroll', onScrollAll, { passive: true });
 
 	// Navbar menu toggle logic
 	const toggle = document.getElementById('navbar-toggle');

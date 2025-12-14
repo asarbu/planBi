@@ -38,10 +38,12 @@
 	--primary-dark: oklch(0.508 0.05 135);
 	--primary-xxdark: oklch(0.378 0.05 135);
 }
+
 html, body {
 	margin: 0;
 	padding: 0;
 	width: 100%;
+	overscroll-behavior: none;
 }
 
 body {
@@ -52,17 +54,15 @@ body {
 }
 
 header {
-	height: 100svh;
-	z-index: 10;
+	height: calc(100svh);
+	display: block;
 }
 
 main {
-	margin-top: -80svh;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	text-align: center;
-	z-index: 20;
 	position: relative;
 }
 
@@ -85,13 +85,6 @@ img {
 	 -moz-user-select: none;
 	 -ms-user-select: none;
 }
-
-#velvet-container {
-	width: 100vw;
-	height: 100vh;
-	height: 100svh;
-}
-
 .unfaded {
 	opacity: 1 !important;
 }
@@ -103,12 +96,40 @@ img {
 	position: sticky;
 	top: -1px;
 	bottom: -1px;
-	padding-top: calc(1rem + 1px);
-	height: calc(80svh - 1rem - 1px);
+	padding-top: calc(1px);
+	height: 100svh;
 	width: 100%;
-	z-index: 30;
+	z-index: 300;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+	border-bottom: none;
+	box-shadow: none;
 }
-.isSticky .navbar-toggle {
+
+nav {
+	height: 3rem;
+	width: 100%;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	z-index: 100;
+	background-color: var(--primary-dark);
+}
+
+#velvet-container {
+	width: 100%;
+	height: 100vh;
+	height: 100svh;
+	z-index: 200;
+	position: absolute;
+	background-image: url('/images/background-1024.webp');
+	background-size: cover;
+	border-bottom: none;
+	box-shadow: none;
+}
+
+.navbar-toggle {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -116,14 +137,12 @@ img {
 	background: transparent;
 	border: none;
 	cursor: pointer;
-	z-index: 100;
 	position: absolute;
 	top: 1rem;
 	right: 4vw;
 	height: 1.5rem;
-	opacity: 0;
 }
-.isSticky .bar {
+.bar {
 	display: block;
 	width: 2rem;
 	height: 2px;
@@ -132,7 +151,7 @@ img {
 	background-color: var(--highlight);
 }
 
-.isSticky .navbar-menu {
+.navbar-menu {
 		position: fixed;
 		top: 0;
 		left: 0;
@@ -143,32 +162,31 @@ img {
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-		z-index: 99;
 		opacity: 0;
 		pointer-events: none;
 		transform: translateY(-100vh);
 }
-.isSticky .navbar-menu.active {
+.navbar-menu.active {
 		opacity: 1;
 		pointer-events: auto;
 		transform: translateY(0);
 }
-.isSticky .navbar-menu ul {
+.navbar-menu ul {
 	list-style: none;
 	padding: 0;
 	margin: 0;
 }
-.isSticky .navbar-menu li {
+.navbar-menu li {
 	margin: 2rem 0;
 }
-.isSticky .navbar-menu a {
+.navbar-menu a {
 	color: var(--highlight);
 	font-size: 2rem;
 	text-decoration: none;
 	font-weight: bold;
 	transition: color 0.2s;
 }
-.isSticky .navbar-menu a:hover {
+.navbar-menu a:hover {
 	color: var(--primary-xxdark);
 }
 
@@ -178,6 +196,7 @@ img {
 		height var(--animation-longer) ease,
 		font-size var(--animation-longer) ease,
 		background-color var(--animation-short) ease,
+		top var(--animation-short) ease-out,
 		display var(--animation-long) ease allow-discrete;
 }
 
@@ -187,6 +206,11 @@ img {
 
 .condensed {
 	font-size: 1rem !important;
+	top: calc(100svh + 1rem) !important;
+}
+
+.expanded {
+	font-size: 4rem !important;
 }
 
 .tintable {
@@ -205,6 +229,7 @@ section {
 	width: 100%;
 	padding-block: 8rem;
 	padding-inline: 2rem;
+	scroll-margin-top: 0px;
 	text-align: center;
 	box-sizing: border-box;
 }
@@ -276,18 +301,25 @@ section > p {
 	color: var(--highlight);
 	font-weight: bolder;
 	font-size: 4rem;
-	width: 100%;
+	width: auto;
+	height: 3rem;
 	user-select: none;
 	-webkit-user-select: none;
 	-moz-user-select: none;
 	-ms-user-select: none;
 	view-transition-name: main-title-transition;
+	z-index: 400;
+	position: absolute;
+	top: 20svh;
+	left: 50%;
+	translate: -50% 0;
 }
 
 .subtitle {
 	font-size: 1.25rem;
 	color: var(--highlight);
 	width: auto;
+	height: calc(60svh);
 	font-weight: 400;
 	margin-inline: 1rem;
 	user-select: none;
@@ -295,6 +327,8 @@ section > p {
 	-webkit-user-select: none;
 	-moz-user-select: none;
 	-ms-user-select: none;
+	position: absolute;
+	top: calc(40svh);
 }
 
 .subtitle h2 {
@@ -366,7 +400,6 @@ section > p {
 	left: 0;
 	width: 100%;
 	height: 100%;
-	z-index: 2;
 	background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5));
 }
 
@@ -378,7 +411,6 @@ section > p {
 	height: 100%;
 	object-fit: cover;
 	margin: 0;
-	z-index: 1;
 	/* Temporarily disable parallax scale: 150%; */
 	margin-bottom: 1.5rem;
 }
