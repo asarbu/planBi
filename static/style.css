@@ -2,6 +2,16 @@
 	navigation: auto;
 }
 
+::view-transition-group(root) {
+	animation: none;
+}
+::view-transition-old(root) {
+	animation: none;
+}
+::view-transition-new(root) {
+	animation: none;
+}
+
 /* Custom styles for elegance and mobile usability */
 :root {
 	--shadow-s: 
@@ -47,10 +57,10 @@ html, body {
 }
 
 body {
-	font-family: 'Inter', sans-serif;
 	overflow-x: hidden;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+	background-color: var(--primary-dark);
 }
 
 header {
@@ -190,6 +200,11 @@ nav {
 	color: var(--primary-xxdark);
 }
 
+nav .main-title {
+	top: 1rem;
+	font-size: 1rem;
+}
+
 .transitionable {
 	transition:
 		opacity var(--animation-short) ease,
@@ -198,31 +213,6 @@ nav {
 		background-color var(--animation-short) ease,
 		top var(--animation-short) ease-out,
 		display var(--animation-long) ease allow-discrete;
-}
-
-.shrinked {
-	height: 2rem !important;
-}
-
-.condensed {
-	font-size: 1rem !important;
-	top: calc(100svh + 1rem) !important;
-}
-
-.expanded {
-	font-size: 4rem !important;
-}
-
-.tintable {
-	background: transparent;
-}
-
-.tinted {
-	background: var(--primary-dark);
-
-	@starting-style {
-		background: transparent;
-	}
 }
 
 section {
@@ -300,28 +290,26 @@ section > p {
 	font-family: 'Times New Roman', serif;
 	color: var(--highlight);
 	font-weight: bolder;
-	font-size: 4rem;
-	width: auto;
-	height: 3rem;
 	user-select: none;
 	-webkit-user-select: none;
 	-moz-user-select: none;
 	-ms-user-select: none;
-	view-transition-name: main-title-transition;
-	z-index: 400;
-	position: absolute;
 	top: 20svh;
+	position: absolute;
 	left: 50%;
 	translate: -50% 0;
+}
+
+header .main-title {
+	font-size: 4rem;
 }
 
 .subtitle {
 	font-size: 1.25rem;
 	color: var(--highlight);
-	width: auto;
+	width: 100%;
 	height: calc(60svh);
 	font-weight: 400;
-	margin-inline: 1rem;
 	user-select: none;
 	opacity: 1;
 	-webkit-user-select: none;
@@ -329,6 +317,8 @@ section > p {
 	-ms-user-select: none;
 	position: absolute;
 	top: calc(40svh);
+	left: 50%;
+	translate: -50% 0;
 }
 
 .subtitle h2 {
