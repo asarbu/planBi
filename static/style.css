@@ -2,16 +2,6 @@
 	navigation: auto;
 }
 
-::view-transition-group(root) {
-	animation: none;
-}
-::view-transition-old(root) {
-	animation: none;
-}
-::view-transition-new(root) {
-	animation: none;
-}
-
 /* Custom styles for elegance and mobile usability */
 :root {
 	--shadow-s: 
@@ -32,6 +22,7 @@
 	--animation-longer: 500ms;
 	--animation-long: 300ms;
 	--animation-short: 200ms;
+	--animation-debug: 5000ms
 
 	--gray-300: oklch(87.2% 0.01 258.338);
 	--gray-500: oklch(55.1% 0.027 264.364);
@@ -47,6 +38,7 @@
 	--primary-darker: oklch(0.596 0.05 135);
 	--primary-dark: oklch(0.508 0.05 135);
 	--primary-xxdark: oklch(0.378 0.05 135);
+	view-transition-name: none;
 }
 
 html, body {
@@ -64,8 +56,21 @@ body {
 }
 
 header {
-	height: calc(100svh);
+	height: 100svh;
+	min-height: 100svh;
 	display: block;
+	& .logo {
+		font-size: 4rem;
+		top: 20svh;
+		transition: font-size var(--animation-longer) ease-out,
+			top var(--animation-longer) ease-out;
+	}
+	& .logo.condensed {
+		font-size: 1rem;
+		top: calc(1rem + 100svh);
+		transition: font-size var(--animation-longer) ease-in,
+			top var(--animation-longer) ease-in;
+	}
 }
 
 main {
@@ -101,6 +106,9 @@ img {
 .faded {
 	opacity: 0 !important;
 }
+.hidden {
+	opacity: 0 !important;
+}
 
 .isSticky {
 	position: sticky;
@@ -133,7 +141,6 @@ nav {
 	height: 100svh;
 	z-index: 200;
 	position: absolute;
-	background-image: url('/images/background-1024.webp');
 	background-size: cover;
 	border-bottom: none;
 	box-shadow: none;
@@ -207,12 +214,11 @@ nav .main-title {
 
 .transitionable {
 	transition:
-		opacity var(--animation-short) ease,
-		height var(--animation-longer) ease,
-		font-size var(--animation-longer) ease,
-		background-color var(--animation-short) ease,
-		top var(--animation-short) ease-out,
-		display var(--animation-long) ease allow-discrete;
+		opacity var(--animation-longer) ease-in,
+		height var(--animation-longer) ease-in,
+		font-size var(--animation-longer) ease-in,
+		background-color var(--animation-short) ease-in,
+		top var(--animation-longer) ease-in;
 }
 
 section {
@@ -286,22 +292,20 @@ section > p {
 	margin-bottom: 4rem;
 }
 
-.main-title {
+.main-title,
+.logo {
 	font-family: 'Times New Roman', serif;
 	color: var(--highlight);
 	font-weight: bolder;
 	user-select: none;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	top: 20svh;
 	position: absolute;
 	left: 50%;
 	translate: -50% 0;
+	z-index: 1000;
 }
 
-header .main-title {
-	font-size: 4rem;
+.faded {
+	opacity: 0 !important;
 }
 
 .subtitle {

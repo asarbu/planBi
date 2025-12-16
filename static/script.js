@@ -1,70 +1,47 @@
-
 document.addEventListener('DOMContentLoaded', function() {
 	const mainTitle = document.getElementsByClassName('main-title')[0];
-	const nav = document.getElementsByTagName('nav')[0];
 	const stickyElm = document.getElementsByClassName('isSticky')[0];
-	const velvetContainer = document.getElementById('velvet-container');
-
+	const velvetContainer = document.getElementById('velvet-container');4
+	const logo = document.getElementsByClassName('logo')[0];
 	const HEADER_HEIGHT = document.defaultView.innerHeight; 
 	const SNAP_THRESHOLD_DOWN = HEADER_HEIGHT * 0.2;
 
-	
-	if(window.scrollY < HEADER_HEIGHT) {
-		stickyElm.appendChild(mainTitle);
-	}
-
-	// State variables:
-	let isTicking = false;
+	let scrollTicking = false;
 	let lastScrollY = window.scrollY;
-
-	function updateTick(value) {
-		isTicking = value;
+	if(window.scrollY > HEADER_HEIGHT) {
+		logo.classList.add('hidden');
+		logo.classList.add('condensed');
+		stickyElm.classList.add('faded');
+		velvetContainer.classList.add('faded');
 	}
 
-	/**
-	 * Contains the core scroll snapping logic and visual morph logic.
-	 * Runs only once per animation frame.
-	 */
 	function processSnapLogic() {
 		const currentScrollY = window.scrollY;
-		let scrollDirection = undefined;
-		if(currentScrollY > lastScrollY) {
-			scrollDirection = 'down';
-		} else if (currentScrollY < lastScrollY) {
-			scrollDirection = 'up';
-		}
-
-		// Only act within the transition zone (0 to HEADER_HEIGHT)
-		const inTransitionZone = currentScrollY > 0 && currentScrollY < HEADER_HEIGHT;
-
-		// Update lastScrollY here so it reflects the value at the time of frame rendering
+		const isInSnapZone = currentScrollY >= SNAP_THRESHOLD_DOWN && currentScrollY <= HEADER_HEIGHT;
+		const scrollUp = currentScrollY < lastScrollY;
+		const scrollDown = currentScrollY > lastScrollY;
 		lastScrollY = currentScrollY;
 
-		// --- 1. DOWN SNAP LOGIC (Header Open -> Header Hidden) ---
-		// Trigger: Scrolling down, currently within the transition zone, AND past the 20% threshold.
-		if (scrollDirection === 'down' && currentScrollY > SNAP_THRESHOLD_DOWN) {
-			updateTick(true); // Prevent further scroll handling until done
-			mainTitle.style.viewTransitionName = 'match-element';
-			document.startViewTransition(() => {
-				nav.appendChild(mainTitle);
-				stickyElm.style.opacity = '0';
-				velvetContainer.style.opacity = '0';
-			});
-			scrollTo(HEADER_HEIGHT, 300, easing.easeInCubic, () => { isTicking = false; });
-		}
+		if (!scrollDown && !scrollUp) { return;	}
 
-		// --- 2. UP SNAP LOGIC (Header Hidden/Partial -> Header Open) ---
-		// Trigger: Scrolling up, and we are not already at the top (currentScrollY > 0)
-		else if (scrollDirection === 'up' && !inTransitionZone && currentScrollY > 0 && currentScrollY <= HEADER_HEIGHT) {
-			updateTick(true); // Prevent further scroll handling until done
-			
-			const transition = document.startViewTransition(() => {
-				stickyElm.style.opacity = '1';
-				stickyElm.appendChild(mainTitle);
-				velvetContainer.style.opacity = '1';
-			});
-			// Snap UP to the top of the header
-			scrollTo(0, 300, easing.easeOutCubic, () => { isTicking = false; });
+		// Scroll down (Header Open -> Header Closed)
+		if (scrollDown && isInSnapZone) {
+			scrollTicking = true;
+			mainTitle.classList.add('hidden');
+			logo.classList.add('condensed');
+			stickyElm.classList.add('faded');
+			velvetContainer.classList.add('faded');
+			scrollTo(HEADER_HEIGHT, 500, easing.easeInQuad, () => { scrollTicking = false; mainTitle.classList.remove('hidden'); logo.classList.add('hidden'); } );
+		}
+		// (Header Closed -> Header Open)
+		else if (scrollUp && isInSnapZone) {
+			scrollTicking = true;
+			mainTitle.classList.add('hidden');
+			logo.classList.remove('hidden');
+			logo.classList.remove('condensed');
+			stickyElm.classList.remove('faded');
+			velvetContainer.classList.remove('faded');
+			scrollTo(0, 500, easing.easeOutQuad, () => { scrollTicking = false; } );
 		}
 	}
 
@@ -77,14 +54,10 @@ document.addEventListener('DOMContentLoaded', function() {
 			callback?.();
 			return; /* Prevent scrolling to the Y point if already there */
 		}
-
-		function min(a,b) {
-			return a<b?a:b;
-		}
-
+		
 		function scroll(timestamp) {
 			var currentTime = Date.now(),
-				time = min(1, ((currentTime - start) / duration)),
+				time = Math.min(1, ((currentTime - start) / duration)),
 				easedT = easingFunction(time);
 
 			elem.scrollTop = (easedT * (Y - from)) + from;
@@ -98,49 +71,47 @@ document.addEventListener('DOMContentLoaded', function() {
     	requestAnimationFrame(scroll)
 }
 
-/* bits and bytes of the scrollTo function inspired by the works of Benjamin DeCock */
-
-/*
- * Easing Functions - inspired from http://gizma.com/easing/
- * only considering the t value for the range [0, 1] => [0, 1]
- */
-var easing = {
-  // no easing, no acceleration
-  linear: function (t) { return t },
-  // accelerating from zero velocity
-  easeInQuad: function (t) { return t*t },
-  // decelerating to zero velocity
-  easeOutQuad: function (t) { return t*(2-t) },
-  // acceleration until halfway, then deceleration
-  easeInOutQuad: function (t) { return t<.5 ? 2*t*t : -1+(4-2*t)*t },
-  // accelerating from zero velocity 
-  easeInCubic: function (t) { return t*t*t },
-  // decelerating to zero velocity 
-  easeOutCubic: function (t) { return (--t)*t*t+1 },
-  // acceleration until halfway, then deceleration 
-  easeInOutCubic: function (t) { return t<.5 ? 4*t*t*t : (t-1)*(2*t-2)*(2*t-2)+1 },
-  // accelerating from zero velocity 
-  easeInQuart: function (t) { return t*t*t*t },
-  // decelerating to zero velocity 
-  easeOutQuart: function (t) { return 1-(--t)*t*t*t },
-  // acceleration until halfway, then deceleration
-  easeInOutQuart: function (t) { return t<.5 ? 8*t*t*t*t : 1-8*(--t)*t*t*t },
-  // accelerating from zero velocity
-  easeInQuint: function (t) { return t*t*t*t*t },
-  // decelerating to zero velocity
-  easeOutQuint: function (t) { return 1+(--t)*t*t*t*t },
-  // acceleration until halfway, then deceleration 
-  easeInOutQuint: function (t) { return t<.5 ? 16*t*t*t*t*t : 1+16*(--t)*t*t*t*t }
-}
+	/*
+	* Easing Functions - inspired from http://gizma.com/easing/
+	* only considering the t value for the range [0, 1] => [0, 1]
+	*/
+	var easing = {
+	// no easing, no acceleration
+	linear: function (t) { return t },
+	// accelerating from zero velocity
+	easeInQuad: function (t) { return t*t },
+	// decelerating to zero velocity
+	easeOutQuad: function (t) { return t*(2-t) },
+	// acceleration until halfway, then deceleration
+	easeInOutQuad: function (t) { return t<.5 ? 2*t*t : -1+(4-2*t)*t },
+	// accelerating from zero velocity 
+	easeInCubic: function (t) { return t*t*t },
+	// decelerating to zero velocity 
+	easeOutCubic: function (t) { return (--t)*t*t+1 },
+	// acceleration until halfway, then deceleration 
+	easeInOutCubic: function (t) { return t<.5 ? 4*t*t*t : (t-1)*(2*t-2)*(2*t-2)+1 },
+	// accelerating from zero velocity 
+	easeInQuart: function (t) { return t*t*t*t },
+	// decelerating to zero velocity 
+	easeOutQuart: function (t) { return 1-(--t)*t*t*t },
+	// acceleration until halfway, then deceleration
+	easeInOutQuart: function (t) { return t<.5 ? 8*t*t*t*t : 1-8*(--t)*t*t*t },
+	// accelerating from zero velocity
+	easeInQuint: function (t) { return t*t*t*t*t },
+	// decelerating to zero velocity
+	easeOutQuint: function (t) { return 1+(--t)*t*t*t*t },
+	// acceleration until halfway, then deceleration 
+	easeInOutQuint: function (t) { return t<.5 ? 16*t*t*t*t*t : 1+16*(--t)*t*t*t*t }
+	}
 
 	/**
 	 * Handles the scroll event by scheduling the logic inside requestAnimationFrame.
 	 */
 	function onScrollHandler() {
 		// If a snap is in progress, ignore subsequent scroll events to prevent loop
-		if (isTicking) return;
+		if (scrollTicking) return;
 
-		console.log('Is Ticking:', isTicking);
+		// console.log('Is Ticking:', isTicking);
 		window.requestAnimationFrame(processSnapLogic);
 	}
 
