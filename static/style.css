@@ -588,52 +588,20 @@ img.portrait {
 	aspect-ratio: 3 / 4;
 }
 
-#services {
+.services {
 	background-color: var(--primary-xxlight);
 }
 
-#services h3 {
+.services h3 {
 	color: oklch(27.8% 0.033 256.848);
 }
 
-#services h2 {
+.services h2 {
 	color: oklch(37.3% 0.034 259.733);
 }
 
-#services p {
+.services p {
 	color: oklch(44.6% 0.03 256.802);
-}
-
-#services .read-more-btn {
-	background-color: var(--primary-darker);
-}
-
-.services-details { 
-	display: none;
-	height: 0;
-	opacity: 0;
-	translate: 0 1em;
-	transition: height var(--animation-long) ease var(--animation-long),
-		opacity var(--animation-long) ease 0s,
-		translate var(--animation-long) ease 0s,
-		display var(--animation-long) ease var(--animation-long) allow-discrete;
-}
-
-.services-details.animate {
-	display: block;
-	height: 82rem;
-	opacity: 1;
-	translate: 0 0;
-	transition: height var(--animation-long) ease 0s,
-		opacity var(--animation-long) ease var(--animation-long),
-		translate var(--animation-long) ease var(--animation-long),
-		display var(--animation-long) ease var(--animation-long) allow-discrete;
-
-	@starting-style {
-		height: 0;
-		opacity: 0;
-		translate: 0 1em;
-	}
 }
 
 .main-services {
