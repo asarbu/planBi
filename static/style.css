@@ -53,6 +53,7 @@ body {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	background-color: var(--primary-dark);
+	font-family: 'Inter', sans-serif;
 }
 
 header {
@@ -636,34 +637,6 @@ img.portrait {
 	background-color: var(--primary-darker);
 	text-align: center;
 	color: var(--highlight);
-}
-
-.booking-details { 
-	display: none;
-	height: 0;
-	opacity: 0;
-	translate: 0 1em;
-	transition: height var(--animation-long) ease var(--animation-long),
-		opacity var(--animation-long) ease 0s,
-		translate var(--animation-long) ease 0s,
-		display var(--animation-long) ease var(--animation-long) allow-discrete;
-}
-
-.booking-details.animate {
-	display: block;
-	height: 50em;
-	opacity: 1;
-	translate: 0 0;
-	transition: height var(--animation-long) ease 0s,
-		opacity var(--animation-long) ease var(--animation-long),
-		translate var(--animation-long) ease var(--animation-long),
-		display var(--animation-long) ease var(--animation-long) allow-discrete;
-
-	@starting-style {
-		height: 0;
-		opacity: 0;
-		translate: 0 1em;
-	}
 }
 
 .consultation-form {

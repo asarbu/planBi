@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portofoliu - PlanBi Events</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <nav>
+		<button id="navbar-toggle" aria-label="Open menu" class="transitionable navbar-toggle">
+			<span class="bar"></span>
+			<span class="bar"></span>
+		</button>
+		<div id="navbar-menu" class="navbar-menu">
+			<ul>
+				<li><a href="#about-me">Despre mine</a></li>
+				<li><a href="portfolio.html">Evenimente</a></li>
+				<li><a href="#services">Servicii</a></li>
+				<li><a href="#booking">Consultanță</a></li>
+				<li><a href="#contact">Contact</a></li>
+			</ul>
+		</div>
+		<div class="transitionable main-title">PlanBi</div>
+	</nav>
+    <main style="margin-top: -1px;">
+		<section id="booking" class="booking">
+			<h3>Următorul pas</h3>
+			<h2>
+				Programați o sesiune de consultanță
+			</h2>
+			<p>
+				Spuneți-ne puțin despre viziunea evenimentului și vom programa o discuție rapidă pentru a vedea cum
+				putem să o aducem la viață.
+			</p>
+			<div id="booking-details" class="booking-details ">
+				<!-- Booking Form -->
+				<form id="consultationForm" class="consultation-form">
+					<div class="content">
+						<div>
+							<label for="name" class="consultation-label">Nume</label>
+							<input type="text" id="name" name="name" placeholder="Ion Popescu" required
+								class="consultation-input">
+						</div>
+						<div>
+							<label for="email" class="consultation-label">Adresă de email</label>
+							<input type="email" id="email" name="email" placeholder="email@exemplu.com" required
+								class="consultation-input">
+						</div>
+						<div>
+							<label for="telephone" class="consultation-label">Număr de telefon</label>
+							<input type="tel" id="telephone" name="telephone" placeholder="(770) 123-4567" required
+								class="consultation-input">
+						</div>
+						<div>
+							<label for="service_type" class="consultation-label">Ce fel de serviciu vă
+								interesează?</label>
+							<select id="service_type" name="service_type" required class="consultation-input">
+								<option value="" disabled selected>Selectați un pachet de servicii</option>
+								<option value="gold">Gold</option>
+								<option value="platinum">Platinum</option>
+								<option value="diamond">Diamond</option>
+								<option value="nesigur">Nu sunt sigur încă</option>
+							</select>
+						</div>
+						<div>
+							<label for="date" class="consultation-label">Data ședintei de consultanță</label>
+							<input type="date" id="date" name="date" required class="consultation-input">
+						</div>
+						<div>
+							<label for="timeslot" class="consultation-label">Alegeți intervalul orar dorit</label>
+							<select id="timeslot" name="timeslot" required class="consultation-input">
+								<option value="" disabled selected>Alegeți data ședintei întâi</option>
+							</select>
+						</div>
+						<div>
+							<label for="location" class="consultation-label">Alegeți locația de întâlnire</label>
+							<select id="location" name="location" required class="consultation-input">
+								<option value="" disabled selected>Selectați o locație</option>
+								<option value="online">Online</option>
+								<option value="sediu">La sediu (Urseni)</option>
+								<option value="cafea">La o cafea (Timișoara)</option>
+							</select>
+						</div>
+						<div>
+							<label for="message" class="consultation-label">Alte notițe...</label>
+							<textarea id="message" name="message" rows="4" placeholder="Alte notițe..."
+								class="consultation-input"></textarea>
+						</div>
+						<div class="gdpr-checkbox">
+							<input type="checkbox" id="consentCheckbox" required>
+							<input type="hidden" id="gdprTimestamp" name="gdprTimestamp" value="">
+							<label for="consentCheckbox">
+								Am citit și sunt de acord cu <a href="gdpr.html" target="_blank"
+									id="gdpr-policy-link">politica de confidențialitate (GDPR)</a>
+							</label>
+						</div>
+					</div>
+					<button id="consultation-submit-button" type="submit" class="consultation-submit-button">Trimiteți
+						și solicitați un apel</button>
+					<p>Nu vom împărtăși niciodată informațiile dvs. Așteptați un răspuns în termen de 24 de ore.</p>
+				</form>
+			</div>
+			<button class="btn" onclick="window.location.href='/#services'">Înapoi</button>
+		</section>
+    </main>
+    <script src="/static/booking.js" type="module"></script>
+    <footer id="contact">
+        <h4>
+            PlanBi Events
+        </h4>
+        <p>
+            Eleganta in Fiecare Detaliu
+        </p>
+        <div>
+            <a href="mailto:hello@planbi.com" class="hover:text-white transition duration-150">hello@planbi.com</a>
+            <span>|</span>
+            <a href="tel:+4077123456" class="hover:text-white transition duration-150">(771) 123-456</a>
+        </div>
+        <p>&copy; 2025 PlanBi Events SRL. | Design by Alexandru-Sebastian SARBU.</p>
+    </footer>
+</body>
+</html>
