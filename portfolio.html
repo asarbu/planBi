@@ -7,26 +7,23 @@
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
+    <nav>
+		<div id="navbar-menu" class="navbar-menu">
+			<ul>
+				<li><a href="#about-me">Despre mine</a></li>
+				<li><a href="portfolio.html">Evenimente</a></li>
+				<li><a href="#services">Servicii</a></li>
+				<li><a href="#booking">Consultanță</a></li>
+				<li><a href="#contact">Contact</a></li>
+			</ul>
+		</div>
+		<div class="main-title">PlanBi</div>
+		<button id="navbar-toggle" aria-label="Open menu" class="navbar-toggle">
+			<span class="bar"></span>
+			<span class="bar"></span>
+		</button>
+	</nav>
     <main style="margin-top: -1px;">
-        <div class="isSticky">
-            <nav id="navbar" class="navbar">
-                <button id="navbar-toggle" aria-label="Open menu" class="navbar-toggle scrolled">
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                </button>
-                <div id="navbar-menu" class="navbar-menu">
-                    <ul>
-                        <li><a href="index.html#about-me">Despre mine</a></li>
-                        <li><a href="portfolio.html#portfolio">Evenimente</a></li>
-                        <li><a href="index.html#services">Servicii</a></li>
-                        <li><a href="index.html#booking">Consultanță</a></li>
-                        <li><a href="index.html#contact">Contact</a></li>
-                    </ul>
-                </div>
-            </nav>
-            
-            <div class="main-title condensed">PlanBi</div>
-        </div>
         <section id="portfolio" style="padding-top: 4rem">
             <h3 class="portfolio-title">Evenimentele Noastre</h3>
             <h2>
@@ -35,7 +32,7 @@
             <p>
                 Vedeți magia pe care am creat-o și ascultați ce au de spus clienții noștri fericiți despre experiența lor cu PlanBi.
             </p>
-            <div id="portfolio-details" class="portfolio-details animate">
+            <div id="portfolio-details" class="portfolio-details">
                 <div class="image-grid">
                     <img class="portrait" src="images/BOTEZ5-1024.webp"
                         srcset="images/BOTEZ5-360.webp 360w, images/BOTEZ5-720.webp 720w, images/BOTEZ5-1024.webp 1024w, images/BOTEZ5-1440.webp 1440w, images/BOTEZ5-1920.webp 1920w"
@@ -100,7 +97,7 @@
                 </div>
             </div>
             <!-- Back button -->
-            <button class="btn" onclick="window.location.href='/#portfolio'">Înapoi</button>
+            <a class="btn" href="/#portfolio">Înapoi</a>
         </section>
     </main>
     <footer id="contact">
