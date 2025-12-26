@@ -39,6 +39,7 @@
 	--primary-dark: oklch(0.508 0.05 135);
 	--primary-xxdark: oklch(0.378 0.05 135);
 	view-transition-name: none;
+	--velvet-bg-color: var(transparent);
 }
 
 html, body {
@@ -145,6 +146,7 @@ nav {
 	background-size: cover;
 	border-bottom: none;
 	box-shadow: none;
+	background-color: var(--velvet-bg-color);
 }
 
 .navbar-toggle {
