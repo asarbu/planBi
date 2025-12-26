@@ -267,7 +267,7 @@ function onScrollHandler() {
 document.addEventListener('DOMContentLoaded', function () {
 	mainTitle = document.getElementsByClassName('main-title')[0];
 	stickyElm = document.getElementsByClassName('isSticky')[0];
-	velvetContainer = document.getElementById('velvet-container'); 4
+	velvetContainer = document.getElementById('velvet-container');
 	logo = document.getElementsByClassName('logo')[0];
 	HEADER_HEIGHT = document.defaultView.innerHeight;
 	SNAP_THRESHOLD_DOWN = HEADER_HEIGHT * 0.2;
