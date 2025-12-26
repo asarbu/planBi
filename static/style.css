@@ -598,20 +598,27 @@ img.portrait {
 	aspect-ratio: 3 / 4;
 }
 
-.services {
+.white {
 	background-color: var(--primary-xxlight);
 }
 
-.services h3 {
+#services {
+	view-transition-name: services-section;
+}
+
+#services>h3 {
 	color: oklch(27.8% 0.033 256.848);
+	view-transition-name: services-h3;
 }
 
-.services h2 {
+#services>h2 {
 	color: oklch(37.3% 0.034 259.733);
+	view-transition-name: services-h2;
 }
 
-.services p {
+#services>p {
 	color: oklch(44.6% 0.03 256.802);
+	view-transition-name: services-p;
 }
 
 .main-services {
@@ -764,6 +771,17 @@ footer {
 
 main.thankyou {
 	margin-top: -90svh;
+}
+
+::view-transition-group(*) {
+	animation-duration: var(--animation-longer);
+}
+
+/* https://www.nicchan.me/blog/view-transitions-and-stacking-context/ */
+::view-transition-group(nav-bar),
+::view-transition-group(nav-title),
+::view-transition-group(nav-toggle) {
+	z-index: 50;
 }
 
 @media screen and (max-width: 800px) {
