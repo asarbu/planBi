@@ -185,11 +185,17 @@ nav {
 		opacity: 0;
 		pointer-events: none;
 		transform: translateY(-100vh);
+		transition:
+			opacity var(--animation-short) ease-in,
+			transform var(--animation-short) ease-in;
 }
 .navbar-menu.active {
 		opacity: 1;
 		pointer-events: auto;
 		transform: translateY(0);
+		transition:
+			opacity var(--animation-short) ease-out,
+			transform var(--animation-short) ease-out;
 }
 .navbar-menu ul {
 	list-style: none;
