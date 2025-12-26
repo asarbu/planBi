@@ -133,6 +133,7 @@ nav {
 	position: fixed;
 	z-index: 10;
 	background-color: var(--primary-dark);
+	view-transition-name: nav-bar;
 }
 
 #velvet-container {
@@ -159,6 +160,7 @@ nav {
 	top: 1rem;
 	right: 4vw;
 	height: 1.5rem;
+	view-transition-name: nav-toggle;
 }
 .bar {
 	display: block;
@@ -217,6 +219,7 @@ nav {
 nav .main-title {
 	top: 1rem;
 	font-size: 1rem;
+	view-transition-name: nav-title;
 }
 
 .transitionable {
