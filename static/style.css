@@ -102,12 +102,6 @@ img {
 	 -moz-user-select: none;
 	 -ms-user-select: none;
 }
-.unfaded {
-	opacity: 1 !important;
-}
-.faded {
-	opacity: 0 !important;
-}
 .hidden {
 	opacity: 0 !important;
 }
@@ -220,15 +214,6 @@ nav .main-title {
 	top: 1rem;
 	font-size: 1rem;
 	view-transition-name: nav-title;
-}
-
-.transitionable {
-	transition:
-		opacity var(--animation-longer) ease-in,
-		height var(--animation-longer) ease-in,
-		font-size var(--animation-longer) ease-in,
-		background-color var(--animation-short) ease-in,
-		top var(--animation-longer) ease-in;
 }
 
 section {
@@ -449,11 +434,11 @@ button {
 }
 
 .card ul {
-		margin-top: 1rem 0 3rem 0;
-		text-align: left;
-		color: var(--gray-500);
-		font-size: 0.875rem;
-		padding: 0 0 1rem  0;
+	margin-top: 1rem 0 3rem 0;
+	text-align: left;
+	color: var(--gray-500);
+	font-size: 0.875rem;
+	padding: 0 0 1rem  0;
 }
 
 .card ul li::before {
@@ -515,64 +500,10 @@ button {
 	box-shadow: var(--shadow-l);
 }
 
-.read-more-btn {
-	display: inline-block;
-	opacity: 1;
-	translate: 0 0;
-	transition:
-		opacity var(--animation-long) ease-in,
-		translate var(--animation-long) ease-in;
-}
-
-.read-more-btn.animate {
-	opacity: 0;
-	translate: 0 1em;
-	transition:
-		opacity var(--animation-long) ease-in,
-		translate var(--animation-long) ease-in;
-
-	@starting-style {
-		opacity: 1;
-		translate: 0 0;
-	}
-}
-
-.read-less-btn {
-	display: none;
-	opacity: 0;
-	translate: 0 1em;
-	transition-behavior: allow-discrete;
-	transition: opacity var(--animation-long) ease, 
-		translate var(--animation-long) ease;
-}
-
-.read-less-btn.animate {
-	display: inline-block;
-	opacity: 1;
-	translate: 0 0;
-	transition-behavior: allow-discrete;
-	transition: opacity var(--animation-long) ease, 
-		translate var(--animation-long) ease;
-
-	@starting-style {
-		opacity: 0;
-		translate: 0 1em;
-	}
-}
-
 .portfolio-details {
 	width: 100%;
 	padding-block: 2rem;
 	box-sizing: border-box;
-	height: auto;
-	/** opacity: 0;
-	transition: opacity var(--animation-long) ease;
-}
-
-.portfolio-details.animate {
-	opacity: 1;
-	transition: opacity var(--animation-long) ease var(--animation-long);
-	@starting-style { opacity: 0; } */
 }
 
 .portfolio-details .image-grid {
@@ -649,10 +580,14 @@ img.portrait {
 	padding-block: 2rem;
 }
 
-.booking {
+#booking {
 	background-color: var(--primary-darker);
 	text-align: center;
 	color: var(--highlight);
+	view-transition-name: booking-section;
+	> h3 { view-transition-name: booking-h3; }
+	> h2 { view-transition-name: booking-h2; }
+	> p { view-transition-name: booking-p; }
 }
 
 .consultation-form {
@@ -796,18 +731,6 @@ main.thankyou {
 		gap: 1rem;
 		margin-top: 1rem;
 	}
-
-	.portfolio-details .image-grid {
-		column-count: 2;
-	}
-
-	.services-details.animate {
-		height: 125rem;
-	}
-
-	.booking-details.animate {
-		height: 52rem;
-	}
 }
 
 @media screen and (max-width: 425px) {
@@ -836,14 +759,6 @@ main.thankyou {
 
 	.portfolio-details .image-grid {
 		column-count: 1;
-	}
-	
-	.services-details.animate {
-		height: 210rem;
-	}
-
-	.booking-details.animate {
-		height: 75rem;
 	}
 
 	.consultation-form {
