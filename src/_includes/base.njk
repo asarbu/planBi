@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>PlanBi Events</title>
+	<style>
+		{% set css %}
+			{% include "static/style.css" %}
+		{% endset %}
+		{{ css | cssmin | safe }}
+	</style>
+    {% block head_extra %}{% endblock %}
+</head>
+<body>
+	{% include "navbar.njk" %}
+    {% block main_content %}{% endblock %}
+	{% include "footer.njk" %}
+	<script>
+	{% set js %}{% include "static/script.js" %}{% endset %}
+    {{ js | jsmin | safe }}
+    {% block scripts %}{% endblock %}
+	</script>
+</body>
+
+</html>

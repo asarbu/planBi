@@ -1,0 +1,27 @@
+{
+  "name": "planbi",
+  "version": "1.0.0",
+  "description": "Event planning website",
+  "main": "index.js",
+  "scripts": {
+    "build": "rm -rf _site && npx @11ty/eleventy",
+    "start": "rm -rf _site && npx @11ty/eleventy --serve",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/asarbu/planBi.git"
+  },
+  "author": "Alexandru-Sebastian SARBU",
+  "license": "Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)",
+  "bugs": {
+    "url": "https://github.com/asarbu/planBi/issues"
+  },
+  "homepage": "https://github.com/asarbu/planBi#readme",
+  "dependencies": {
+    "@11ty/eleventy": "^3.1.2",
+    "html-minifier-terser": "^7.2.0",
+    "lightningcss": "^1.30.2",
+    "terser": "^5.44.1"
+  }
+}
