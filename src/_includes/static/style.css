@@ -114,6 +114,7 @@ img {
 	text-align: center;
 	border-bottom: none;
 	box-shadow: none;
+	transition: opacity var(--animation-longer) ease-in;
 }
 
 nav {
@@ -135,6 +136,7 @@ nav {
 	border-bottom: none;
 	box-shadow: none;
 	background-color: var(--velvet-bg-color);
+	transition: opacity var(--animation-longer) ease-in;
 }
 
 .navbar-toggle {
@@ -305,6 +307,7 @@ section > p {
 
 .faded {
 	opacity: 0 !important;
+	transition: opacity var(--animation-longer) ease-out;
 }
 
 .subtitle {
