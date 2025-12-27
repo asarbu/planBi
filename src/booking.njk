@@ -83,7 +83,9 @@
     </main>
 {% endblock %}
 {% block scripts %}
-    <script src="/static/booking.js" type="module"></script>
+	{{ super() }}
+	{% set js %}{% include "static/booking.js" %}{% endset %}
+    {{ js | jsmin | safe }}
 {% endblock %}
 </body>
 </html>

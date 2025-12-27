@@ -264,6 +264,15 @@ function onScrollHandler() {
 	window.requestAnimationFrame(processSnapLogic);
 }
 
+const container = document.getElementById('velvet-container');
+if (container) {
+	setupVelvetEffect({
+		container: container,
+		color: [0.279, 0.374, 0.236],
+		speed: 0.0004,
+	});
+}
+
 document.addEventListener('DOMContentLoaded', function () {
 	mainTitle = document.getElementsByClassName('main-title')[0];
 	stickyElm = document.getElementsByClassName('isSticky')[0];
@@ -283,12 +292,4 @@ document.addEventListener('DOMContentLoaded', function () {
 	// Attach the handler to the window scroll event
 	window.addEventListener('scroll', onScrollHandler, { passive: true });
 
-	const container = document.getElementById('velvet-container');
-	if (container) {
-		setupVelvetEffect({
-			container: container,
-			color: [0.279, 0.374, 0.236],
-			speed: 0.0004,
-		});
-	}
 });
