@@ -4,6 +4,8 @@
   "description": "Event planning website",
   "main": "index.js",
   "scripts": {
+    "build": "rm -rf _site && npx @11ty/eleventy",
+    "start": "rm -rf _site && npx @11ty/eleventy --serve",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
