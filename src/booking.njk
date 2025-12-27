@@ -1,28 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portofoliu - PlanBi Events</title>
-    <link rel="stylesheet" href="/static/style.css">
-</head>
-<body>
-    <nav>
-		<button id="navbar-toggle" aria-label="Open menu" class="navbar-toggle">
-			<span class="bar"></span>
-			<span class="bar"></span>
-		</button>
-		<div id="navbar-menu" class="navbar-menu">
-			<ul>
-				<li><a href="#about-me">Despre mine</a></li>
-				<li><a href="portfolio.html">Evenimente</a></li>
-				<li><a href="#services">Servicii</a></li>
-				<li><a href="#booking">Consultanță</a></li>
-				<li><a href="#contact">Contact</a></li>
-			</ul>
-		</div>
-		<div class="main-title">PlanBi</div>
-	</nav>
+{% extends "base.njk" %}
+{% block main_content %}
     <main style="margin-top: -1px;">
 		<section id="booking" class="booking">
 			<h3>Următorul pas</h3>
@@ -104,20 +81,9 @@
 			<a class="btn" href='/#booking'>Înapoi</a>
 		</section>
     </main>
+{% endblock %}
+{% block scripts %}
     <script src="/static/booking.js" type="module"></script>
-    <footer id="contact">
-        <h4>
-            PlanBi Events
-        </h4>
-        <p>
-            Eleganta in Fiecare Detaliu
-        </p>
-        <div>
-            <a href="mailto:hello@planbi.com" class="hover:text-white transition duration-150">hello@planbi.com</a>
-            <span>|</span>
-            <a href="tel:+4077123456" class="hover:text-white transition duration-150">(771) 123-456</a>
-        </div>
-        <p>&copy; 2025 PlanBi Events SRL. | Design by Alexandru-Sebastian SARBU.</p>
-    </footer>
+{% endblock %}
 </body>
 </html>

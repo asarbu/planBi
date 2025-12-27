@@ -1,0 +1,22 @@
+{
+  "name": "planbi",
+  "version": "1.0.0",
+  "description": "Event planning website",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/asarbu/planBi.git"
+  },
+  "author": "Alexandru-Sebastian SARBU",
+  "license": "Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)",
+  "bugs": {
+    "url": "https://github.com/asarbu/planBi/issues"
+  },
+  "homepage": "https://github.com/asarbu/planBi#readme",
+  "dependencies": {
+    "@11ty/eleventy": "^3.1.2"
+  }
+}
