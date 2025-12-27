@@ -4,17 +4,23 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>PlanBi Events</title>
-    {% block head_extra %}
-	<link rel="stylesheet" href="/static/style.css">
-	{% endblock %}
+	<style>
+		{% set css %}
+			{% include "static/style.css" %}
+		{% endset %}
+		{{ css | cssmin | safe }}
+	</style>
+    {% block head_extra %}{% endblock %}
 </head>
 <body>
 	{% include "navbar.njk" %}
     {% block main_content %}{% endblock %}
 	{% include "footer.njk" %}
-    {% block scripts %}
-	<script src="/static/script.js" type="module"></script>
-    {% endblock %}
+	<script>
+	{% set js %}{% include "static/script.js" %}{% endset %}
+    {{ js | jsmin | safe }}
+    {% block scripts %}{% endblock %}
+	</script>
 </body>
 
 </html>

@@ -39,7 +39,7 @@
 	--primary-dark: oklch(0.508 0.05 135);
 	--primary-xxdark: oklch(0.378 0.05 135);
 	view-transition-name: none;
-	--velvet-bg-color: var(transparent);
+	--velvet-bg-color: transparent;
 }
 
 html, body {
@@ -51,8 +51,6 @@ html, body {
 
 body {
 	overflow-x: hidden;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
 	background-color: var(--primary-dark);
 	font-family: 'Inter', sans-serif;
 }
@@ -61,13 +59,13 @@ header {
 	height: 100svh;
 	min-height: 100svh;
 	display: block;
-	& .logo {
+	& > .logo {
 		font-size: 4rem;
 		top: 20svh;
 		transition: font-size var(--animation-longer) ease-out,
 			top var(--animation-longer) ease-out;
 	}
-	& .logo.condensed {
+	& > .logo.condensed {
 		font-size: 1rem;
 		top: calc(1rem + 100svh);
 		transition: font-size var(--animation-longer) ease-in,
@@ -98,9 +96,6 @@ h3 {
 
 img {
 	user-select: none;
-	 -webkit-user-select: none;
-	 -moz-user-select: none;
-	 -ms-user-select: none;
 }
 .hidden {
 	opacity: 0 !important;
@@ -311,9 +306,6 @@ section > p {
 	font-weight: 400;
 	user-select: none;
 	opacity: 1;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
 	position: absolute;
 	top: calc(40svh);
 	left: 50%;
@@ -363,11 +355,6 @@ section > p {
 
 #portfolio .read-more-btn {
 	background-color: var(--primary-dark);
-}
-
-#portfolio .read-less-btn {
-	background-color: var(--primary-dark);
-	color: var(--highlight);
 }
 
 .event {

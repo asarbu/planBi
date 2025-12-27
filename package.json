@@ -19,6 +19,9 @@
   },
   "homepage": "https://github.com/asarbu/planBi#readme",
   "dependencies": {
-    "@11ty/eleventy": "^3.1.2"
+    "@11ty/eleventy": "^3.1.2",
+    "html-minifier-terser": "^7.2.0",
+    "lightningcss": "^1.30.2",
+    "terser": "^5.44.1"
   }
 }
