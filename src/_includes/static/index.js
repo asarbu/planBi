@@ -69,9 +69,9 @@ var easing = {
 	// acceleration until halfway, then deceleration
 	easeInOutQuad: function (t) { return t < .5 ? 2 * t * t : -1 + (4 - 2 * t) * t },
 	// accelerating from zero velocity 
-	easeInCubic: function (t) { return t * t * t },
+	easeInCubic: function (t) { return solveBezier(0.42, 0, 1.0, 1.0)(t) },
 	// decelerating to zero velocity 
-	easeOutCubic: function (t) { return (--t) * t * t + 1 },
+	easeOutCubic: function (t) { return  solveBezier(0, 0, 0.58, 1.0)(t) },
 	// acceleration until halfway, then deceleration 
 	easeInOutCubic: function (t) { return t < .5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1 },
 	// accelerating from zero velocity 
@@ -85,8 +85,42 @@ var easing = {
 	// decelerating to zero velocity
 	easeOutQuint: function (t) { return 1 + (--t) * t * t * t * t },
 	// acceleration until halfway, then deceleration 
-	easeInOutQuint: function (t) { return t < .5 ? 16 * t * t * t * t * t : 1 + 16 * (--t) * t * t * t * t }
+	easeInOutQuint: function (t) { return t < .5 ? 16 * t * t * t * t * t : 1 + 16 * (--t) * t * t * t * t },
+	bezier: function(t, p1, p2) { return 3 * Math.pow(1 - t, 2) * t * p1 + 3 * (1 - t) * Math.pow(t, 2) * p2 + Math.pow(t, 3);}
 }
+        /**
+         * Robust Bezier Solver
+         * Newton-Raphson method to solve for t at a given x (time).
+         */
+        function solveBezier(x1, y1, x2, y2) {
+            const cx = 3.0 * x1;
+            const bx = 3.0 * (x2 - x1) - cx;
+            const ax = 1.0 - cx - bx;
+            const cy = 3.0 * y1;
+            const by = 3.0 * (y2 - y1) - cy;
+            const ay = 1.0 - cy - by;
+
+            function sampleCurveX(t) { return ((ax * t + bx) * t + cx) * t; }
+            function sampleCurveY(t) { return ((ay * t + by) * t + cy) * t; }
+            function sampleCurveDerivativeX(t) { return (3.0 * ax * t + 2.0 * bx) * t + cx; }
+
+            function solveCurveX(x) {
+                let t2 = x;
+                for (let i = 0; i < 8; i++) {
+                    const x2 = sampleCurveX(t2) - x;
+                    if (Math.abs(x2) < 1e-6) return t2;
+                    const d2 = sampleCurveDerivativeX(t2);
+                    if (Math.abs(d2) < 1e-6) break;
+                    t2 = t2 - x2 / d2;
+                }
+                return t2;
+            }
+
+            return function(x) {
+                if (x === 0 || x === 1) return x;
+                return sampleCurveY(solveCurveX(x));
+            };
+        }
 
 // Compile shader
 function compileShader(gl, type, source) {
@@ -196,7 +230,7 @@ function scrollTo(Y, duration, easingFunction, callback) {
 		return; /* Prevent scrolling to the Y point if already there */
 	}
 
-	function scroll(timestamp) {
+	function scroll() {
 		var currentTime = Date.now(),
 			time = Math.min(1, ((currentTime - start) / duration)),
 			easedT = easingFunction(time);
@@ -239,22 +273,30 @@ function processSnapLogic() {
 		for (const child of logo.children[0].children) {
 			child.classList.add('condensed');
 		}
+		scrollTo(HEADER_HEIGHT, 500, easing.easeInCubic, () => { 
+			scrollTicking = false; 
+			mainTitle.classList.remove('hidden'); 
+			logo.classList.add('hidden');	 
+		});
 		stickyElm.classList.add('faded');
 		velvetContainer.classList.add('faded');
-		scrollTo(HEADER_HEIGHT, 500, easing.easeInCubic, () => { scrollTicking = false; mainTitle.classList.remove('hidden'); logo.classList.add('hidden'); } );
 	}
 	// (Header Closed -> Header Open)
 	else if (scrollUp && isInSnapZone) {
 		scrollTicking = true;
-		mainTitle.classList.add('hidden');
 		logo.classList.remove('hidden');
-		logo.classList.remove('condensed');
+		mainTitle.classList.add('hidden');
+		scrollTo(SNAP_THRESHOLD_DOWN, 500, easing.easeOutCubic, () => { 
+			scrollTicking = false; 
+			mainTitle.classList.add('hidden'); 
+			logo.classList.remove('hidden');	 
+		});
 		for (const child of logo.children[0].children) {
 			child.classList.remove('condensed');
 		}
+		logo.classList.remove('condensed');
 		stickyElm.classList.remove('faded');
 		velvetContainer.classList.remove('faded');
-		scrollTo(0, 500, easing.easeOutCubic, () => { scrollTicking = false; });
 	}
 }
 
