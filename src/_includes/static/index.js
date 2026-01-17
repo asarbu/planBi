@@ -241,7 +241,7 @@ function processSnapLogic() {
 		}
 		stickyElm.classList.add('faded');
 		velvetContainer.classList.add('faded');
-		scrollTo(HEADER_HEIGHT, 500, easing.easeInQuad, () => { scrollTicking = false; mainTitle.classList.remove('hidden');  });
+		scrollTo(HEADER_HEIGHT, 500, easing.easeInCubic, () => { scrollTicking = false; mainTitle.classList.remove('hidden'); logo.classList.add('hidden'); } );
 	}
 	// (Header Closed -> Header Open)
 	else if (scrollUp && isInSnapZone) {
@@ -254,7 +254,7 @@ function processSnapLogic() {
 		}
 		stickyElm.classList.remove('faded');
 		velvetContainer.classList.remove('faded');
-		scrollTo(0, 500, easing.easeOutQuad, () => { scrollTicking = false; });
+		scrollTo(0, 500, easing.easeOutCubic, () => { scrollTicking = false; });
 	}
 }
 
