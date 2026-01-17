@@ -63,14 +63,14 @@ header {
 	min-height: 100svh;
 	display: block;
 	& > .logo {
-		width: 54rem;
-		height: 16rem;
+		width: 14rem;
+		height: 8rem;
 		transform: translateY(-50svh);
 		transition: 
 			transform var(--animation-longer) var(--ease-out);
 	}
 	& > .logo.condensed {
-		transform: translateY(7svh) scale(0.25) ;
+		transform: translateY(6.5svh) scale(0.5) ;
 		transition:
 			transform var(--animation-longer) var(--ease-in);
 	}
