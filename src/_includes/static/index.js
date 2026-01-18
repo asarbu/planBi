@@ -222,8 +222,7 @@ function setupVelvetEffect(options) {
 
 function scrollTo(Y, duration, easingFunction, callback) {
 	var start = Date.now(),
-		elem = document.documentElement.scrollTop ? document.documentElement : document.body,
-		from = elem.scrollTop;
+		from = document.documentElement.scrollTop;
 
 	if (from === Y) {
 		callback?.();
@@ -235,7 +234,7 @@ function scrollTo(Y, duration, easingFunction, callback) {
 			time = Math.min(1, ((currentTime - start) / duration)),
 			easedT = easingFunction(time);
 
-		elem.scrollTop = (easedT * (Y - from)) + from;
+				document.documentElement.scrollTop = (easedT * (Y - from)) + from;
 
 		if (time < 1) requestAnimationFrame(scroll);
 		else {
