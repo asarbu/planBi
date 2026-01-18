@@ -60,19 +60,16 @@ body {
 
 header {
 	height: 100svh;
-	min-height: 100svh;
 	display: block;
 	& > .logo {
-		width: 14rem;
+		width: 12rem;
 		height: 8rem;
-		transform: translateY(-50svh);
-		transition: 
-			transform var(--animation-longer) var(--ease-out);
+		transform: translateY(40svh);
+		transition: transform var(--animation-longer) var(--ease-out);
 	}
 	& > .logo.condensed {
-		transform: translateY(6.5svh) scale(0.5) ;
-		transition:
-			transform var(--animation-longer) var(--ease-in);
+		transform: translateY(100svh) scale(0.5);
+		transition: transform var(--animation-longer) var(--ease-in);
 	}
 }
 
@@ -181,7 +178,7 @@ svg {
 }
 
 .hidden {
-	opacity: 0 !important;
+	
 }
 
 .isSticky {
@@ -392,8 +389,8 @@ section > p {
 	left: 50%;
 	translate: -50% 0;
 	z-index: 40;
-	bottom: 0;
-	transform-origin: bottom center;
+	top: 0;
+	transform-origin: top center;
 }
 
 .subtitle {
