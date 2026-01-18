@@ -269,6 +269,8 @@ function processSnapLogic() {
 		scrollTicking = true;
 		mainTitle.classList.add('hidden');
 		logo.classList.add('condensed');
+		stickyElm.classList.add('faded');
+		velvetContainer.classList.add('faded');
 		for (const child of logo.children[0].children) {
 			child.classList.add('condensed');
 		}
@@ -277,25 +279,23 @@ function processSnapLogic() {
 			mainTitle.classList.remove('hidden'); 
 			logo.classList.add('hidden');	 
 		});
-		stickyElm.classList.add('faded');
-		velvetContainer.classList.add('faded');
 	}
 	// (Header Closed -> Header Open)
 	else if (scrollUp && isInSnapZone) {
 		scrollTicking = true;
 		logo.classList.remove('hidden');
 		mainTitle.classList.add('hidden');
+		stickyElm.classList.remove('faded');
+		velvetContainer.classList.remove('faded');
+		logo.classList.remove('condensed');
+		for (const child of logo.children[0].children) {
+			child.classList.remove('condensed');
+		}		
 		scrollTo(SNAP_THRESHOLD_DOWN, 500, easing.easeOutCubic, () => { 
 			scrollTicking = false; 
 			mainTitle.classList.add('hidden'); 
 			logo.classList.remove('hidden');	 
 		});
-		for (const child of logo.children[0].children) {
-			child.classList.remove('condensed');
-		}
-		logo.classList.remove('condensed');
-		stickyElm.classList.remove('faded');
-		velvetContainer.classList.remove('faded');
 	}
 }
 
