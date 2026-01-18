@@ -274,7 +274,8 @@ function processSnapLogic() {
 		for (const child of logo.children[0].children) {
 			child.classList.add('condensed');
 		}
-		scrollTo(HEADER_HEIGHT, 500, easing.easeInCubic, () => {
+		//Overshoot to prevent snapping errors
+		scrollTo(HEADER_HEIGHT + 10, 500, easing.easeInCubic, () => {
 			mainTitle.classList.remove('hidden'); 
 			logo.classList.add('hidden');
 			scrollTicking = false; 
@@ -293,7 +294,8 @@ function processSnapLogic() {
 		for (const child of logo.children[0].children) {
 			child.classList.remove('condensed');
 		}
-		scrollTo(SNAP_THRESHOLD_DOWN, 500, easing.easeOutCubic, () => { 
+		//Overshoot to prevent snapping errors
+		scrollTo(SNAP_THRESHOLD_DOWN - 10, 500, easing.easeOutCubic, () => { 
 			mainTitle.classList.add('hidden'); 
 			logo.classList.remove('hidden');
 			scrollTicking = false; 
