@@ -225,7 +225,7 @@ function scrollTo(Y, duration, easingFunction, callback) {
 		from = document.documentElement.scrollTop;
 
 	if (from === Y) {
-		callback?.();
+		requestAnimationFrame(callback);
 		return; /* Prevent scrolling to the Y point if already there */
 	}
 
@@ -235,14 +235,13 @@ function scrollTo(Y, duration, easingFunction, callback) {
 			easedT = easingFunction(time);
 
 				document.documentElement.scrollTop = (easedT * (Y - from)) + from;
-
 		if (time < 1) requestAnimationFrame(scroll);
 		else {
-			callback?.();
+			requestAnimationFrame(callback);
 		}
 	}
 
-	requestAnimationFrame(scroll)
+	requestAnimationFrame(scroll);
 }
 
 let scrollTicking = false;
@@ -266,6 +265,7 @@ function processSnapLogic() {
 
 	// Scroll down (Header Open -> Header Closed)
 	if (scrollDown && isInSnapZone) {
+		disableScroll();
 		scrollTicking = true;
 		mainTitle.classList.add('hidden');
 		logo.classList.add('condensed');
@@ -274,14 +274,16 @@ function processSnapLogic() {
 		for (const child of logo.children[0].children) {
 			child.classList.add('condensed');
 		}
-		scrollTo(HEADER_HEIGHT, 500, easing.easeInCubic, () => { 
-			scrollTicking = false; 
+		scrollTo(HEADER_HEIGHT, 500, easing.easeInCubic, () => {
 			mainTitle.classList.remove('hidden'); 
-			logo.classList.add('hidden');	 
+			logo.classList.add('hidden');
+			scrollTicking = false; 
+			enableScroll(); 
 		});
 	}
 	// (Header Closed -> Header Open)
 	else if (scrollUp && isInSnapZone) {
+		disableScroll();
 		scrollTicking = true;
 		logo.classList.remove('hidden');
 		mainTitle.classList.add('hidden');
@@ -290,11 +292,12 @@ function processSnapLogic() {
 		logo.classList.remove('condensed');
 		for (const child of logo.children[0].children) {
 			child.classList.remove('condensed');
-		}		
+		}
 		scrollTo(SNAP_THRESHOLD_DOWN, 500, easing.easeOutCubic, () => { 
-			scrollTicking = false; 
 			mainTitle.classList.add('hidden'); 
-			logo.classList.remove('hidden');	 
+			logo.classList.remove('hidden');
+			scrollTicking = false; 
+			enableScroll();	 
 		});
 	}
 }
@@ -303,13 +306,63 @@ function processSnapLogic() {
 /**
  * Handles the scroll event by scheduling the logic inside requestAnimationFrame.
  */
-function onScrollHandler() {
+function onScrollHandler(e) {
 	// If a snap is in progress, ignore subsequent scroll events to prevent loop
-	if (scrollTicking) return;
+	if (scrollTicking) {
+		e.preventDefault();
+		e.stopPropagation();
+		return;
+	}
 
-	// console.log('Is Ticking:', isTicking);
 	window.requestAnimationFrame(processSnapLogic);
 }
+
+// Source - https://stackoverflow.com/a
+// Posted by gblazex, modified by community. See post 'Timeline' for change history
+// Retrieved 2026-01-18, License - CC BY-SA 4.0
+
+// left: 37, up: 38, right: 39, down: 40,
+// spacebar: 32, pageup: 33, pagedown: 34, end: 35, home: 36
+var keys = {37: 1, 38: 1, 39: 1, 40: 1};
+
+function preventDefault(e) {
+  e.preventDefault();
+}
+
+function preventDefaultForScrollKeys(e) {
+  if (keys[e.keyCode]) {
+    preventDefault(e);
+    return false;
+  }
+}
+
+// modern Chrome requires { passive: false } when adding event
+var supportsPassive = false;
+try {
+  window.addEventListener("test", null, Object.defineProperty({}, 'passive', {
+    get: function () { supportsPassive = true; } 
+  }));
+} catch(e) {}
+
+var wheelOpt = supportsPassive ? { passive: false } : false;
+var wheelEvent = 'onwheel' in document.createElement('div') ? 'wheel' : 'mousewheel';
+
+// call this to Disable
+function disableScroll() {
+  window.addEventListener('DOMMouseScroll', preventDefault, false); // older FF
+  window.addEventListener(wheelEvent, preventDefault, wheelOpt); // modern desktop
+  window.addEventListener('touchmove', preventDefault, wheelOpt); // mobile
+  window.addEventListener('keydown', preventDefaultForScrollKeys, false);
+}
+
+// call this to Enable
+function enableScroll() {
+  window.removeEventListener('DOMMouseScroll', preventDefault, false);
+  window.removeEventListener(wheelEvent, preventDefault, wheelOpt); 
+  window.removeEventListener('touchmove', preventDefault, wheelOpt);
+  window.removeEventListener('keydown', preventDefaultForScrollKeys, false);
+}
+
 
 const container = document.getElementById('velvet-container');
 if (container) {
@@ -337,6 +390,6 @@ document.addEventListener('DOMContentLoaded', function () {
 	}
 
 	// Attach the handler to the window scroll event
-	window.addEventListener('scroll', onScrollHandler, { passive: true });
+	window.addEventListener('scroll', onScrollHandler, { passive: false });
 
 });
