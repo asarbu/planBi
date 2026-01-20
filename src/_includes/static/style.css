@@ -105,6 +105,9 @@ img {
 svg {
 	height: 100%;
 	shape-rendering: geometricPrecision;
+}
+svg, svg path {
+	transform: translateZ(0);
 	backface-visibility: hidden;
 }
 
