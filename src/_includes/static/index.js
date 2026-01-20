@@ -366,7 +366,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	ScrollTrigger.create({
 		trigger: "header",
 		start: "20% top",
-		end: "bottom top",
+		end: "101% top",
 		onEnter: () => {
 			if (isHeaderOpen) {
 				isHeaderOpen = false;
