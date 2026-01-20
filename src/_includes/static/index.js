@@ -244,10 +244,10 @@ function processSnapLogic() {
 
 	// Scroll down (Header Open -> Header Closed)
 	if (scrollDown && isInSnapZone && isHeaderOpen) {
+		isHeaderOpen = false;
 		document.body.style.touchAction = 'none';
 		document.body.style.overflow = 'hidden';
 		document.body.style.pointerEvents = 'none'; // Disables all touch interaction
-		isHeaderOpen = false;
 		mainTitle.classList.add('hidden');
 		logo.classList.add('condensed');
 		stickyElm.classList.add('faded');
@@ -267,10 +267,10 @@ function processSnapLogic() {
 	}
 	// (Header Closed -> Header Open)
 	else if (scrollUp && isInSnapZone && !isHeaderOpen) {
+		isHeaderOpen = true;
 		document.body.style.touchAction = 'none';
 		document.body.style.overflow = 'hidden';
 		document.body.style.pointerEvents = 'none'; // Disables all touch interaction
-		isHeaderOpen = true;
 		logo.classList.remove('hidden');
 		mainTitle.classList.add('hidden');
 		stickyElm.classList.remove('faded');
@@ -280,7 +280,7 @@ function processSnapLogic() {
 			elm.beginElement();
 		});
 		//Overshoot to prevent snapping errors
-		scrollToPos(0, 500, easing.easeOutCubic, () => { 
+		scrollToPos(1, 500, easing.easeOutCubic, () => { 
 			mainTitle.classList.add('hidden'); 
 			logo.classList.remove('hidden');
 			scrollTicking = false; 
