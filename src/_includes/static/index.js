@@ -245,6 +245,7 @@ function processSnapLogic() {
 
 	// Scroll down (Header Open -> Header Closed)
 	if (scrollDown && isInSnapZone && isHeaderOpen) {
+		document.body.style.overflow = 'hidden';
 		isHeaderOpen = false;
 		mainTitle.classList.add('hidden');
 		logo.classList.add('condensed');
@@ -254,14 +255,16 @@ function processSnapLogic() {
 			elm.beginElement();
 		});
 		//Overshoot to prevent snapping errors
-		scrollTo(HEADER_HEIGHT + 10, 500, easing.easeInCubic, () => {
+		scrollTo(HEADER_HEIGHT + 1, 500, easing.easeInCubic, () => {
 			mainTitle.classList.remove('hidden'); 
 			logo.classList.add('hidden');
 			scrollTicking = false; 
+			document.body.style.overflow = '';
 		});
 	}
 	// (Header Closed -> Header Open)
 	else if (scrollUp && isInSnapZone && !isHeaderOpen) {
+		document.body.style.overflow = 'hidden';
 		isHeaderOpen = true;
 		logo.classList.remove('hidden');
 		mainTitle.classList.add('hidden');
@@ -272,10 +275,11 @@ function processSnapLogic() {
 			elm.beginElement();
 		});
 		//Overshoot to prevent snapping errors
-		scrollTo(SNAP_THRESHOLD_DOWN - 10, 500, easing.easeOutCubic, () => { 
+		scrollTo(SNAP_THRESHOLD_DOWN - 1, 500, easing.easeOutCubic, () => { 
 			mainTitle.classList.add('hidden'); 
 			logo.classList.remove('hidden');
 			scrollTicking = false; 
+		document.body.style.overflow = '';
 		});
 	} else {
 		scrollTicking = false;
@@ -295,46 +299,6 @@ function onScrollHandler(e) {
 	}
 	scrollTicking = true;
 	window.requestAnimationFrame(processSnapLogic);
-}
-
-// Source - https://stackoverflow.com/a
-// Posted by gblazex, modified by community. See post 'Timeline' for change history
-// Retrieved 2026-01-18, License - CC BY-SA 4.0
-
-// left: 37, up: 38, right: 39, down: 40,
-// spacebar: 32, pageup: 33, pagedown: 34, end: 35, home: 36
-var keys = {37: 1, 38: 1, 39: 1, 40: 1};
-
-function preventDefault(e) {
-  e.preventDefault();
-}
-
-function preventDefaultForScrollKeys(e) {
-  if (keys[e.keyCode]) {
-    preventDefault(e);
-    return false;
-  }
-}
-
-// modern Chrome requires { passive: false } when adding event
-var supportsPassive = false;
-try {
-  window.addEventListener("test", null, Object.defineProperty({}, 'passive', {
-    get: function () { supportsPassive = true; } 
-  }));
-} catch(e) {}
-
-var wheelOpt = supportsPassive ? { passive: false } : false;
-var wheelEvent = 'onwheel' in document.createElement('div') ? 'wheel' : 'mousewheel';
-
-// call this to Disable
-function disableScroll() {
-  setScrollLock(true);
-}
-
-// call this to Enable
-function enableScroll() {
-  setScrollLock(false);
 }
 
 const container = document.getElementById('velvet-container');
