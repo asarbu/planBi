@@ -197,7 +197,7 @@ function setupVelvetEffect(options) {
 	animate(0);
 }
 
-function scrollTo(Y, duration, easingFunction, callback) {
+function scrollToPos(Y, duration, easingFunction, callback) {
 	var start = Date.now(),
 		from = document.documentElement.scrollTop;
 
@@ -254,7 +254,7 @@ function processSnapLogic() {
 			elm.beginElement();
 		});
 		//Overshoot to prevent snapping errors
-		scrollTo(HEADER_HEIGHT + 1, 500, easing.easeInCubic, () => {
+		scrollToPos(HEADER_HEIGHT + 1, 500, easing.easeInCubic, () => {
 			mainTitle.classList.remove('hidden'); 
 			logo.classList.add('hidden');
 			scrollTicking = false; 
@@ -278,7 +278,7 @@ function processSnapLogic() {
 			elm.beginElement();
 		});
 		//Overshoot to prevent snapping errors
-		scrollTo(0, 500, easing.easeOutCubic, () => { 
+		scrollToPos(0, 500, easing.easeOutCubic, () => { 
 			mainTitle.classList.add('hidden'); 
 			logo.classList.remove('hidden');
 			scrollTicking = false; 
@@ -331,6 +331,60 @@ document.addEventListener('DOMContentLoaded', function () {
 	}
 
 	// Attach the handler to the window scroll event
-	window.addEventListener('scroll', onScrollHandler, { passive: false });
+	//window.addEventListener('scroll', onScrollHandler, { passive: false });
 
+	gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+	ScrollTrigger.create({
+		trigger: "header",
+		start: "20% top",
+		end: "bottom top",
+		onEnter: () => {
+			if (isHeaderOpen) {
+				isHeaderOpen = false;
+				mainTitle.classList.add('hidden');
+				logo.classList.add('condensed');
+				stickyElm.classList.add('faded');
+				velvetContainer.classList.add('faded');
+				document.querySelectorAll("animate[data-direction='fwd']").forEach(elm => {
+					elm.beginElement();
+				});
+				gsap.to(window, {
+					duration: 0.5,
+					scrollTo: { y: HEADER_HEIGHT, autoKill: false },
+					ease: easing.easeInCubic,
+					onComplete: () => {
+						mainTitle.classList.remove('hidden');
+						logo.classList.add('hidden');
+					}
+				});
+			}
+		},
+		onLeaveBack: () => {
+			if (!isHeaderOpen) {
+				isHeaderOpen = true;
+				logo.classList.remove('hidden');
+				mainTitle.classList.add('hidden');
+				stickyElm.classList.remove('faded');
+				velvetContainer.classList.remove('faded');
+				logo.classList.remove('condensed');
+				document.querySelectorAll("animate[data-direction='bwd']").forEach(elm => {
+					elm.beginElement();
+				});
+				gsap.to(window, {
+					duration: 0.5,
+					scrollTo: { y: 0, autoKill: false },
+					ease: easing.easeOutCubic,
+					onComplete: () => {
+						mainTitle.classList.add('hidden');
+						logo.classList.remove('hidden');
+					}
+				});
+			}
+		}
+	});
+
+	// Handle Safari window resizing/address bar changes
+	window.addEventListener('resize', () => {
+		ScrollTrigger.refresh();
+	});
 });
