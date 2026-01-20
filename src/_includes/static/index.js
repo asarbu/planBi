@@ -211,7 +211,10 @@ function scrollTo(Y, duration, easingFunction, callback) {
 			time = Math.min(1, ((currentTime - start) / duration)),
 			easedT = easingFunction(time);
 
-			document.documentElement.scrollTop = (easedT * (Y - from)) + from;
+			document.documentElement.scrollTo({
+				top: (easedT * (Y - from)) + from,
+				behavior: 'instant' // Crucial to prevent browser internal smoothing
+			}); 
 		if (time < 1) requestAnimationFrame(scroll);
 		else {
 			requestAnimationFrame(callback);
@@ -230,7 +233,7 @@ let velvetContainer = undefined;
 let logo = undefined;
 let HEADER_HEIGHT = undefined;
 let SNAP_THRESHOLD_DOWN = undefined;
-
+let isHeaderOpen = true; 
 function processSnapLogic() {
 	const currentScrollY = window.scrollY;
 	const isInSnapZone = currentScrollY >= SNAP_THRESHOLD_DOWN && currentScrollY <= HEADER_HEIGHT;
@@ -241,9 +244,8 @@ function processSnapLogic() {
 	if (!scrollDown && !scrollUp) { return; }
 
 	// Scroll down (Header Open -> Header Closed)
-	if (scrollDown && isInSnapZone) {
-		disableScroll();
-		scrollTicking = true;
+	if (scrollDown && isInSnapZone && isHeaderOpen) {
+		isHeaderOpen = false;
 		mainTitle.classList.add('hidden');
 		logo.classList.add('condensed');
 		stickyElm.classList.add('faded');
@@ -256,13 +258,11 @@ function processSnapLogic() {
 			mainTitle.classList.remove('hidden'); 
 			logo.classList.add('hidden');
 			scrollTicking = false; 
-			enableScroll(); 
 		});
 	}
 	// (Header Closed -> Header Open)
-	else if (scrollUp && isInSnapZone) {
-		disableScroll();
-		scrollTicking = true;
+	else if (scrollUp && isInSnapZone && !isHeaderOpen) {
+		isHeaderOpen = true;
 		logo.classList.remove('hidden');
 		mainTitle.classList.add('hidden');
 		stickyElm.classList.remove('faded');
@@ -276,8 +276,9 @@ function processSnapLogic() {
 			mainTitle.classList.add('hidden'); 
 			logo.classList.remove('hidden');
 			scrollTicking = false; 
-			enableScroll();	 
 		});
+	} else {
+		scrollTicking = false;
 	}
 }
 
@@ -292,7 +293,7 @@ function onScrollHandler(e) {
 		e.stopPropagation();
 		return;
 	}
-
+	scrollTicking = true;
 	window.requestAnimationFrame(processSnapLogic);
 }
 
@@ -328,18 +329,13 @@ var wheelEvent = 'onwheel' in document.createElement('div') ? 'wheel' : 'mousewh
 
 // call this to Disable
 function disableScroll() {
-  window.addEventListener('wheel', preventDefault, { passive: false }); // modern desktop
-  window.addEventListener('touchmove', preventDefault, { passive: false }); // mobile
-  window.addEventListener('keydown', preventDefaultForScrollKeys, false);
+  setScrollLock(true);
 }
 
 // call this to Enable
 function enableScroll() {
-  window.removeEventListener('wheel', preventDefault); 
-  window.removeEventListener('touchmove', preventDefault);
-  window.removeEventListener('keydown', preventDefaultForScrollKeys);
+  setScrollLock(false);
 }
-
 
 const container = document.getElementById('velvet-container');
 if (container) {
@@ -357,7 +353,6 @@ document.addEventListener('DOMContentLoaded', function () {
 	logo = document.getElementsByClassName('logo')[0];
 	HEADER_HEIGHT = document.defaultView.innerHeight;
 	SNAP_THRESHOLD_DOWN = HEADER_HEIGHT * 0.2;
-	scrollTicking = false;
 	lastScrollY = window.scrollY;
 	if (window.scrollY > HEADER_HEIGHT) {
 		logo.classList.add('hidden');
