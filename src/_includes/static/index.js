@@ -352,7 +352,7 @@ document.addEventListener('DOMContentLoaded', function () {
 				});
 				gsap.to(window, {
 					duration: 0.5,
-					scrollTo: { y: 10, autoKill: false },
+					scrollTo: { y: 10, autoKill: true },
 					ease: easing.easeOutCubic,
 					onComplete: () => {
 						document.body.classList.remove('is-auto-scrolling');
@@ -380,7 +380,7 @@ document.addEventListener('DOMContentLoaded', function () {
 				});
 				gsap.to(window, {
 					duration: 0.5,
-					scrollTo: { y: HEADER_HEIGHT, autoKill: false },
+					scrollTo: { y: HEADER_HEIGHT, autoKill: true },
 					ease: easing.easeInCubic,
 					onComplete: () => {
 						document.body.classList.remove('is-auto-scrolling');
