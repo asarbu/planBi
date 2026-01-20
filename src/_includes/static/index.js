@@ -242,6 +242,7 @@ function processSnapLogic() {
 
 	// Scroll down (Header Open -> Header Closed)
 	if (scrollDown && isInSnapZone && isHeaderOpen) {
+		document.body.style.touchAction = 'none';
 		document.body.style.overflow = 'hidden';
 		isHeaderOpen = false;
 		mainTitle.classList.add('hidden');
@@ -257,10 +258,12 @@ function processSnapLogic() {
 			logo.classList.add('hidden');
 			scrollTicking = false; 
 			document.body.style.overflow = '';
+			document.body.style.touchAction = '';
 		});
 	}
 	// (Header Closed -> Header Open)
 	else if (scrollUp && isInSnapZone && !isHeaderOpen) {
+		document.body.style.touchAction = 'none';
 		document.body.style.overflow = 'hidden';
 		isHeaderOpen = true;
 		logo.classList.remove('hidden');
@@ -276,7 +279,8 @@ function processSnapLogic() {
 			mainTitle.classList.add('hidden'); 
 			logo.classList.remove('hidden');
 			scrollTicking = false; 
-		document.body.style.overflow = '';
+			document.body.style.overflow = '';
+			document.body.style.touchAction = '';
 		});
 	} else {
 		scrollTicking = false;
