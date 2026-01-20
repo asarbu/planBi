@@ -275,7 +275,7 @@ function processSnapLogic() {
 			elm.beginElement();
 		});
 		//Overshoot to prevent snapping errors
-		scrollTo(SNAP_THRESHOLD_DOWN - 1, 500, easing.easeOutCubic, () => { 
+		scrollTo(0, 500, easing.easeOutCubic, () => { 
 			mainTitle.classList.add('hidden'); 
 			logo.classList.remove('hidden');
 			scrollTicking = false; 
