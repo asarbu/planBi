@@ -337,7 +337,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	ScrollTrigger.create({
 		trigger: "header",
 		start: "bottom bottom",
-		end: "bottom top",
+		end: "bottom top", // Prevent overlap with the second trigger
 		onEnterBack: () => {
 			if (!isHeaderOpen) {
 				isHeaderOpen = true;
@@ -352,7 +352,7 @@ document.addEventListener('DOMContentLoaded', function () {
 				});
 				gsap.to(window, {
 					duration: 0.5,
-					scrollTo: { y: 0, autoKill: false },
+					scrollTo: { y: 10, autoKill: false },
 					ease: easing.easeOutCubic,
 					onComplete: () => {
 						document.body.classList.remove('is-auto-scrolling');
