@@ -60,33 +60,10 @@ const uvs = new Float32Array([
 * only considering the t value for the range [0, 1] => [0, 1]
 */
 var easing = {
-	// no easing, no acceleration
-	linear: function (t) { return t },
-	// accelerating from zero velocity
-	easeInQuad: function (t) { return t * t },
-	// decelerating to zero velocity
-	easeOutQuad: function (t) { return t * (2 - t) },
-	// acceleration until halfway, then deceleration
-	easeInOutQuad: function (t) { return t < .5 ? 2 * t * t : -1 + (4 - 2 * t) * t },
 	// accelerating from zero velocity 
 	easeInCubic: function (t) { return solveBezier(0.42, 0, 1.0, 1.0)(t) },
 	// decelerating to zero velocity 
 	easeOutCubic: function (t) { return  solveBezier(0, 0, 0.58, 1.0)(t) },
-	// acceleration until halfway, then deceleration 
-	easeInOutCubic: function (t) { return t < .5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1 },
-	// accelerating from zero velocity 
-	easeInQuart: function (t) { return t * t * t * t },
-	// decelerating to zero velocity 
-	easeOutQuart: function (t) { return 1 - (--t) * t * t * t },
-	// acceleration until halfway, then deceleration
-	easeInOutQuart: function (t) { return t < .5 ? 8 * t * t * t * t : 1 - 8 * (--t) * t * t * t },
-	// accelerating from zero velocity
-	easeInQuint: function (t) { return t * t * t * t * t },
-	// decelerating to zero velocity
-	easeOutQuint: function (t) { return 1 + (--t) * t * t * t * t },
-	// acceleration until halfway, then deceleration 
-	easeInOutQuint: function (t) { return t < .5 ? 16 * t * t * t * t * t : 1 + 16 * (--t) * t * t * t * t },
-	bezier: function(t, p1, p2) { return 3 * Math.pow(1 - t, 2) * t * p1 + 3 * (1 - t) * Math.pow(t, 2) * p2 + Math.pow(t, 3);}
 }
         /**
          * Robust Bezier Solver
@@ -234,7 +211,7 @@ function scrollTo(Y, duration, easingFunction, callback) {
 			time = Math.min(1, ((currentTime - start) / duration)),
 			easedT = easingFunction(time);
 
-				document.documentElement.scrollTop = (easedT * (Y - from)) + from;
+			document.documentElement.scrollTop = (easedT * (Y - from)) + from;
 		if (time < 1) requestAnimationFrame(scroll);
 		else {
 			requestAnimationFrame(callback);
@@ -271,10 +248,9 @@ function processSnapLogic() {
 		logo.classList.add('condensed');
 		stickyElm.classList.add('faded');
 		velvetContainer.classList.add('faded');
-		for (const child of logo.children[0].children) {
-			child.classList.add('condensed');
-		}
-		document.getElementById('p-fwd').beginElement();
+		document.querySelectorAll("animate[data-direction='fwd']").forEach(elm => {
+			elm.beginElement();
+		});
 		//Overshoot to prevent snapping errors
 		scrollTo(HEADER_HEIGHT + 10, 500, easing.easeInCubic, () => {
 			mainTitle.classList.remove('hidden'); 
@@ -292,10 +268,9 @@ function processSnapLogic() {
 		stickyElm.classList.remove('faded');
 		velvetContainer.classList.remove('faded');
 		logo.classList.remove('condensed');
-		for (const child of logo.children[0].children) {
-			child.classList.remove('condensed');
-		}
-		document.getElementById('p-bwd').beginElement();
+		document.querySelectorAll("animate[data-direction='bwd']").forEach(elm => {
+			elm.beginElement();
+		});
 		//Overshoot to prevent snapping errors
 		scrollTo(SNAP_THRESHOLD_DOWN - 10, 500, easing.easeOutCubic, () => { 
 			mainTitle.classList.add('hidden'); 
@@ -353,18 +328,16 @@ var wheelEvent = 'onwheel' in document.createElement('div') ? 'wheel' : 'mousewh
 
 // call this to Disable
 function disableScroll() {
-  window.addEventListener('DOMMouseScroll', preventDefault, false); // older FF
-  window.addEventListener(wheelEvent, preventDefault, wheelOpt); // modern desktop
-  window.addEventListener('touchmove', preventDefault, wheelOpt); // mobile
+  window.addEventListener('wheel', preventDefault, { passive: false }); // modern desktop
+  window.addEventListener('touchmove', preventDefault, { passive: false }); // mobile
   window.addEventListener('keydown', preventDefaultForScrollKeys, false);
 }
 
 // call this to Enable
 function enableScroll() {
-  window.removeEventListener('DOMMouseScroll', preventDefault, false);
-  window.removeEventListener(wheelEvent, preventDefault, wheelOpt); 
-  window.removeEventListener('touchmove', preventDefault, wheelOpt);
-  window.removeEventListener('keydown', preventDefaultForScrollKeys, false);
+  window.removeEventListener('wheel', preventDefault); 
+  window.removeEventListener('touchmove', preventDefault);
+  window.removeEventListener('keydown', preventDefaultForScrollKeys);
 }
 
 
