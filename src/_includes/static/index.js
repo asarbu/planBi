@@ -199,7 +199,8 @@ function setupVelvetEffect(options) {
 
 function scrollToPos(Y, duration, easingFunction, callback) {
 	var start = Date.now(),
-		from = document.documentElement.scrollTop;
+		elem = document.documentElement.scrollTop ? document.documentElement : document.body,
+		from = elem.scrollTop;
 
 	if (from === Y) {
 		requestAnimationFrame(callback);
@@ -211,13 +212,13 @@ function scrollToPos(Y, duration, easingFunction, callback) {
 			time = Math.min(1, ((currentTime - start) / duration)),
 			easedT = easingFunction(time);
 
-			document.documentElement.scrollTop = (easedT * (Y - from)) + from;
+			elem.scrollTop = (easedT * (Y - from)) + from;
 		if (time < 1) requestAnimationFrame(scroll);
 		else {
 			requestAnimationFrame(callback);
 		}
 	}
-
+	elem.scrollTop = from;
 	requestAnimationFrame(scroll);
 }
 
@@ -230,6 +231,7 @@ let velvetContainer = undefined;
 let logo = undefined;
 let HEADER_HEIGHT = undefined;
 let SNAP_THRESHOLD_DOWN = undefined;
+let SNAP_THRESHOLD_LOGO = undefined;
 let isHeaderOpen = true; 
 function processSnapLogic() {
 	const currentScrollY = window.scrollY;
@@ -328,72 +330,12 @@ document.addEventListener('DOMContentLoaded', function () {
 		logo.classList.add('condensed');
 		stickyElm.classList.add('faded');
 		velvetContainer.classList.add('faded');
+		isHeaderOpen = false;
+		document.querySelectorAll("animate[data-direction='fwd']").forEach(elm => {
+			elm.beginElement();
+		});
 	}
 
 	// Attach the handler to the window scroll event
-	//window.addEventListener('scroll', onScrollHandler, { passive: false });
-
-	gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
-	ScrollTrigger.create({
-		trigger: "header",
-		start: "bottom bottom",
-		end: "bottom top", // Prevent overlap with the second trigger
-		onEnterBack: () => {
-			if (!isHeaderOpen) {
-				isHeaderOpen = true;
-				document.body.classList.add('is-auto-scrolling');
-				logo.classList.remove('hidden');
-				mainTitle.classList.add('hidden');
-				stickyElm.classList.remove('faded');
-				velvetContainer.classList.remove('faded');
-				logo.classList.remove('condensed');
-				document.querySelectorAll("animate[data-direction='bwd']").forEach(elm => {
-					elm.beginElement();
-				});
-				gsap.to(window, {
-					duration: 0.5,
-					scrollTo: { y: 10, autoKill: true },
-					ease: easing.easeOutCubic,
-					onComplete: () => {
-						document.body.classList.remove('is-auto-scrolling');
-						mainTitle.classList.add('hidden');
-						logo.classList.remove('hidden');
-					}
-				});
-			}
-		}
-	});
-	ScrollTrigger.create({
-		trigger: "header",
-		start: "20% top",
-		end: "101% top",
-		onEnter: () => {
-			if (isHeaderOpen) {
-				isHeaderOpen = false;
-				document.body.classList.add('is-auto-scrolling');
-				mainTitle.classList.add('hidden');
-				logo.classList.add('condensed');
-				stickyElm.classList.add('faded');
-				velvetContainer.classList.add('faded');
-				document.querySelectorAll("animate[data-direction='fwd']").forEach(elm => {
-					elm.beginElement();
-				});
-				gsap.to(window, {
-					duration: 0.5,
-					scrollTo: { y: HEADER_HEIGHT, autoKill: true },
-					ease: easing.easeInCubic,
-					onComplete: () => {
-						document.body.classList.remove('is-auto-scrolling');
-						mainTitle.classList.remove('hidden');
-						logo.classList.add('hidden');
-					}
-				});
-			}
-		}
-	});
-
-	// Handle Safari window resizing/address bar changes
-	window.addEventListener('resize', () => {
-		ScrollTrigger.refresh();
-	});
+	window.addEventListener('scroll', onScrollHandler, { passive: false });
 });

@@ -56,11 +56,6 @@ body {
 	background-color: var(--primary-dark);
 	font-family: 'Inter', sans-serif;;
 }
-/* This class will be added to body to kill user touch during auto-scroll */
-        body.is-auto-scrolling {
-            pointer-events: none;
-            touch-action: none;
-        }
 
 header {
 	height: 100svh;
@@ -116,7 +111,7 @@ svg, svg path {
 }
 
 .hidden {
-	visibility: hidden !important;
+	opacity: 0 !important;
 }
 
 .isSticky {
