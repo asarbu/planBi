@@ -244,6 +244,7 @@ function processSnapLogic() {
 	if (scrollDown && isInSnapZone && isHeaderOpen) {
 		document.body.style.touchAction = 'none';
 		document.body.style.overflow = 'hidden';
+		document.body.style.pointerEvents = 'none'; // Disables all touch interaction
 		isHeaderOpen = false;
 		mainTitle.classList.add('hidden');
 		logo.classList.add('condensed');
@@ -259,12 +260,14 @@ function processSnapLogic() {
 			scrollTicking = false; 
 			document.body.style.overflow = '';
 			document.body.style.touchAction = '';
+			document.body.style.pointerEvents = '';
 		});
 	}
 	// (Header Closed -> Header Open)
 	else if (scrollUp && isInSnapZone && !isHeaderOpen) {
 		document.body.style.touchAction = 'none';
 		document.body.style.overflow = 'hidden';
+		document.body.style.pointerEvents = 'none'; // Disables all touch interaction
 		isHeaderOpen = true;
 		logo.classList.remove('hidden');
 		mainTitle.classList.add('hidden');
@@ -281,6 +284,7 @@ function processSnapLogic() {
 			scrollTicking = false; 
 			document.body.style.overflow = '';
 			document.body.style.touchAction = '';
+			document.body.style.pointerEvents = '';
 		});
 	} else {
 		scrollTicking = false;
