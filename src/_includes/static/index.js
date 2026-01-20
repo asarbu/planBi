@@ -336,32 +336,12 @@ document.addEventListener('DOMContentLoaded', function () {
 	gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 	ScrollTrigger.create({
 		trigger: "header",
-		start: "20% top",
+		start: "bottom bottom",
 		end: "bottom top",
-		onEnter: () => {
-			if (isHeaderOpen) {
-				isHeaderOpen = false;
-				mainTitle.classList.add('hidden');
-				logo.classList.add('condensed');
-				stickyElm.classList.add('faded');
-				velvetContainer.classList.add('faded');
-				document.querySelectorAll("animate[data-direction='fwd']").forEach(elm => {
-					elm.beginElement();
-				});
-				gsap.to(window, {
-					duration: 0.5,
-					scrollTo: { y: HEADER_HEIGHT, autoKill: false },
-					ease: easing.easeInCubic,
-					onComplete: () => {
-						mainTitle.classList.remove('hidden');
-						logo.classList.add('hidden');
-					}
-				});
-			}
-		},
-		onLeaveBack: () => {
+		onEnterBack: () => {
 			if (!isHeaderOpen) {
 				isHeaderOpen = true;
+				document.body.classList.add('is-auto-scrolling');
 				logo.classList.remove('hidden');
 				mainTitle.classList.add('hidden');
 				stickyElm.classList.remove('faded');
@@ -375,8 +355,37 @@ document.addEventListener('DOMContentLoaded', function () {
 					scrollTo: { y: 0, autoKill: false },
 					ease: easing.easeOutCubic,
 					onComplete: () => {
+						document.body.classList.remove('is-auto-scrolling');
 						mainTitle.classList.add('hidden');
 						logo.classList.remove('hidden');
+					}
+				});
+			}
+		}
+	});
+	ScrollTrigger.create({
+		trigger: "header",
+		start: "20% top",
+		end: "bottom top",
+		onEnter: () => {
+			if (isHeaderOpen) {
+				isHeaderOpen = false;
+				document.body.classList.add('is-auto-scrolling');
+				mainTitle.classList.add('hidden');
+				logo.classList.add('condensed');
+				stickyElm.classList.add('faded');
+				velvetContainer.classList.add('faded');
+				document.querySelectorAll("animate[data-direction='fwd']").forEach(elm => {
+					elm.beginElement();
+				});
+				gsap.to(window, {
+					duration: 0.5,
+					scrollTo: { y: HEADER_HEIGHT, autoKill: false },
+					ease: easing.easeInCubic,
+					onComplete: () => {
+						document.body.classList.remove('is-auto-scrolling');
+						mainTitle.classList.remove('hidden');
+						logo.classList.add('hidden');
 					}
 				});
 			}
