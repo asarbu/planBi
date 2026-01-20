@@ -274,6 +274,7 @@ function processSnapLogic() {
 		for (const child of logo.children[0].children) {
 			child.classList.add('condensed');
 		}
+		document.getElementById('p-fwd').beginElement();
 		//Overshoot to prevent snapping errors
 		scrollTo(HEADER_HEIGHT + 10, 500, easing.easeInCubic, () => {
 			mainTitle.classList.remove('hidden'); 
@@ -294,6 +295,7 @@ function processSnapLogic() {
 		for (const child of logo.children[0].children) {
 			child.classList.remove('condensed');
 		}
+		document.getElementById('p-bwd').beginElement();
 		//Overshoot to prevent snapping errors
 		scrollTo(SNAP_THRESHOLD_DOWN - 10, 500, easing.easeOutCubic, () => { 
 			mainTitle.classList.add('hidden'); 
