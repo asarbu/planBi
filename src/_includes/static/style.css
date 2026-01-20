@@ -62,13 +62,13 @@ header {
 	height: 100svh;
 	display: block;
 	& > .logo {
-		width: 12rem;
-		height: 8rem;
-		transform: translateY(40svh);
+		width: 24rem;
+		height: 16rem;
+		transform: translateY(30svh);
 		transition: transform var(--animation-longer) var(--ease-out);
 	}
 	& > .logo.condensed {
-		transform: translateY(100svh) scale(0.5);
+		transform: translateY(100svh) scale(0.25);
 		transition: transform var(--animation-longer) var(--ease-in);
 	}
 }
@@ -741,9 +741,28 @@ main.thankyou {
 		gap: 1rem;
 		margin-top: 1rem;
 	}
+	
+	header {
+		& > .logo {
+			width: 18rem;
+			height: 12rem;
+		}
+		& > .logo.condensed {
+			transform: translateY(100svh) scale(0.33);
+		}
+	}
 }
 
 @media screen and (max-width: 425px) {
+	header {
+		& > .logo {
+			width: 12rem;
+			height: 8rem;
+		}
+		& > .logo.condensed {
+			transform: translateY(100svh) scale(0.5);
+		}
+	}
 	section {
 		padding-inline: 1rem;
 	}
