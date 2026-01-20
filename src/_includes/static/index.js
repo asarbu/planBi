@@ -211,10 +211,7 @@ function scrollTo(Y, duration, easingFunction, callback) {
 			time = Math.min(1, ((currentTime - start) / duration)),
 			easedT = easingFunction(time);
 
-			document.documentElement.scrollTo({
-				top: (easedT * (Y - from)) + from,
-				behavior: 'instant' // Crucial to prevent browser internal smoothing
-			}); 
+			document.documentElement.scrollTop = (easedT * (Y - from)) + from;
 		if (time < 1) requestAnimationFrame(scroll);
 		else {
 			requestAnimationFrame(callback);
