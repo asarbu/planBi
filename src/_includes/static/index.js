@@ -233,9 +233,12 @@ let HEADER_HEIGHT = undefined;
 let SNAP_THRESHOLD_DOWN = undefined;
 let SNAP_THRESHOLD_LOGO = undefined;
 let isHeaderOpen = true; 
+let header = undefined;
+
 function processSnapLogic() {
 	const currentScrollY = window.scrollY;
-	const isInSnapZone = currentScrollY >= SNAP_THRESHOLD_DOWN && currentScrollY <= HEADER_HEIGHT;
+	const isInSnapUpZone = currentScrollY >= SNAP_THRESHOLD_DOWN && currentScrollY <= HEADER_HEIGHT;
+	const isInSnapDownZone = currentScrollY === 0;
 	const scrollUp = currentScrollY < lastScrollY;
 	const scrollDown = currentScrollY > lastScrollY;
 	lastScrollY = currentScrollY;
@@ -243,7 +246,7 @@ function processSnapLogic() {
 	if (!scrollDown && !scrollUp) { return; }
 
 	// Scroll down (Header Open -> Header Closed)
-	if (scrollDown && isInSnapZone && isHeaderOpen) {
+	if (scrollDown && isInSnapUpZone && isHeaderOpen) {
 		isHeaderOpen = false;
 		document.body.style.touchAction = 'none';
 		document.body.style.overflow = 'hidden';
@@ -252,21 +255,30 @@ function processSnapLogic() {
 		logo.classList.add('condensed');
 		stickyElm.classList.add('faded');
 		velvetContainer.classList.add('faded');
+		header.classList.add('condensed');
 		document.querySelectorAll("animate[data-direction='fwd']").forEach(elm => {
 			elm.beginElement();
 		});
-		//Overshoot to prevent snapping errors
-		scrollToPos(HEADER_HEIGHT + 1, 500, easing.easeInCubic, () => {
+		setTimeout(() => {
 			mainTitle.classList.remove('hidden'); 
 			logo.classList.add('hidden');
 			scrollTicking = false; 
 			document.body.style.overflow = '';
 			document.body.style.touchAction = '';
 			document.body.style.pointerEvents = '';
-		});
+		}, 500);
+		//Overshoot to prevent snapping errors
+		/*scrollToPos(HEADER_HEIGHT + 1, 500, easing.easeInCubic, () => {
+			mainTitle.classList.remove('hidden'); 
+			logo.classList.add('hidden');
+			scrollTicking = false; 
+			document.body.style.overflow = '';
+			document.body.style.touchAction = '';
+			document.body.style.pointerEvents = '';
+		});*/
 	}
 	// (Header Closed -> Header Open)
-	else if (scrollUp && isInSnapZone && !isHeaderOpen) {
+	else if (scrollUp && isInSnapDownZone && !isHeaderOpen) {
 		isHeaderOpen = true;
 		document.body.style.touchAction = 'none';
 		document.body.style.overflow = 'hidden';
@@ -276,18 +288,27 @@ function processSnapLogic() {
 		stickyElm.classList.remove('faded');
 		velvetContainer.classList.remove('faded');
 		logo.classList.remove('condensed');
+		header.classList.remove('condensed');
 		document.querySelectorAll("animate[data-direction='bwd']").forEach(elm => {
 			elm.beginElement();
 		});
-		//Overshoot to prevent snapping errors
-		scrollToPos(1, 500, easing.easeOutCubic, () => { 
+		setTimeout(() => {
 			mainTitle.classList.add('hidden'); 
 			logo.classList.remove('hidden');
 			scrollTicking = false; 
 			document.body.style.overflow = '';
 			document.body.style.touchAction = '';
 			document.body.style.pointerEvents = '';
-		});
+		}, 500);
+		//Overshoot to prevent snapping errors
+		/* scrollToPos(1, 500, easing.easeOutCubic, () => { 
+			mainTitle.classList.add('hidden'); 
+			logo.classList.remove('hidden');
+			scrollTicking = false; 
+			document.body.style.overflow = '';
+			document.body.style.touchAction = '';
+			document.body.style.pointerEvents = '';
+		});*/
 	} else {
 		scrollTicking = false;
 	}
@@ -317,19 +338,25 @@ if (container) {
 	});
 }
 
+function remToPx(rem) {    
+    return rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
+}
+
 document.addEventListener('DOMContentLoaded', function () {
 	mainTitle = document.getElementsByClassName('main-title')[0];
 	stickyElm = document.getElementsByClassName('isSticky')[0];
 	velvetContainer = document.getElementById('velvet-container');
 	logo = document.getElementsByClassName('logo')[0];
+	header = document.getElementsByTagName('header')[0];
 	HEADER_HEIGHT = document.defaultView.innerHeight;
-	SNAP_THRESHOLD_DOWN = HEADER_HEIGHT * 0.2;
+	SNAP_THRESHOLD_DOWN = remToPx(5);
 	lastScrollY = window.scrollY;
 	if (window.scrollY > HEADER_HEIGHT) {
 		logo.classList.add('hidden');
 		logo.classList.add('condensed');
 		stickyElm.classList.add('faded');
 		velvetContainer.classList.add('faded');
+		header.classList.add('condensed');
 		isHeaderOpen = false;
 		document.querySelectorAll("animate[data-direction='fwd']").forEach(elm => {
 			elm.beginElement();
