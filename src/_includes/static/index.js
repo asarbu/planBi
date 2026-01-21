@@ -206,7 +206,6 @@ let velvetContainer = undefined;
 let logo = undefined;
 let HEADER_HEIGHT = undefined;
 let SNAP_THRESHOLD_DOWN = undefined;
-let SNAP_THRESHOLD_LOGO = undefined;
 let isHeaderOpen = true; 
 let header = undefined;
 
@@ -218,14 +217,18 @@ function processSnapLogic() {
 	const scrollDown = currentScrollY > lastScrollY;
 	lastScrollY = currentScrollY;
 
-	if (!scrollDown && !scrollUp) { return; }
+	if (!scrollDown && !scrollUp) { 
+		scrollTicking = false;
+		return; 
+	}
 
 	// Scroll down (Header Open -> Header Closed)
 	if (scrollDown && isInSnapUpZone && isHeaderOpen) {
 		isHeaderOpen = false;
 		document.body.style.touchAction = 'none';
 		document.body.style.overflow = 'hidden';
-		document.body.style.pointerEvents = 'none'; // Disables all touch interaction
+		document.body.style.pointerEvents = 'none';
+		window.scrollTo(0, SNAP_THRESHOLD_DOWN);
 		mainTitle.classList.add('hidden');
 		logo.classList.add('condensed');
 		stickyElm.classList.add('faded');
