@@ -60,33 +60,44 @@ const uvs = new Float32Array([
 * only considering the t value for the range [0, 1] => [0, 1]
 */
 var easing = {
-	// no easing, no acceleration
-	linear: function (t) { return t },
-	// accelerating from zero velocity
-	easeInQuad: function (t) { return t * t },
-	// decelerating to zero velocity
-	easeOutQuad: function (t) { return t * (2 - t) },
-	// acceleration until halfway, then deceleration
-	easeInOutQuad: function (t) { return t < .5 ? 2 * t * t : -1 + (4 - 2 * t) * t },
 	// accelerating from zero velocity 
-	easeInCubic: function (t) { return t * t * t },
+	easeInCubic: function (t) { return solveBezier(0.42, 0, 1.0, 1.0)(t) },
 	// decelerating to zero velocity 
-	easeOutCubic: function (t) { return (--t) * t * t + 1 },
-	// acceleration until halfway, then deceleration 
-	easeInOutCubic: function (t) { return t < .5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1 },
-	// accelerating from zero velocity 
-	easeInQuart: function (t) { return t * t * t * t },
-	// decelerating to zero velocity 
-	easeOutQuart: function (t) { return 1 - (--t) * t * t * t },
-	// acceleration until halfway, then deceleration
-	easeInOutQuart: function (t) { return t < .5 ? 8 * t * t * t * t : 1 - 8 * (--t) * t * t * t },
-	// accelerating from zero velocity
-	easeInQuint: function (t) { return t * t * t * t * t },
-	// decelerating to zero velocity
-	easeOutQuint: function (t) { return 1 + (--t) * t * t * t * t },
-	// acceleration until halfway, then deceleration 
-	easeInOutQuint: function (t) { return t < .5 ? 16 * t * t * t * t * t : 1 + 16 * (--t) * t * t * t * t }
+	easeOutCubic: function (t) { return  solveBezier(0, 0, 0.58, 1.0)(t) },
 }
+        /**
+         * Robust Bezier Solver
+         * Newton-Raphson method to solve for t at a given x (time).
+         */
+        function solveBezier(x1, y1, x2, y2) {
+            const cx = 3.0 * x1;
+            const bx = 3.0 * (x2 - x1) - cx;
+            const ax = 1.0 - cx - bx;
+            const cy = 3.0 * y1;
+            const by = 3.0 * (y2 - y1) - cy;
+            const ay = 1.0 - cy - by;
+
+            function sampleCurveX(t) { return ((ax * t + bx) * t + cx) * t; }
+            function sampleCurveY(t) { return ((ay * t + by) * t + cy) * t; }
+            function sampleCurveDerivativeX(t) { return (3.0 * ax * t + 2.0 * bx) * t + cx; }
+
+            function solveCurveX(x) {
+                let t2 = x;
+                for (let i = 0; i < 8; i++) {
+                    const x2 = sampleCurveX(t2) - x;
+                    if (Math.abs(x2) < 1e-6) return t2;
+                    const d2 = sampleCurveDerivativeX(t2);
+                    if (Math.abs(d2) < 1e-6) break;
+                    t2 = t2 - x2 / d2;
+                }
+                return t2;
+            }
+
+            return function(x) {
+                if (x === 0 || x === 1) return x;
+                return sampleCurveY(solveCurveX(x));
+            };
+        }
 
 // Compile shader
 function compileShader(gl, type, source) {
@@ -186,32 +197,6 @@ function setupVelvetEffect(options) {
 	animate(0);
 }
 
-function scrollTo(Y, duration, easingFunction, callback) {
-	var start = Date.now(),
-		elem = document.documentElement.scrollTop ? document.documentElement : document.body,
-		from = elem.scrollTop;
-
-	if (from === Y) {
-		callback?.();
-		return; /* Prevent scrolling to the Y point if already there */
-	}
-
-	function scroll(timestamp) {
-		var currentTime = Date.now(),
-			time = Math.min(1, ((currentTime - start) / duration)),
-			easedT = easingFunction(time);
-
-		elem.scrollTop = (easedT * (Y - from)) + from;
-
-		if (time < 1) requestAnimationFrame(scroll);
-		else {
-			callback?.();
-		}
-	}
-
-	requestAnimationFrame(scroll)
-}
-
 let scrollTicking = false;
 let lastScrollY = undefined;
 
@@ -221,34 +206,77 @@ let velvetContainer = undefined;
 let logo = undefined;
 let HEADER_HEIGHT = undefined;
 let SNAP_THRESHOLD_DOWN = undefined;
+let isHeaderOpen = true; 
+let header = undefined;
 
 function processSnapLogic() {
 	const currentScrollY = window.scrollY;
-	const isInSnapZone = currentScrollY >= SNAP_THRESHOLD_DOWN && currentScrollY <= HEADER_HEIGHT;
+	const isInSnapUpZone = currentScrollY >= SNAP_THRESHOLD_DOWN && currentScrollY <= HEADER_HEIGHT;
+	const isInSnapDownZone = currentScrollY === 0;
 	const scrollUp = currentScrollY < lastScrollY;
 	const scrollDown = currentScrollY > lastScrollY;
 	lastScrollY = currentScrollY;
 
-	if (!scrollDown && !scrollUp) { return; }
+	if (!scrollDown && !scrollUp) { 
+		scrollTicking = false;
+		return; 
+	}
 
 	// Scroll down (Header Open -> Header Closed)
-	if (scrollDown && isInSnapZone) {
-		scrollTicking = true;
+	if (scrollDown && isInSnapUpZone && isHeaderOpen) {
+		isHeaderOpen = false;
+		document.body.style.touchAction = 'none';
+		document.body.style.overflow = 'hidden';
+		document.body.style.pointerEvents = 'none';
+		document.body.style.position = 'fixed';
+		window.scrollTo(0, SNAP_THRESHOLD_DOWN);
 		mainTitle.classList.add('hidden');
 		logo.classList.add('condensed');
 		stickyElm.classList.add('faded');
 		velvetContainer.classList.add('faded');
-		scrollTo(HEADER_HEIGHT, 500, easing.easeInQuad, () => { scrollTicking = false; mainTitle.classList.remove('hidden'); logo.classList.add('hidden'); });
+		header.classList.add('condensed');
+		document.querySelectorAll("animate[data-direction='fwd']").forEach(elm => {
+			elm.beginElement();
+		});
+		setTimeout(() => {
+			mainTitle.classList.remove('hidden'); 
+			logo.classList.add('hidden');
+			scrollTicking = false; 
+			document.body.style.overflow = '';
+			document.body.style.touchAction = '';
+			document.body.style.pointerEvents = '';
+			header.style.visibility = 'hidden';
+			document.body.style.position = '';
+			window.scrollTo(0, SNAP_THRESHOLD_DOWN);
+		}, 500);
 	}
-	// (Header Closed -> Header Open)
-	else if (scrollUp && isInSnapZone) {
-		scrollTicking = true;
-		mainTitle.classList.add('hidden');
+	else if (scrollUp && isInSnapDownZone && !isHeaderOpen) {
+		isHeaderOpen = true;
+		document.body.style.touchAction = 'none';
+		document.body.style.overflow = 'hidden';
+		document.body.style.pointerEvents = 'none'; 
+		document.body.style.position = 'fixed';
+		header.style.visibility = '';
 		logo.classList.remove('hidden');
-		logo.classList.remove('condensed');
+		mainTitle.classList.add('hidden');
 		stickyElm.classList.remove('faded');
 		velvetContainer.classList.remove('faded');
-		scrollTo(0, 500, easing.easeOutQuad, () => { scrollTicking = false; });
+		logo.classList.remove('condensed');
+		header.classList.remove('condensed');
+		document.querySelectorAll("animate[data-direction='bwd']").forEach(elm => {
+			elm.beginElement();
+		});
+		setTimeout(() => {
+			mainTitle.classList.add('hidden'); 
+			logo.classList.remove('hidden');
+			scrollTicking = false; 
+			document.body.style.overflow = '';
+			document.body.style.touchAction = '';
+			document.body.style.pointerEvents = '';
+			document.body.style.position = '';
+		}, 500);
+	} else {
+		scrollTicking = false;
 	}
 }
 
@@ -256,11 +284,14 @@ function processSnapLogic() {
 /**
  * Handles the scroll event by scheduling the logic inside requestAnimationFrame.
  */
-function onScrollHandler() {
+function onScrollHandler(e) {
 	// If a snap is in progress, ignore subsequent scroll events to prevent loop
-	if (scrollTicking) return;
-
-	// console.log('Is Ticking:', isTicking);
+	if (scrollTicking) {
+		e.preventDefault();
+		e.stopPropagation();
+		return;
+	}
+	scrollTicking = true;
 	window.requestAnimationFrame(processSnapLogic);
 }
 
@@ -273,23 +304,31 @@ if (container) {
 	});
 }
 
+function remToPx(rem) {    
+    return rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
+}
+
 document.addEventListener('DOMContentLoaded', function () {
 	mainTitle = document.getElementsByClassName('main-title')[0];
 	stickyElm = document.getElementsByClassName('isSticky')[0];
 	velvetContainer = document.getElementById('velvet-container');
 	logo = document.getElementsByClassName('logo')[0];
+	header = document.getElementsByTagName('header')[0];
 	HEADER_HEIGHT = document.defaultView.innerHeight;
-	SNAP_THRESHOLD_DOWN = HEADER_HEIGHT * 0.2;
-	scrollTicking = false;
+	SNAP_THRESHOLD_DOWN = 1; //remToPx(5);
 	lastScrollY = window.scrollY;
 	if (window.scrollY > HEADER_HEIGHT) {
 		logo.classList.add('hidden');
 		logo.classList.add('condensed');
 		stickyElm.classList.add('faded');
 		velvetContainer.classList.add('faded');
+		header.classList.add('condensed');
+		isHeaderOpen = false;
+		document.querySelectorAll("animate[data-direction='fwd']").forEach(elm => {
+			elm.beginElement();
+		});
 	}
 
 	// Attach the handler to the window scroll event
-	window.addEventListener('scroll', onScrollHandler, { passive: true });
-
+	window.addEventListener('scroll', onScrollHandler, { passive: false });
 });

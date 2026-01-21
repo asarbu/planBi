@@ -20,7 +20,6 @@
 		0 6px 10px #00000015;
 
 	--animation-longer: 500ms;
-	--animation-long: 300ms;
 	--animation-short: 200ms;
 	--animation-debug: 5000ms
 
@@ -40,6 +39,10 @@
 	--primary-xxdark: oklch(0.378 0.05 135);
 	view-transition-name: none;
 	--velvet-bg-color: transparent;
+
+	--ease-in: cubic-bezier(0.42, 0, 1.0, 1.0);
+	--ease-out: cubic-bezier(0, 0, 0.58, 1.0);
+	scrollbar-gutter: stable;
 }
 
 html, body {
@@ -52,24 +55,27 @@ html, body {
 body {
 	overflow-x: hidden;
 	background-color: var(--primary-dark);
-	font-family: 'Inter', sans-serif;
+	font-family: 'Inter', sans-serif;;
 }
 
 header {
 	height: 100svh;
-	min-height: 100svh;
 	display: block;
+	transition: height var(--animation-longer) var(--ease-out);
+
+	&.condensed {
+		height: 4rem;
+		transition: height var(--animation-longer) var(--ease-in);
+	}
 	& > .logo {
-		font-size: 4rem;
-		top: 20svh;
-		transition: font-size var(--animation-longer) ease-out,
-			top var(--animation-longer) ease-out;
+		width: 24rem;
+		height: 16rem;
+		transform: translateY(30svh);
+		transition: transform var(--animation-longer) var(--ease-out);
 	}
 	& > .logo.condensed {
-		font-size: 1rem;
-		top: calc(1rem + 100svh);
-		transition: font-size var(--animation-longer) ease-in,
-			top var(--animation-longer) ease-in;
+		transform: translateY(0rem) scale(0.25);
+		transition: transform var(--animation-longer) var(--ease-in);
 	}
 }
 
@@ -97,6 +103,20 @@ h3 {
 img {
 	user-select: none;
 }
+
+.logo-svg {
+	fill: white;
+}
+
+svg {
+	height: 100%;
+	shape-rendering: geometricPrecision;
+}
+svg, svg path {
+	transform: translateZ(0);
+	backface-visibility: hidden;
+}
+
 .hidden {
 	opacity: 0 !important;
 }
@@ -114,11 +134,15 @@ img {
 	text-align: center;
 	border-bottom: none;
 	box-shadow: none;
-	transition: opacity var(--animation-longer) ease-in;
+	transition: opacity var(--animation-short) var(--ease-out) var(--animation-short);
+	&.faded {
+		opacity: 0;
+		transition: opacity var(--animation-short) var(--ease-out);
+	}
 }
 
 nav {
-	height: 3rem;
+	height: 4rem;
 	width: 100%;
 	position: fixed;
 	z-index: 10;
@@ -136,7 +160,11 @@ nav {
 	border-bottom: none;
 	box-shadow: none;
 	background-color: var(--velvet-bg-color);
-	transition: opacity var(--animation-longer) ease-in;
+	transition: opacity var(--animation-short) var(--ease-out) var(--animation-short);
+	&.faded {
+		opacity: 0;
+		transition: opacity var(--animation-short) var(--ease-in);
+	}
 }
 
 .navbar-toggle {
@@ -148,9 +176,8 @@ nav {
 	border: none;
 	cursor: pointer;
 	position: absolute;
-	top: 1rem;
 	right: 4vw;
-	height: 1.5rem;
+	height: 100%;
 	view-transition-name: nav-toggle;
 }
 .bar {
@@ -217,8 +244,7 @@ nav {
 }
 
 nav .main-title {
-	top: 1rem;
-	font-size: 1rem;
+	height: 4rem;
 	view-transition-name: nav-title;
 }
 
@@ -295,40 +321,35 @@ section > p {
 
 .main-title,
 .logo {
-	font-family: 'Times New Roman', serif;
 	color: var(--highlight);
-	font-weight: bolder;
+	font-weight: normal;
 	user-select: none;
 	position: absolute;
 	left: 50%;
 	translate: -50% 0;
 	z-index: 40;
-}
-
-.faded {
-	opacity: 0 !important;
-	transition: opacity var(--animation-longer) ease-out;
+	top: 0;
+	transform-origin: top center;
 }
 
 .subtitle {
 	font-size: 1.25rem;
 	color: var(--highlight);
 	width: 100%;
-	height: calc(60svh);
+	height: calc(40svh);
 	font-weight: 400;
 	user-select: none;
 	opacity: 1;
 	position: absolute;
-	top: calc(40svh);
+	top: calc(60svh);
 	left: 50%;
 	translate: -50% 0;
 }
 
 .subtitle h2 {
-	font-family: 'Times New Roman', serif;
+	font-family: sans-serif;
 	font-size: 2.5rem;
 	margin: 1rem;
-	font-weight: bolder;
 }
 
 .subtitle p {
@@ -730,9 +751,28 @@ main.thankyou {
 		gap: 1rem;
 		margin-top: 1rem;
 	}
+	
+	header {
+		& > .logo {
+			width: 18rem;
+			height: 12rem;
+		}
+		& > .logo.condensed {
+			transform: translateY(0rem) scale(0.33);
+		}
+	}
 }
 
 @media screen and (max-width: 425px) {
+	header {
+		& > .logo {
+			width: 12rem;
+			height: 8rem;
+		}
+		& > .logo.condensed {
+			transform: translateY(0rem) scale(0.5);
+		}
+	}
 	section {
 		padding-inline: 1rem;
 	}
