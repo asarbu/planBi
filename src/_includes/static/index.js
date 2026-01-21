@@ -197,31 +197,6 @@ function setupVelvetEffect(options) {
 	animate(0);
 }
 
-function scrollToPos(Y, duration, easingFunction, callback) {
-	var start = Date.now(),
-		elem = document.documentElement.scrollTop ? document.documentElement : document.body,
-		from = elem.scrollTop;
-
-	if (from === Y) {
-		requestAnimationFrame(callback);
-		return; /* Prevent scrolling to the Y point if already there */
-	}
-
-	function scroll() {
-		var currentTime = Date.now(),
-			time = Math.min(1, ((currentTime - start) / duration)),
-			easedT = easingFunction(time);
-
-			elem.scrollTop = (easedT * (Y - from)) + from;
-		if (time < 1) requestAnimationFrame(scroll);
-		else {
-			requestAnimationFrame(callback);
-		}
-	}
-	elem.scrollTop = from;
-	requestAnimationFrame(scroll);
-}
-
 let scrollTicking = false;
 let lastScrollY = undefined;
 
@@ -267,17 +242,7 @@ function processSnapLogic() {
 			document.body.style.touchAction = '';
 			document.body.style.pointerEvents = '';
 		}, 500);
-		//Overshoot to prevent snapping errors
-		/*scrollToPos(HEADER_HEIGHT + 1, 500, easing.easeInCubic, () => {
-			mainTitle.classList.remove('hidden'); 
-			logo.classList.add('hidden');
-			scrollTicking = false; 
-			document.body.style.overflow = '';
-			document.body.style.touchAction = '';
-			document.body.style.pointerEvents = '';
-		});*/
 	}
-	// (Header Closed -> Header Open)
 	else if (scrollUp && isInSnapDownZone && !isHeaderOpen) {
 		isHeaderOpen = true;
 		document.body.style.touchAction = 'none';
@@ -300,15 +265,6 @@ function processSnapLogic() {
 			document.body.style.touchAction = '';
 			document.body.style.pointerEvents = '';
 		}, 500);
-		//Overshoot to prevent snapping errors
-		/* scrollToPos(1, 500, easing.easeOutCubic, () => { 
-			mainTitle.classList.add('hidden'); 
-			logo.classList.remove('hidden');
-			scrollTicking = false; 
-			document.body.style.overflow = '';
-			document.body.style.touchAction = '';
-			document.body.style.pointerEvents = '';
-		});*/
 	} else {
 		scrollTicking = false;
 	}

@@ -60,21 +60,22 @@ body {
 header {
 	height: 100svh;
 	display: block;
-	transition: height var(--animation-longer) var(--ease-out);
-}
-header.condensed {
-	height: 4rem;
 	transition: height var(--animation-longer) var(--ease-in);
-}
-header > .logo {
-	width: 24rem;
-	height: 16rem;
-	transform: translateY(30svh);
-	transition: transform var(--animation-longer) var(--ease-out);
-}
-header > .logo.condensed {
-	transform: translateY(0) scale(0.25);
-	transition: transform var(--animation-longer) var(--ease-in);
+
+	&.condensed {
+		height: 4rem;
+		transition: height var(--animation-longer) var(--ease-in);
+	}
+	& > .logo {
+		width: 24rem;
+		height: 16rem;
+		transform: translateY(30svh);
+		transition: transform var(--animation-longer) var(--ease-out);
+	}
+	& > .logo.condensed {
+		transform: translateY(5rem) scale(0.25);
+		transition: transform var(--animation-longer) var(--ease-in);
+	}
 }
 
 main {
@@ -756,7 +757,7 @@ main.thankyou {
 			height: 12rem;
 		}
 		& > .logo.condensed {
-			transform: translateY(0) scale(0.33);
+			transform: translateY(5rem) scale(0.33);
 		}
 	}
 }
