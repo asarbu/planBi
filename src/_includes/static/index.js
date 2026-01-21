@@ -247,6 +247,7 @@ function processSnapLogic() {
 			document.body.style.pointerEvents = '';
 			header.style.visibility = 'hidden';
 			document.body.style.position = '';
+			window.scrollTo(0, SNAP_THRESHOLD_DOWN);
 		}, 500);
 	}
 	else if (scrollUp && isInSnapDownZone && !isHeaderOpen) {
