@@ -244,6 +244,7 @@ function processSnapLogic() {
 			document.body.style.overflow = '';
 			document.body.style.touchAction = '';
 			document.body.style.pointerEvents = '';
+			header.style.visibility = 'hidden';
 		}, 500);
 	}
 	else if (scrollUp && isInSnapDownZone && !isHeaderOpen) {
@@ -251,6 +252,7 @@ function processSnapLogic() {
 		document.body.style.touchAction = 'none';
 		document.body.style.overflow = 'hidden';
 		document.body.style.pointerEvents = 'none'; // Disables all touch interaction
+		header.style.visibility = '';
 		logo.classList.remove('hidden');
 		mainTitle.classList.add('hidden');
 		stickyElm.classList.remove('faded');

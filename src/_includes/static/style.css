@@ -49,6 +49,7 @@ html, body {
 	margin: 0;
 	padding: 0;
 	width: 100%;
+	overscroll-behavior: none;
 }
 
 body {
@@ -60,7 +61,7 @@ body {
 header {
 	height: 100svh;
 	display: block;
-	transition: height var(--animation-longer) var(--ease-in);
+	transition: height var(--animation-longer) var(--ease-out);
 
 	&.condensed {
 		height: 4rem;
