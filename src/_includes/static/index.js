@@ -228,6 +228,7 @@ function processSnapLogic() {
 		document.body.style.touchAction = 'none';
 		document.body.style.overflow = 'hidden';
 		document.body.style.pointerEvents = 'none';
+		document.body.style.position = 'fixed';
 		window.scrollTo(0, SNAP_THRESHOLD_DOWN);
 		mainTitle.classList.add('hidden');
 		logo.classList.add('condensed');
@@ -245,13 +246,15 @@ function processSnapLogic() {
 			document.body.style.touchAction = '';
 			document.body.style.pointerEvents = '';
 			header.style.visibility = 'hidden';
+			document.body.style.position = '';
 		}, 500);
 	}
 	else if (scrollUp && isInSnapDownZone && !isHeaderOpen) {
 		isHeaderOpen = true;
 		document.body.style.touchAction = 'none';
 		document.body.style.overflow = 'hidden';
-		document.body.style.pointerEvents = 'none'; // Disables all touch interaction
+		document.body.style.pointerEvents = 'none'; 
+		document.body.style.position = 'fixed';
 		header.style.visibility = '';
 		logo.classList.remove('hidden');
 		mainTitle.classList.add('hidden');
@@ -269,6 +272,7 @@ function processSnapLogic() {
 			document.body.style.overflow = '';
 			document.body.style.touchAction = '';
 			document.body.style.pointerEvents = '';
+			document.body.style.position = '';
 		}, 500);
 	} else {
 		scrollTicking = false;
