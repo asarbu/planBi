@@ -310,7 +310,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	logo = document.getElementsByClassName('logo')[0];
 	header = document.getElementsByTagName('header')[0];
 	HEADER_HEIGHT = document.defaultView.innerHeight;
-	SNAP_THRESHOLD_DOWN = remToPx(5);
+	SNAP_THRESHOLD_DOWN = 10; //remToPx(5);
 	lastScrollY = window.scrollY;
 	if (window.scrollY > HEADER_HEIGHT) {
 		logo.classList.add('hidden');

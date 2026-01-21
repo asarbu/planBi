@@ -74,7 +74,7 @@ header {
 		transition: transform var(--animation-longer) var(--ease-out);
 	}
 	& > .logo.condensed {
-		transform: translateY(5rem) scale(0.25);
+		transform: translateY(0rem) scale(0.25);
 		transition: transform var(--animation-longer) var(--ease-in);
 	}
 }
@@ -758,7 +758,7 @@ main.thankyou {
 			height: 12rem;
 		}
 		& > .logo.condensed {
-			transform: translateY(5rem) scale(0.33);
+			transform: translateY(0rem) scale(0.33);
 		}
 	}
 }
@@ -770,7 +770,7 @@ main.thankyou {
 			height: 8rem;
 		}
 		& > .logo.condensed {
-			transform: translateY(5rem) scale(0.5);
+			transform: translateY(0rem) scale(0.5);
 		}
 	}
 	section {
