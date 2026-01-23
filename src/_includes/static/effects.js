@@ -19,6 +19,8 @@ export default class GraphicEffects {
 		this.startX = 0;
 		this.startY = 0;
 		this.startTranslate = 0;
+		this.orientation = 'horizontal';
+		this.containerSize = 0;
 		this.startSelectorIndex = 0;
 
 		this.startSliderEventListener = this.startSlider.bind(this);
@@ -37,10 +39,10 @@ export default class GraphicEffects {
 	init(forContainer) {
 		/* Slice slider */
 		this.rootContainer = forContainer;
-		// TDO use percentages instead of width
-		this.containerWidth = this.rootContainer.clientWidth;
-		// TODO remove below line to improve performance. It causes reflow
+		// TODO use percentages instead of width
 		this.sliderWrapper = this.rootContainer.querySelector('.section');
+		this.orientation = this.getOrientation();
+		this.containerSize = this.getContainerSize();
 		this.lastIndex = this.sliderWrapper.children.length + 1;
 
 		this.#slices = this.rootContainer.querySelectorAll('.slice');
@@ -52,18 +54,20 @@ export default class GraphicEffects {
 
 		/* Selector */
 		this.selectorContainer = document.getElementById('selector');
+		this.selectorContainer.draggable = false;
 		this.selectorWrapper = this.selectorContainer.querySelector('.section');
+		this.selectorWrapper.draggable = false;
 		this.#selectorLines = [];
 		for (let i = 0; i < this.#slices.length; i++) {
 			const line = document.createElement('div');
 			line.classList.add('selector-line');
 			line.setAttribute('data-slice-index', i);
 			line.addEventListener('click', (e) => this.onClickSetSlice(e));
+			line.draggable = false;
 			this.selectorWrapper.appendChild(line);
 			this.#selectorLines.push(line);
 		}
 		this.updateSelectorLines(this.#currentIndex);
-
 
 		// * when mousedown or touchstart
 		this.resume();
@@ -73,6 +77,21 @@ export default class GraphicEffects {
 		window.addEventListener('mouseup', this.endSliderEventListener);
 		window.addEventListener('touchend', this.endSliderEventListener);
 		window.addEventListener('resize', this.refreshEventListener, true);
+
+		for(let img of forContainer.getElementsByTagName('img')) {
+			img.draggable = false;
+		}
+	}
+
+	getOrientation() {
+		return window.matchMedia('(orientation: landscape)').matches ? 'vertical' : 'horizontal';
+	}
+
+	getContainerSize() {
+		if (!this.sliderWrapper) return 0;
+		return this.orientation === 'vertical'
+			? this.sliderWrapper.clientHeight
+			: this.rootContainer.clientWidth;
 	}
 
 	pause() {
@@ -107,7 +126,11 @@ export default class GraphicEffects {
 		this.updateSelectorLines(this.#currentIndex);
 		requestAnimationFrame(() => {
 			this.sliderWrapper.style.transition = 'transform 0.2s ease-out';
-			this.sliderWrapper.style.transform = `translateX(${-this.containerWidth * index - 8 * index}px)`;
+			if (this.orientation === 'vertical') {
+				this.sliderWrapper.style.transform = `translateY(${-this.containerSize * index - 8 * index}px)`;
+			} else {
+				this.sliderWrapper.style.transform = `translateX(${-this.containerSize * index - 8 * index}px)`;
+			}
 		});
 	}
 
@@ -117,8 +140,10 @@ export default class GraphicEffects {
 	}
 
 	startSelectorSlider(e) {
+		e.preventDefault();
 		this.mouseDown = true;
 		this.startX = e.clientX ? e.clientX : e.touches[0].screenX;
+		this.startY = e.clientY ? e.clientY : e.touches[0].screenY;
 		this.startSelectorIndex = this.#currentIndex;
 		this.selectorContainer.addEventListener(
 			e.clientX ? 'mousemove' : 'touchmove',
@@ -134,13 +159,18 @@ export default class GraphicEffects {
 		if (!this.mouseDown) return;
 
 		const x = e.clientX ?? e.touches?.[0]?.screenX;
-		if (x === undefined) return;
+		const y = e.clientY ?? e.touches?.[0]?.screenY;
+		const primary = this.orientation === 'vertical' ? y : x;
+		const startPrimary = this.orientation === 'vertical' ? this.startY : this.startX;
+		if (primary === undefined || startPrimary === undefined) return;
 		e.preventDefault?.();
 
 		const steps = this.#slices.length - 1;
-		const stepWidth = this.selectorContainer.clientWidth / steps;
+		const stepWidth = (this.orientation === 'vertical'
+			? this.selectorContainer.clientHeight
+			: this.selectorContainer.clientWidth) / steps;
 
-		const delta = x - this.startX;
+		const delta = primary - startPrimary;
 		const offset = delta / stepWidth;
 		const target = this.clamp(this.startSelectorIndex + offset, 0, steps);
 		const nextIndex = Math.round(target);
@@ -158,12 +188,15 @@ export default class GraphicEffects {
 		window.removeEventListener('mouseup', this.endSelectorSliderEventListener);
 		window.removeEventListener('touchend', this.endSelectorSliderEventListener);
 
-		let x = e.clientX;
-		if (x === undefined && e.changedTouches) {
-			x = e.changedTouches[0].screenX;
+		let primary = this.orientation === 'vertical' ? e.clientY : e.clientX;
+		if (primary === undefined && e.changedTouches) {
+			primary = this.orientation === 'vertical'
+				? e.changedTouches[0].screenY
+				: e.changedTouches[0].screenX;
 		}
 
-		const dist = x - this.startX;
+		const startPrimary = this.orientation === 'vertical' ? this.startY : this.startX;
+		const dist = (primary ?? startPrimary) - startPrimary;
 
 		if (dist > 50 && this.#currentIndex > 0) {
 			this.#currentIndex -= 1;
@@ -179,7 +212,7 @@ export default class GraphicEffects {
 		// read from desktop or mobile devices
 		this.startX = e.clientX ? e.clientX : e.touches[0].screenX;
 		this.startY = e.clientY ? e.clientY : e.touches[0].screenY;
-		this.startTranslate = -this.containerWidth * this.#currentIndex - 8 * this.#currentIndex;
+		this.startTranslate = -this.containerSize * this.#currentIndex - 8 * this.#currentIndex;
 
 		this.sliderWrapper.removeEventListener('touchmove', this.startSliderEventListener);
 		this.sliderWrapper.removeEventListener('mousemove', this.startSliderEventListener);
@@ -203,14 +236,13 @@ export default class GraphicEffects {
 		requestAnimationFrame(() => {
 			if (!this.scrolling) {
 				// Mouse move
-				if (e.clientX) this.scrolling = 'horizontal';
+				if (e.clientX) this.scrolling = this.orientation === 'vertical' ? 'vertical' : 'horizontal';
 				else {
 					// Touch move. Check scroll direction
 					if (Math.abs(currentY - this.startY) > 10
-						&& this.#currentSlice.scrollTop > 0) { // Vertical
-						// Do not allow horizontal scrolling anymore. It will glitch
+						&& this.#currentSlice.scrollTop > 0) { // Vertical scroll inside slice
+						// Freeze slider when slice scrolls
 						this.scrolling = 'vertical';
-						// Reset horizontal scroll to zero, by resetting the slide index
 						this.slideTo(this.#currentIndex);
 						return;
 					} if (Math.abs(currentX - this.startX) > 10) { // Horizontal
@@ -219,12 +251,16 @@ export default class GraphicEffects {
 				}
 			}
 
-			// Allow horizontal scroll even if no scroll is present.
-			// Vertical is automatically performed by the system.
-			if (this.scrolling === undefined || this.scrolling === 'horizontal') {
-				const deltaX = currentX - this.startX;
-				this.sliderWrapper.style.transform = `translateX(${this.startTranslate + deltaX}px)`;
+			const deltaPrimary = this.orientation === 'vertical'
+				? currentY - this.startY
+				: currentX - this.startX;
+			const transformValue = this.startTranslate + deltaPrimary;
+			if (this.orientation === 'vertical') {
+				this.sliderWrapper.style.transform = `translateY(${transformValue}px)`;
+			} else {
+				this.sliderWrapper.style.transform = `translateX(${transformValue}px)`;
 			}
+			e.preventDefault?.();
 		});
 	}
 
@@ -232,17 +268,20 @@ export default class GraphicEffects {
 		if (!this.mouseDown || !e) return;
 
 		this.mouseDown = false;
-		if (this.scrolling === 'horizontal') {
-			let x = e.clientX;
-			// x evaluates to 0 if you drag left to the end of the body)
-			if (!x && e.changedTouches) {
-				x = e.changedTouches[0].screenX;
+		if ((this.orientation === 'vertical' && this.scrolling !== 'horizontal')
+			|| (this.orientation === 'horizontal' && this.scrolling !== 'vertical')) {
+			let primary = this.orientation === 'vertical' ? e.clientY : e.clientX;
+			// primary can be 0 if you drag to the edge
+			if ((primary === undefined || primary === null) && e.changedTouches) {
+				primary = this.orientation === 'vertical'
+					? e.changedTouches[0].screenY
+					: e.changedTouches[0].screenX;
 			}
 
-			const dist = x - this.startX || 0;
+			const startPrimary = this.orientation === 'vertical' ? this.startY : this.startX;
+			const dist = (primary ?? startPrimary) - startPrimary || 0;
 
-			// Dist value was chosen after many trials when horizontal scrolls
-			// did not work because they were detected as vertical scrolls
+			// Dist value was chosen after many trials when scroll direction flipped
 			if (dist > 50 && this.#currentIndex > 0) this.#currentIndex -= 1;
 			else if (dist < -50 && this.#currentIndex < this.lastIndex - 2) this.#currentIndex += 1;
 			this.slideTo(this.#currentIndex);
@@ -254,7 +293,12 @@ export default class GraphicEffects {
 	}
 
 	refresh() {
-		this.containerWidth = this.rootContainer.clientWidth;
+		const prevOrientation = this.orientation;
+		this.orientation = this.getOrientation();
+		if (prevOrientation !== this.orientation) {
+			this.scrolling = undefined;
+		}
+		this.containerSize = this.getContainerSize();
 		this.slideTo(this.#currentIndex);
 	}
 }
