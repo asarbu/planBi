@@ -11,6 +11,8 @@ export default class GraphicEffects {
 	/** @type {HTMLOListElement} */
 	#currentSlice = undefined;
 
+	#slid = false;
+
 	constructor() {
 		/* Slice slider */
 		this.rootContainer = undefined;
@@ -74,9 +76,9 @@ export default class GraphicEffects {
 
 		// * when mouseup or touchend
 		// TODO This registers the event listener multiple times
-		window.addEventListener('mouseup', this.endSliderEventListener);
-		window.addEventListener('touchend', this.endSliderEventListener);
-		window.addEventListener('resize', this.refreshEventListener, true);
+		this.sliderWrapper.addEventListener('mouseup', this.endSliderEventListener);
+		this.sliderWrapper.addEventListener('touchend', this.endSliderEventListener);
+		this.sliderWrapper.addEventListener('resize', this.refreshEventListener, true);
 
 		for(let img of forContainer.getElementsByTagName('img')) {
 			img.draggable = false;
@@ -173,9 +175,12 @@ export default class GraphicEffects {
 		const delta = primary - startPrimary;
 		const offset = delta / stepWidth;
 		const target = this.clamp(this.startSelectorIndex + offset, 0, steps);
-		const nextIndex = Math.round(target);
+		const movingDownOrLeft = (this.orientation === 'vertical' && delta < 0)
+			|| (this.orientation === 'horizontal' && delta < 0);
+		const nextIndex = movingDownOrLeft ? Math.floor(target) : Math.ceil(target);
 
 		if (nextIndex !== this.#currentIndex) {
+			this.#slid = true;
 			this.slideTo(nextIndex);
 		}
 	}
@@ -198,10 +203,12 @@ export default class GraphicEffects {
 		const startPrimary = this.orientation === 'vertical' ? this.startY : this.startX;
 		const dist = (primary ?? startPrimary) - startPrimary;
 
-		if (dist > 50 && this.#currentIndex > 0) {
-			this.#currentIndex -= 1;
-		} else if (dist < -50 && this.#currentIndex < this.lastIndex - 2) {
-			this.#currentIndex += 1;
+		if(!this.#slid) {
+			if (dist > 50 && this.#currentIndex > 0) {
+				this.#currentIndex -= 1;
+			} else if (dist < -50 && this.#currentIndex < this.lastIndex - 2) {
+				this.#currentIndex += 1;
+			}
 		}
 		this.slideTo(this.#currentIndex);
 	}
