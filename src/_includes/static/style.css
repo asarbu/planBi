@@ -348,9 +348,6 @@ section > p {
 
 #portfolio {
 	background-color: var(--primary-darker);
-	display: flex;
-	flex-direction: column;
-	align-items: center;
 	view-transition-name: portfolio-section;
 }
 
@@ -471,7 +468,9 @@ button {
 
 .portfolio-details {
 	margin-block-start: 2rem;
-	display: block;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 	overflow: hidden;
 	border-radius: 1rem;
 }
