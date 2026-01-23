@@ -33,6 +33,7 @@
     --text: oklch(0 0 0);
     --highlight: oklch(1 0 0);
 	--primary-xxlight: oklch(1 0.01 135);
+	--primary-xlight: oklch(0.95 0.05 135);
 	--primary-light: oklch(0.845 0.05 135);
 	--primary: oklch(0.696 0.05 135);
 	--primary-darker: oklch(0.596 0.05 135);
@@ -467,10 +468,51 @@ button {
 
 .portfolio-details {
 	width: 100%;
-	margin-block: 2rem;
+	margin-block-start: 2rem;
 	display: block;
 	overflow: hidden;
 	border-radius: 1rem;
+}
+
+.selector {
+	width: 100%;
+	display: block;
+	overflow: hidden;
+	border-radius: 1rem;
+    height: 5rem;
+    position: relative;
+}
+
+.selector-container {
+    display: flex;
+	justify-content: center;
+	align-items: flex-end;
+    gap: 0.75rem;
+    height: 4rem;
+}
+
+.selector-line {
+    width: 2px;
+    border-radius: 2px;
+    transition: height 0.2s ease-out;
+}
+
+.selector-line.small {
+    height: 1rem;
+    width: 2px;
+	background-color: var(--primary-light);
+}
+
+.selector-line.medium {
+	width: 3px;
+    height: 1.5rem;
+	background-color: var(--primary-light);
+}
+
+.selector-line.tall {
+    height: 2rem;
+	width: 4px;
+	background-color: var(--primary-xlight);
 }
 
 .portfolio-details .image-container {
