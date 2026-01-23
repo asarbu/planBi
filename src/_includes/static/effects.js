@@ -221,14 +221,19 @@ export default class GraphicEffects {
 		this.startY = e.clientY ? e.clientY : e.touches[0].screenY;
 		this.startTranslate = -this.containerSize * this.#currentIndex - 8 * this.#currentIndex;
 
+		// Keep the slider centered in view when a drag begins
+		this.rootContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
 		this.sliderWrapper.removeEventListener('touchmove', this.startSliderEventListener);
 		this.sliderWrapper.removeEventListener('mousemove', this.startSliderEventListener);
 		this.sliderWrapper.style.transition = 'transform 0s linear';
-		this.rootContainer.addEventListener(
+		this.sliderWrapper.addEventListener(
 			e.clientX ? 'mousemove' : 'touchmove',
 			this.moveSliderEventListener,
 			{ passive: false },
 		);
+		this.sliderWrapper.addEventListener('mouseleave', this.endSliderEventListener);
+		this.sliderWrapper.addEventListener('touchcancel', this.endSliderEventListener);
 		this.#currentSlice = this.#slices[this.#currentIndex];
 	}
 
@@ -295,6 +300,8 @@ export default class GraphicEffects {
 		}
 		this.rootContainer.removeEventListener('mousemove', this.moveSliderEventListener);
 		this.rootContainer.removeEventListener('touchmove', this.moveSliderEventListener);
+		this.rootContainer.removeEventListener('mouseleave', this.endSliderEventListener);
+		window.removeEventListener('touchcancel', this.endSliderEventListener);
 		this.sliderWrapper.addEventListener('touchmove', this.startSliderEventListener, { passive: false });
 		this.scrolling = undefined;
 	}
