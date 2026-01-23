@@ -17,13 +17,14 @@ export default class GraphicEffects {
 		/* Slice slider */
 		this.rootContainer = undefined;
 		this.mouseDown = false;
-		this.scrolling = undefined;
 		this.startX = 0;
 		this.startY = 0;
 		this.startTranslate = 0;
 		this.orientation = 'horizontal';
 		this.containerSize = 0;
 		this.startSelectorIndex = 0;
+		this.prevOverflow = undefined;
+		this.prevTouchAction = undefined;
 
 		this.startSliderEventListener = this.startSlider.bind(this);
 		this.moveSliderEventListener = this.moveSlider.bind(this);
@@ -108,6 +109,22 @@ export default class GraphicEffects {
 		this.selectorContainer.addEventListener('touchstart', this.startSelectorSliderEventListener, { passive: false });
 	}
 
+	lockPageScroll() {
+		const root = document.documentElement;
+		this.prevOverflow = root.style.overflow;
+		this.prevTouchAction = root.style.touchAction;
+		root.style.overflow = 'hidden';
+		root.style.touchAction = 'none';
+	}
+
+	unlockPageScroll() {
+		const root = document.documentElement;
+		if (this.prevOverflow !== undefined) root.style.overflow = this.prevOverflow;
+		if (this.prevTouchAction !== undefined) root.style.touchAction = this.prevTouchAction;
+		this.prevOverflow = undefined;
+		this.prevTouchAction = undefined;
+	}
+
 	updateSelectorLines(selectedIndex) {
 		this.#selectorLines.forEach((line, i) => {
 			line.classList.remove('tall', 'medium', 'small');
@@ -165,7 +182,7 @@ export default class GraphicEffects {
 		const primary = this.orientation === 'vertical' ? y : x;
 		const startPrimary = this.orientation === 'vertical' ? this.startY : this.startX;
 		if (primary === undefined || startPrimary === undefined) return;
-		e.preventDefault?.();
+		if (e.cancelable) e.preventDefault();
 
 		const steps = this.#slices.length - 1;
 		const stepWidth = (this.orientation === 'vertical'
@@ -215,7 +232,9 @@ export default class GraphicEffects {
 
 	startSlider(e) {
 		this.mouseDown = true;
-
+		if (e.cancelable) {
+			e.preventDefault();
+		}
 		// read from desktop or mobile devices
 		this.startX = e.clientX ? e.clientX : e.touches[0].screenX;
 		this.startY = e.clientY ? e.clientY : e.touches[0].screenY;
@@ -239,6 +258,7 @@ export default class GraphicEffects {
 
 	moveSlider(e) {
 		if (!this.mouseDown) return;
+		if(e.cancelable) e.preventDefault();
 
 		const currentX = e.clientX || e.touches?.[0].screenX;
 		const currentY = e.clientY || e.touches?.[0].screenY;
@@ -246,23 +266,6 @@ export default class GraphicEffects {
 		if (!currentX && !currentY) return;
 
 		requestAnimationFrame(() => {
-			if (!this.scrolling) {
-				// Mouse move
-				if (e.clientX) this.scrolling = this.orientation === 'vertical' ? 'vertical' : 'horizontal';
-				else {
-					// Touch move. Check scroll direction
-					if (Math.abs(currentY - this.startY) > 10
-						&& this.#currentSlice.scrollTop > 0) { // Vertical scroll inside slice
-						// Freeze slider when slice scrolls
-						this.scrolling = 'vertical';
-						this.slideTo(this.#currentIndex);
-						return;
-					} if (Math.abs(currentX - this.startX) > 10) { // Horizontal
-						this.scrolling = 'horizontal';
-					}
-				}
-			}
-
 			const deltaPrimary = this.orientation === 'vertical'
 				? currentY - this.startY
 				: currentX - this.startX;
@@ -272,7 +275,6 @@ export default class GraphicEffects {
 			} else {
 				this.sliderWrapper.style.transform = `translateX(${transformValue}px)`;
 			}
-			e.preventDefault?.();
 		});
 	}
 
@@ -280,8 +282,11 @@ export default class GraphicEffects {
 		if (!this.mouseDown || !e) return;
 
 		this.mouseDown = false;
+
+		console.log('End slider, scrolling:', this.scrolling);
 		if ((this.orientation === 'vertical' && this.scrolling !== 'horizontal')
 			|| (this.orientation === 'horizontal' && this.scrolling !== 'vertical')) {
+		
 			let primary = this.orientation === 'vertical' ? e.clientY : e.clientX;
 			// primary can be 0 if you drag to the edge
 			if ((primary === undefined || primary === null) && e.changedTouches) {
@@ -303,15 +308,10 @@ export default class GraphicEffects {
 		this.rootContainer.removeEventListener('mouseleave', this.endSliderEventListener);
 		window.removeEventListener('touchcancel', this.endSliderEventListener);
 		this.sliderWrapper.addEventListener('touchmove', this.startSliderEventListener, { passive: false });
-		this.scrolling = undefined;
 	}
 
 	refresh() {
-		const prevOrientation = this.orientation;
 		this.orientation = this.getOrientation();
-		if (prevOrientation !== this.orientation) {
-			this.scrolling = undefined;
-		}
 		this.containerSize = this.getContainerSize();
 		this.slideTo(this.#currentIndex);
 	}
