@@ -8,9 +8,6 @@ export default class GraphicEffects {
 	/** @type {number} */
 	#currentIndex = 0;
 
-	/** @type {HTMLOListElement} */
-	#currentSlice = undefined;
-
 	#slid = false;
 
 	#refreshTimeout = undefined;
@@ -46,10 +43,10 @@ export default class GraphicEffects {
 		/* Slice slider */
 		this.rootContainer = forContainer;
 		// TODO use percentages instead of width
-		this.sliderWrapper = this.rootContainer.querySelector('.section');
+		this.imageReel = this.rootContainer.querySelector('.image-reel');
 		this.orientation = this.getOrientation();
 		this.containerSize = this.getContainerSize();
-		this.lastIndex = this.sliderWrapper.children.length + 1;
+		this.lastIndex = this.imageReel.children.length + 1;
 
 		this.#slices = this.rootContainer.querySelectorAll('.slice');
 		this.#slices.forEach((el, i) => {
@@ -80,9 +77,9 @@ export default class GraphicEffects {
 
 		// * when mouseup or touchend
 		// TODO This registers the event listener multiple times
-		this.sliderWrapper.addEventListener('mouseup', this.endSliderEventListener);
-		this.sliderWrapper.addEventListener('touchend', this.endSliderEventListener);
-		this.sliderWrapper.addEventListener('resize', this.refreshEventListener, true);
+		this.imageReel.addEventListener('mouseup', this.endSliderEventListener);
+		this.imageReel.addEventListener('touchend', this.endSliderEventListener);
+		this.imageReel.addEventListener('resize', this.refreshEventListener, true);
 		window.addEventListener('resize', this.debouncedRefreshEventListener);
 		window.addEventListener('orientationchange', this.debouncedRefreshEventListener);
 
@@ -96,20 +93,20 @@ export default class GraphicEffects {
 	}
 
 	getContainerSize() {
-		if (!this.sliderWrapper) return 0;
+		if (!this.imageReel) return 0;
 		return this.orientation === 'vertical'
-			? this.sliderWrapper.clientHeight
-			: this.rootContainer.clientWidth;
+			? this.imageReel.clientHeight
+			: this.imageReel.clientWidth;
 	}
 
 	pause() {
-		this.sliderWrapper.removeEventListener('mousedown', this.startSliderEventListener);
-		this.sliderWrapper.removeEventListener('touchmove', this.startSliderEventListener, { passive: false });
+		this.imageReel.removeEventListener('mousedown', this.startSliderEventListener);
+		this.imageReel.removeEventListener('touchmove', this.startSliderEventListener, { passive: false });
 	}
 
 	resume() {
-		this.sliderWrapper.addEventListener('mousedown', this.startSliderEventListener);
-		this.sliderWrapper.addEventListener('touchmove', this.startSliderEventListener, { passive: false });
+		this.imageReel.addEventListener('mousedown', this.startSliderEventListener);
+		this.imageReel.addEventListener('touchmove', this.startSliderEventListener, { passive: false });
 		this.selectorContainer.addEventListener('mousedown', this.startSelectorSliderEventListener);
 		this.selectorContainer.addEventListener('touchstart', this.startSelectorSliderEventListener, { passive: false });
 	}
@@ -149,11 +146,12 @@ export default class GraphicEffects {
 		this.#currentIndex = +index;
 		this.updateSelectorLines(this.#currentIndex);
 		requestAnimationFrame(() => {
-			this.sliderWrapper.style.transition = 'transform 0.2s ease-out';
+			this.imageReel.style.transition = 'transform 0.2s ease-out';
+			const translateDistance = -this.containerSize * index - 8 * index;
 			if (this.orientation === 'vertical') {
-				this.sliderWrapper.style.transform = `translateY(${-this.containerSize * index - 8 * index}px)`;
+				this.imageReel.style.transform = `translateY(${translateDistance}px)`;
 			} else {
-				this.sliderWrapper.style.transform = `translateX(${-this.containerSize * index - 8 * index}px)`;
+				this.imageReel.style.transform = `translateX(${translateDistance}px)`;
 			}
 		});
 	}
@@ -248,17 +246,16 @@ export default class GraphicEffects {
 		// Keep the slider centered in view when a drag begins
 		document.getElementById('divider').scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-		this.sliderWrapper.removeEventListener('touchmove', this.startSliderEventListener);
-		this.sliderWrapper.removeEventListener('mousemove', this.startSliderEventListener);
-		this.sliderWrapper.style.transition = 'transform 0s linear';
-		this.sliderWrapper.addEventListener(
+		this.imageReel.removeEventListener('touchmove', this.startSliderEventListener);
+		this.imageReel.removeEventListener('mousemove', this.startSliderEventListener);
+		this.imageReel.style.transition = 'transform 0s linear';
+		this.imageReel.addEventListener(
 			e.clientX ? 'mousemove' : 'touchmove',
 			this.moveSliderEventListener,
 			{ passive: false },
 		);
-		this.sliderWrapper.addEventListener('mouseleave', this.endSliderEventListener);
-		this.sliderWrapper.addEventListener('touchcancel', this.endSliderEventListener);
-		this.#currentSlice = this.#slices[this.#currentIndex];
+		this.imageReel.addEventListener('mouseleave', this.endSliderEventListener);
+		this.imageReel.addEventListener('touchcancel', this.endSliderEventListener);
 	}
 
 	moveSlider(e) {
@@ -276,9 +273,9 @@ export default class GraphicEffects {
 				: currentX - this.startX;
 			const transformValue = this.startTranslate + deltaPrimary;
 			if (this.orientation === 'vertical') {
-				this.sliderWrapper.style.transform = `translateY(${transformValue}px)`;
+				this.imageReel.style.transform = `translateY(${transformValue}px)`;
 			} else {
-				this.sliderWrapper.style.transform = `translateX(${transformValue}px)`;
+				this.imageReel.style.transform = `translateX(${transformValue}px)`;
 			}
 		});
 	}
@@ -312,7 +309,7 @@ export default class GraphicEffects {
 		this.rootContainer.removeEventListener('touchmove', this.moveSliderEventListener);
 		this.rootContainer.removeEventListener('mouseleave', this.endSliderEventListener);
 		window.removeEventListener('touchcancel', this.endSliderEventListener);
-		this.sliderWrapper.addEventListener('touchmove', this.startSliderEventListener, { passive: false });
+		this.imageReel.addEventListener('touchmove', this.startSliderEventListener, { passive: false });
 	}
 
 	// The refresh is debounced to allow screen size changes to settle
@@ -322,7 +319,7 @@ export default class GraphicEffects {
 	}
 
 	refresh() {
-		if (!this.sliderWrapper) return;
+		if (!this.imageReel) return;
 		this.orientation = this.getOrientation();
 		requestAnimationFrame(() => {
 			this.containerSize = this.getContainerSize();

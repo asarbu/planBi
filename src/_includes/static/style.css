@@ -466,72 +466,83 @@ button {
 	box-shadow: var(--shadow-l);
 }
 
-.selector {
-	display: block;
-	overflow: hidden;
-    height: 5rem;
-    position: relative;
-}
-
-.selector-container {
-    display: flex;
-	justify-content: center;
-	align-items: flex-end;
-    height: 4rem;
-	gap: 0.5rem;
-}
-
-.selector-line {
-    width: 2px;
-    border-radius: 2px;
-    transition: height 0.2s ease-out;
-}
-
-.selector-line.small {
-    height: 1rem;
-    width: 2px;
-	background-color: var(--primary-light);
-}
-
-.selector-line.medium {
-	width: 3px;
-    height: 1.5rem;
-	background-color: var(--primary-light);
-}
-
-.selector-line.tall {
-    height: 2rem;
-	width: 4px;
-	background-color: var(--primary-xlight);
-}
-
 .divider {
 	height: 5rem;
 }
 
-.portfolio-details {
+.selector {
+	width: 3rem;
+	height: auto;
+    position: relative;
+}
+
+.selector-container {
 	display: flex;
 	flex-direction: column;
+	align-items: flex-start;
+	justify-content: center;
+	gap: 0.5rem;
+	height: 100%;
+}
+
+.selector-line {
+	width: 3rem;
+	height: 2px;
+	border-radius: 2px;
+	background-color: var(--primary-light);
+	transition: height 0.2s ease-out;
+	&.small {
+		width: 1rem;
+		height: 2px;
+		background-color: var(--primary-light);
+	}
+	&.medium {
+		width: 1.5rem;
+		height: 2px;
+		background-color: var(--primary-light);
+	}
+	&.tall {
+		width: 2rem;
+		height: 3px;
+		background-color: var(--primary-xlight);
+	}
+}
+
+.portfolio-details {
+	display: flex;
+	flex-direction: row;
 	align-items: center;
 	overflow: hidden;
 	border-radius: 1rem;
+	height: calc(100svh - 6rem);
+	width: 100%;
+	justify-content: center;
+	gap: 1rem;
 }
 
-.portfolio-details .image-container {
-	width: calc(100svw - 2rem);
-	height: calc((100svw) * 4 / 3);
+.image-frame {
+	overflow: hidden;
+	border-radius: 1rem;
 	box-sizing: border-box;
 	display: flex;
-	gap: 0.5rem;
+	aspect-ratio: 4 / 3;
+	width: min(calc(100svw - 8rem), calc(100svh * 4 / 3 - 8rem));
 	border-radius: 1rem;
 }
 
-.portfolio-details .image-container img {
-	width: calc(100svw - 2rem);
-	height: calc((100svw) * 4 / 3);
+.image-reel {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	float: right;
+}
+
+.image-reel img {
+	width: 100%;
+	height: 100%;
+	aspect-ratio: 4 / 3;
 	display: block;
 	object-fit: cover;
-	flex: 1 0 100%;
 	border-radius: 1rem;
 	box-shadow: var(--shadow-m);
 }
@@ -726,6 +737,62 @@ main.thankyou {
 	z-index: 50;
 }
 
+@media (orientation: portrait) {
+	.portfolio-details {
+		flex-direction: column;
+	}
+
+	.image-frame {
+		width: min(calc(100svw - 4rem), calc((100svh - 10rem) * 3 / 4));
+		aspect-ratio: 3 / 4;
+	}
+
+	.image-reel {
+		display: flex;
+		flex-direction: row;
+		gap: 0.5rem;
+		float: none;
+	}
+
+	.image-reel img {
+		aspect-ratio: 3 / 4;
+	}
+	
+	.selector {
+		height: 2rem;
+		width: auto;
+		display: flex;
+		justify-content: center;
+	}
+
+	.selector-container {
+		display: flex;
+		flex-direction: row;
+		align-items: flex-end;
+		gap: 0.5rem;
+	}
+
+	.selector-line {
+		width: 2px;
+		border-radius: 2px;
+	}
+
+	.selector-line.small {
+		height: 1rem;
+		width: 2px;
+	}
+
+	.selector-line.medium {
+		width: 2px;
+		height: 1.5rem;
+	}
+
+	.selector-line.tall {
+		height: 2rem;
+		width: 3px;
+	}
+}
+
 @media screen and (max-width: 800px) {
 	.additional-details {
 		grid-template-columns: repeat(2, 1fr);
@@ -737,60 +804,6 @@ main.thankyou {
 		grid-template-columns:  repeat(1, minmax(0, 1fr));
 		gap: 1rem;
 		margin-top: 1rem;
-	}
-}
-
-@media (orientation: landscape) {
-	.portfolio-details {
-		flex-direction: row;
-		align-items: center;
-		justify-content: center;
-		gap: 1rem;
-	}
-
-	.portfolio-details .image-container {
-		--ic-height: calc(100svh - 6rem);
-		height: var(--ic-height);
-		width: calc(var(--ic-height) * 4 / 3);
-		flex-direction: column;
-	}
-
-	.portfolio-details .image-container img {
-		height: 100%;
-		width: 100%;
-		flex: 0 0 100%;
-	}
-
-	.selector {
-		width: 5rem;
-		height: var(--ic-h);
-		align-self: center;
-	}
-
-	.selector-container {
-		flex-direction: column;
-		align-items: flex-start;
-		justify-content: center;
-		gap: 0.5rem;
-		height: 100%;
-	}
-
-	.selector-line {
-		width: 32px;
-		height: 6px;
-		border-radius: 999px;
-		&.small {
-			width: 1rem;
-			height: 2px;
-		}
-		&.medium {
-			width: 1.5rem;
-			height: 2px;
-		}
-		&.tall {
-			width: 2rem;
-			height: 3px;
-		}
 	}
 }
 
@@ -815,7 +828,7 @@ main.thankyou {
 		height: 8rem;
 	}
 
-	.portfolio-details .image-container {
+	.portfolio-details .image-frame {
 		column-count: 1;
 	}
 
