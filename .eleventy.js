@@ -10,6 +10,8 @@ module.exports = function(eleventyConfig) {
 	// This ensures your Functions and CF config files move to the build
 	eleventyConfig.addPassthroughCopy("functions");
 	eleventyConfig.addPassthroughCopy("images");
+	eleventyConfig.addPassthroughCopy("static");
+	eleventyConfig.addPassthroughCopy({ "src/_includes/static": "static" });
 
 	eleventyConfig.addGlobalData("permalink", "{{ page.filePathStem }}.html");
 
