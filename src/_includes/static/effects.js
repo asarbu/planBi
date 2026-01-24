@@ -246,7 +246,7 @@ export default class GraphicEffects {
 		this.startTranslate = -this.containerSize * this.#currentIndex - 8 * this.#currentIndex;
 
 		// Keep the slider centered in view when a drag begins
-		this.rootContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+		document.getElementById('divider').scrollIntoView({ behavior: 'smooth', block: 'start' });
 
 		this.sliderWrapper.removeEventListener('touchmove', this.startSliderEventListener);
 		this.sliderWrapper.removeEventListener('mousemove', this.startSliderEventListener);

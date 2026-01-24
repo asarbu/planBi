@@ -226,7 +226,7 @@ nav .main-title {
 section {
 	width: 100%;
 	padding-block: 8rem;
-	padding-inline: 2rem;
+	padding-inline: 1rem;
 	scroll-margin-top: 0px;
 	text-align: center;
 	box-sizing: border-box;
@@ -466,15 +466,6 @@ button {
 	box-shadow: var(--shadow-l);
 }
 
-.portfolio-details {
-	margin-block: 1rem;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	overflow: hidden;
-	border-radius: 1rem;
-}
-
 .selector {
 	display: block;
 	overflow: hidden;
@@ -514,17 +505,30 @@ button {
 	background-color: var(--primary-xlight);
 }
 
+.divider {
+	height: 5rem;
+}
+
+.portfolio-details {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	overflow: hidden;
+	border-radius: 1rem;
+}
+
 .portfolio-details .image-container {
-	width: 90svw;
-	height: calc(90svw * 4 / 3);
-	margin: 0 auto;
+	width: calc(100svw - 2rem);
+	height: calc((100svw) * 4 / 3);
 	box-sizing: border-box;
 	display: flex;
-	gap: 8px;
+	gap: 0.5rem;
+	border-radius: 1rem;
 }
 
 .portfolio-details .image-container img {
-	width: 100%;
+	width: calc(100svw - 2rem);
+	height: calc((100svw) * 4 / 3);
 	display: block;
 	object-fit: cover;
 	flex: 1 0 100%;
@@ -745,11 +749,10 @@ main.thankyou {
 	}
 
 	.portfolio-details .image-container {
-		height: 70svh;
-		width: calc(70svh * 4 / 3);
+		--ic-height: calc(100svh - 6rem);
+		height: var(--ic-height);
+		width: calc(var(--ic-height) * 4 / 3);
 		flex-direction: column;
-		gap: 8px;
-		margin: 0;
 	}
 
 	.portfolio-details .image-container img {
@@ -792,9 +795,6 @@ main.thankyou {
 }
 
 @media screen and (max-width: 425px) {
-	section {
-		padding-inline: 1rem;
-	}
 	.consultation-form {
 		padding: 1rem;
 	}
