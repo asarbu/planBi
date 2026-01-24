@@ -467,7 +467,7 @@ button {
 }
 
 .portfolio-details {
-	margin-block: 2rem;
+	margin-block: 1rem;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -515,7 +515,8 @@ button {
 }
 
 .portfolio-details .image-container {
-	width: 100%;
+	width: 90svw;
+	height: calc(90svw * 4 / 3);
 	margin: 0 auto;
 	box-sizing: border-box;
 	display: flex;
@@ -529,13 +530,6 @@ button {
 	flex: 1 0 100%;
 	border-radius: 1rem;
 	box-shadow: var(--shadow-m);
-}
-
-img.landscape {
-	aspect-ratio: 4 / 3;
-}
-img.portrait {
-	aspect-ratio: 3 / 4;
 }
 
 .white {
@@ -751,10 +745,8 @@ main.thankyou {
 	}
 
 	.portfolio-details .image-container {
-		--ic-h: min(80vh, 60vw);
-		height: var(--ic-h);
-		width: calc(var(--ic-h) * 4 / 3);
-		max-width: 70vw;
+		height: 70svh;
+		width: calc(70svh * 4 / 3);
 		flex-direction: column;
 		gap: 8px;
 		margin: 0;

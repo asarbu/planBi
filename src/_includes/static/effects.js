@@ -13,6 +13,8 @@ export default class GraphicEffects {
 
 	#slid = false;
 
+	#refreshTimeout = undefined;
+
 	constructor() {
 		/* Slice slider */
 		this.rootContainer = undefined;
@@ -30,6 +32,7 @@ export default class GraphicEffects {
 		this.moveSliderEventListener = this.moveSlider.bind(this);
 		this.endSliderEventListener = this.endSlider.bind(this);
 		this.refreshEventListener = this.refresh.bind(this);
+		this.debouncedRefreshEventListener = this.debouncedRefresh.bind(this);
 
 		this.startSelectorSliderEventListener = this.startSelectorSlider.bind(this);
 		this.moveSelectorSliderEventListener = this.moveSelectorSlider.bind(this);
@@ -80,6 +83,8 @@ export default class GraphicEffects {
 		this.sliderWrapper.addEventListener('mouseup', this.endSliderEventListener);
 		this.sliderWrapper.addEventListener('touchend', this.endSliderEventListener);
 		this.sliderWrapper.addEventListener('resize', this.refreshEventListener, true);
+		window.addEventListener('resize', this.debouncedRefreshEventListener);
+		window.addEventListener('orientationchange', this.debouncedRefreshEventListener);
 
 		for(let img of forContainer.getElementsByTagName('img')) {
 			img.draggable = false;
@@ -310,9 +315,18 @@ export default class GraphicEffects {
 		this.sliderWrapper.addEventListener('touchmove', this.startSliderEventListener, { passive: false });
 	}
 
+	// The refresh is debounced to allow screen size changes to settle
+	debouncedRefresh() {
+		if (this.#refreshTimeout) clearTimeout(this.#refreshTimeout);
+		this.#refreshTimeout = setTimeout(() => this.refresh(), 120);
+	}
+
 	refresh() {
+		if (!this.sliderWrapper) return;
 		this.orientation = this.getOrientation();
-		this.containerSize = this.getContainerSize();
-		this.slideTo(this.#currentIndex);
+		requestAnimationFrame(() => {
+			this.containerSize = this.getContainerSize();
+			this.slideTo(this.#currentIndex);
+		});
 	}
 }
