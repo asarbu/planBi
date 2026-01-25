@@ -552,6 +552,7 @@ button {
 }
 
 .image-reel {
+	width: 100%;
 	display: flex;
 	flex-direction: column;
 	gap: 0.5rem;
@@ -559,8 +560,8 @@ button {
 }
 
 .image-reel img {
+	height: auto;
 	width: 100%;
-	height: 100%;
 	aspect-ratio: 4 / 3;
 	display: block;
 	object-fit: cover;
@@ -776,6 +777,8 @@ main.thankyou {
 	}
 
 	.image-reel img {
+		width: auto;
+		height: 100%;
 		aspect-ratio: 3 / 4;
 	}
 	
