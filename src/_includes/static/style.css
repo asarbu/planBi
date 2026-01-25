@@ -553,6 +553,7 @@ button {
 
 .image-reel {
 	width: 100%;
+	height: fit-content;
 	display: flex;
 	flex-direction: column;
 	gap: 0.5rem;
@@ -770,6 +771,8 @@ main.thankyou {
 	}
 
 	.image-reel {
+		height: 100%;
+		width: fit-content;
 		display: flex;
 		flex-direction: row;
 		gap: 0.5rem;

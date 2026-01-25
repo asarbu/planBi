@@ -94,9 +94,11 @@ export default class GraphicEffects {
 
 	getContainerSize() {
 		if (!this.imageReel) return 0;
+		const image = this.imageReel.children[0];
+		if (!image) return 0;
 		return this.orientation === 'vertical'
-			? this.imageReel.clientHeight
-			: this.imageReel.clientWidth;
+			? image.clientHeight
+			: image.clientWidth;
 	}
 
 	pause() {
