@@ -15,6 +15,7 @@ const fragmentShaderSource = `
 	uniform vec3 uColor;
 	uniform vec2 uResolution;
 	uniform float uSpeed;
+	uniform float uAspect;
 	varying vec2 vUv;
 
 	float hash12(vec2 p) {
@@ -25,8 +26,7 @@ const fragmentShaderSource = `
 
 	void main() {
 		vec2 centeredCoords = (vUv * 2.0) - 1.0;
-		float aspectRatio = uResolution.x / uResolution.y;
-		centeredCoords.x *= aspectRatio;
+		centeredCoords.x *= uAspect;
 		float t = uTime * uSpeed;
 		float patternAngle = 0.0;
 		float patternPhase = -t;
@@ -184,6 +184,7 @@ function setupVelvetEffect(options) {
 	const uColorLoc = gl.getUniformLocation(program, 'uColor');
 	const uResolutionLoc = gl.getUniformLocation(program, 'uResolution');
 	const uSpeedLoc = gl.getUniformLocation(program, 'uSpeed');
+	const uAspectLoc = gl.getUniformLocation(program, 'uAspect');
 
 	// Set static uniforms
 	gl.uniform3fv(uColorLoc, color);
@@ -199,6 +200,7 @@ function setupVelvetEffect(options) {
 		canvas.style.height = height + 'px';
 		gl.viewport(0, 0, canvas.width, canvas.height);
 		gl.uniform2f(uResolutionLoc, canvas.width, canvas.height);
+		gl.uniform1f(uAspectLoc, height > 0 ? (canvas.width / canvas.height) : 1.0);
 	}
 
 	function animate(time) {
