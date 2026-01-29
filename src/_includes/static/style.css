@@ -62,6 +62,11 @@ body {
 header {
 	height: 100svh;
 	display: block;
+	position: relative;
+	z-index: 15;
+	content-visibility: auto;
+	contain: layout paint style;
+	contain-intrinsic-size: 100svh;
 	transition: height var(--animation-longer) var(--ease-out);
 
 	&.condensed {
@@ -256,6 +261,7 @@ section {
 	scroll-margin-top: 0px;
 	text-align: center;
 	box-sizing: border-box;
+	content-visibility: auto;
 }
 /* About Me Section Styles */
 #about-me {
