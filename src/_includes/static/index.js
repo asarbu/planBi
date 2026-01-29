@@ -16,20 +16,26 @@ const fragmentShaderSource = `
 	uniform vec2 uResolution;
 	uniform float uSpeed;
 	varying vec2 vUv;
+
+	float hash12(vec2 p) {
+		vec3 p3 = fract(vec3(p.xyx) * 0.1031);
+		p3 += dot(p3, p3.yzx + 33.33);
+		return fract((p3.x + p3.y) * p3.z);
+	}
+
 	void main() {
 		vec2 centeredCoords = (vUv * 2.0) - 1.0;
 		float aspectRatio = uResolution.x / uResolution.y;
 		centeredCoords.x *= aspectRatio;
+		float t = uTime * uSpeed;
 		float patternAngle = 0.0;
-		float patternPhase = 0.0;
-		float timeOffset = uTime * uSpeed;
-		patternPhase -= timeOffset;
-		const float ITERATIONS = 8.0;
+		float patternPhase = -t;
+		const float ITERATIONS = 7.0;
 		for (float i = 0.0; i < ITERATIONS; ++i) {
 			patternAngle += cos(i - patternPhase - patternAngle * centeredCoords.x);
 			patternPhase += sin(centeredCoords.y * i + patternAngle);
 		}
-		patternPhase += timeOffset;
+		patternPhase += t;
 		vec3 initialColor = vec3(
 			cos(centeredCoords.x * patternPhase),
 			cos(centeredCoords.y * patternAngle),
@@ -40,6 +46,8 @@ const fragmentShaderSource = `
 		const vec3 LUMINANCE_VECTOR = vec3(0.2126, 0.7152, 0.0722);
 		float luminance = dot(complexColor, LUMINANCE_VECTOR);
 		vec3 finalTintedShade = uColor * luminance;
+		float noise = hash12(gl_FragCoord.xy + vec2(t, t * 1.37));
+		finalTintedShade += (noise - 0.5) * (1.0 / 255.0 * 1.5);
 		gl_FragColor = vec4(finalTintedShade, 1.0);
 	}
 `;
@@ -138,12 +146,21 @@ function setupVelvetEffect(options) {
 	canvas.style.width = '100%';
 	canvas.style.height = '100%';
 	canvas.style.display = 'inline-block';
-	const gl = canvas.getContext('webgl');
+	const gl = canvas.getContext('webgl', {
+		alpha: false,
+		depth: false,
+		stencil: false,
+		antialias: true,
+		powerPreference: 'high-performance'
+	});
 	if (!gl) {
 		console.error('WebGL not supported');
 		return;
 	}
 	gl.clearColor(1, 1, 1, 1);
+	gl.disable(gl.DEPTH_TEST);
+	gl.disable(gl.STENCIL_TEST);
+	gl.disable(gl.CULL_FACE);
 	const program = createProgram(gl,vertexShaderSource, fragmentShaderSource);
 	gl.useProgram(program);
 
