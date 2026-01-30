@@ -376,9 +376,9 @@ document.addEventListener('DOMContentLoaded', function () {
 		observer.observe(target);
 	}
 
-	observeAndPrefetch('#portfolio', 'portfolio');
-	observeAndPrefetch('#services', 'services');
-	observeAndPrefetch('#booking', 'booking');
+	//observeAndPrefetch('#portfolio', 'portfolio');
+	//observeAndPrefetch('#services', 'services');
+	//observeAndPrefetch('#booking', 'booking');
 
 	// Attach the handler to the window scroll event
 	window.addEventListener('scroll', onScrollHandler, { passive: false });
