@@ -348,6 +348,38 @@ document.addEventListener('DOMContentLoaded', function () {
 		});
 	}
 
+	// Prefetch section targets early for smoother view transitions on non-metered connections
+	const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+	const shouldPrefetch = !(connection && (connection.saveData || connection.effectiveType === '2g'));
+
+	function ensurePrefetch(href) {
+		if (document.querySelector(`link[rel="prefetch"][href="${href}"]`)) return;
+		const link = document.createElement('link');
+		link.rel = 'prefetch';
+		link.href = href;
+		document.head.appendChild(link);
+	}
+
+	function observeAndPrefetch(targetSelector, href) {
+		const target = document.querySelector(targetSelector);
+		if (!target) return;
+		const observer = new IntersectionObserver((entries, obs) => {
+			entries.forEach(entry => {
+				if (!entry.isIntersecting) return;
+				if (shouldPrefetch) ensurePrefetch(href);
+				obs.unobserve(entry.target);
+			});
+		}, {
+			rootMargin: '0px 0px -25% 0px',
+			threshold: 0
+		});
+		observer.observe(target);
+	}
+
+	observeAndPrefetch('#portfolio', 'portfolio');
+	observeAndPrefetch('#services', 'services');
+	observeAndPrefetch('#booking', 'booking');
+
 	// Attach the handler to the window scroll event
 	window.addEventListener('scroll', onScrollHandler, { passive: false });
 });
