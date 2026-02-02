@@ -752,8 +752,10 @@ footer {
 }
 
 main.thankyou {
-	margin-top: -90svh;
+	margin-top: -100svh;
+	z-index: 40;
 }
+
 
 ::view-transition-group(*) {
 	animation-duration: var(--animation-longer);
