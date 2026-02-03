@@ -1,0 +1,30 @@
+main.thankyou {
+	margin-top: -100svh;
+	z-index: 40;
+}
+
+.thankyou-section {
+	padding: 1em;
+}
+
+.thankyou-card {
+	max-width: 500px;
+	margin: 10rem auto;
+}
+
+.thankyou-title {
+	position: static;
+	font-size: 2.5rem;
+	margin-bottom: 1rem;
+	color: black;
+}
+
+.thankyou-number {
+	font-size: 2em;
+	color: var(--primary-dark);
+	margin-top: 20px;
+}
+
+.thankyou-btn {
+	margin-top: 2em;
+}

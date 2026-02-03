@@ -751,11 +751,6 @@ footer {
 	color: var(--primary-dark);
 }
 
-main.thankyou {
-	margin-top: -100svh;
-	z-index: 40;
-}
-
 
 ::view-transition-group(*) {
 	animation-duration: var(--animation-longer);
