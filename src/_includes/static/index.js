@@ -63,50 +63,6 @@ const uvs = new Float32Array([
 	0, 2
 ]);
 
-/*
-* Easing Functions - inspired from http://gizma.com/easing/
-* only considering the t value for the range [0, 1] => [0, 1]
-*/
-var easing = {
-	// accelerating from zero velocity 
-	easeInCubic: function (t) { return solveBezier(0.42, 0, 1.0, 1.0)(t) },
-	// decelerating to zero velocity 
-	easeOutCubic: function (t) { return  solveBezier(0, 0, 0.58, 1.0)(t) },
-}
-        /**
-         * Robust Bezier Solver
-         * Newton-Raphson method to solve for t at a given x (time).
-         */
-        function solveBezier(x1, y1, x2, y2) {
-            const cx = 3.0 * x1;
-            const bx = 3.0 * (x2 - x1) - cx;
-            const ax = 1.0 - cx - bx;
-            const cy = 3.0 * y1;
-            const by = 3.0 * (y2 - y1) - cy;
-            const ay = 1.0 - cy - by;
-
-            function sampleCurveX(t) { return ((ax * t + bx) * t + cx) * t; }
-            function sampleCurveY(t) { return ((ay * t + by) * t + cy) * t; }
-            function sampleCurveDerivativeX(t) { return (3.0 * ax * t + 2.0 * bx) * t + cx; }
-
-            function solveCurveX(x) {
-                let t2 = x;
-                for (let i = 0; i < 8; i++) {
-                    const x2 = sampleCurveX(t2) - x;
-                    if (Math.abs(x2) < 1e-6) return t2;
-                    const d2 = sampleCurveDerivativeX(t2);
-                    if (Math.abs(d2) < 1e-6) break;
-                    t2 = t2 - x2 / d2;
-                }
-                return t2;
-            }
-
-            return function(x) {
-                if (x === 0 || x === 1) return x;
-                return sampleCurveY(solveCurveX(x));
-            };
-        }
-
 // Compile shader
 function compileShader(gl, type, source) {
 	const shader = gl.createShader(type);
@@ -241,40 +197,45 @@ function processSnapLogic() {
 		return; 
 	}
 
+	function disableScroll() {
+		document.body.style.overflow = 'hidden';
+		document.body.style.touchAction = 'none';
+		document.body.style.pointerEvents = 'none';
+		document.body.style.position = 'fixed';
+	}
+
+	function enableScroll() {
+		document.body.style.overflow = '';
+		document.body.style.touchAction = '';
+		document.body.style.pointerEvents = '';
+		document.body.style.position = '';
+	}
+
 	// Scroll down (Header Open -> Header Closed)
 	if (scrollDown && isInSnapUpZone && isHeaderOpen) {
 		isHeaderOpen = false;
-		document.body.style.touchAction = 'none';
-		document.body.style.overflow = 'hidden';
-		document.body.style.pointerEvents = 'none';
-		document.body.style.position = 'fixed';
+		disableScroll();
 		window.scrollTo(0, SNAP_THRESHOLD_DOWN);
 		mainTitle.classList.add('hidden');
-		logo.classList.add('condensed');
 		stickyElm.classList.add('faded');
 		velvetContainer.classList.add('faded');
+		logo.classList.add('condensed');
 		header.classList.add('condensed');
 		document.querySelectorAll("animate[data-direction='fwd']").forEach(elm => {
 			elm.beginElement();
 		});
-		setTimeout(() => {
+		logo.addEventListener('transitionend', () => {
 			mainTitle.classList.remove('hidden'); 
 			logo.classList.add('hidden');
 			scrollTicking = false; 
-			document.body.style.overflow = '';
-			document.body.style.touchAction = '';
-			document.body.style.pointerEvents = '';
+			enableScroll();
 			header.style.visibility = 'hidden';
-			document.body.style.position = '';
 			window.scrollTo(0, SNAP_THRESHOLD_DOWN);
-		}, 500);
+		}, { once: true });
 	}
 	else if (scrollUp && isInSnapDownZone && !isHeaderOpen) {
 		isHeaderOpen = true;
-		document.body.style.touchAction = 'none';
-		document.body.style.overflow = 'hidden';
-		document.body.style.pointerEvents = 'none'; 
-		document.body.style.position = 'fixed';
+		disableScroll();
 		header.style.visibility = '';
 		logo.classList.remove('hidden');
 		mainTitle.classList.add('hidden');
@@ -285,15 +246,12 @@ function processSnapLogic() {
 		document.querySelectorAll("animate[data-direction='bwd']").forEach(elm => {
 			elm.beginElement();
 		});
-		setTimeout(() => {
+		logo.addEventListener('transitionend', () => {
 			mainTitle.classList.add('hidden'); 
 			logo.classList.remove('hidden');
 			scrollTicking = false; 
-			document.body.style.overflow = '';
-			document.body.style.touchAction = '';
-			document.body.style.pointerEvents = '';
-			document.body.style.position = '';
-		}, 500);
+			enableScroll();
+		}, { once: true });
 	} else {
 		scrollTicking = false;
 	}
@@ -323,10 +281,6 @@ if (container) {
 	});
 }
 
-function remToPx(rem) {    
-    return rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
-}
-
 document.addEventListener('DOMContentLoaded', function () {
 	mainTitle = document.getElementsByClassName('main-title')[0];
 	stickyElm = document.getElementsByClassName('isSticky')[0];
@@ -334,7 +288,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	logo = document.getElementsByClassName('logo')[0];
 	header = document.getElementsByTagName('header')[0];
 	HEADER_HEIGHT = document.defaultView.innerHeight;
-	SNAP_THRESHOLD_DOWN = 1; //remToPx(5);
+	SNAP_THRESHOLD_DOWN = 1;
 	lastScrollY = window.scrollY;
 	if (window.scrollY > HEADER_HEIGHT) {
 		logo.classList.add('hidden');
