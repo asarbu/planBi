@@ -3,14 +3,12 @@
 {{ super() }}
 <style>
     :root {
-        --primary-dark: black;
-        --primary-xxdark: black;
-        --primary-light: gray;
-        --primary-xlight: gainsboro;
+        --primary-dark: var(--primary-darkest);
+        --primary-xxdark: var(--primary-darkest);
     }
 
     .btn {
-        background-color: var(--primary-light);
+        background-color: var(--primary-darker);
     }
 </style>
 {% endblock %}

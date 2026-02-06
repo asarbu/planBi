@@ -38,6 +38,8 @@
 	--primary-darker: oklch(0.596 0.05 135);
 	--primary-dark: oklch(0.508 0.05 135);
 	--primary-xxdark: oklch(0.378 0.05 135);
+	--primary-xxxdark: oklch(0.25 0.05 135);
+	--primary-darkest: oklch(0.2 0.05 135);
 	view-transition-name: none;
 	--velvet-bg-color: transparent;
 
@@ -714,7 +716,7 @@ button {
 }
 
 footer {
-	background-color: var(--primary-xxdark);
+	background-color: var(--primary-xxxdark);
 	color: var(--highlight);
 	padding: 2rem;
 	text-align: center;
