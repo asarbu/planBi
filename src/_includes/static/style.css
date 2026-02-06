@@ -549,10 +549,8 @@ button {
 	border-radius: 1rem;
 	box-sizing: border-box;
 	display: flex;
-	aspect-ratio: 4 / 3;
-	/* Fall back to vw/vh units for better support on mobile browsers */
-	width: min(calc(100dvw - 2rem), calc(100dvh * 4 / 3 - 8rem));
-	width: min(calc(100vw - 2rem), calc(100vh * 4 / 3 - 8rem));
+	aspect-ratio: 4 / 3;	
+	width: min(calc(100svw - 2rem), calc(100svh * 4 / 3 - 8rem));
 	border-radius: 1rem;
 }
 
@@ -768,9 +766,7 @@ footer {
 	}
 
 	.image-frame {
-		/* Fall back to vw/vh units for better support on mobile browsers */
-		width: min(calc(100vw - 3rem), calc((100vh - 9rem) * 3 / 4));
-		width: min(calc(100dvw - 3rem), calc((100dvh - 9rem) * 3 / 4));
+		width: min(calc(100svw - 3rem), calc((100svh - 9rem) * 3 / 4));
 		aspect-ratio: 3 / 4;
 	}
 
