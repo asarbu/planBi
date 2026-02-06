@@ -246,7 +246,7 @@ nav {
 	transition: color 0.2s;
 }
 .navbar-menu a:hover {
-	color: var(--primary-xxdark);
+	text-decoration: underline;
 }
 
 nav .main-title {
@@ -374,7 +374,7 @@ section > p {
 }
 
 #portfolio {
-	background-color: var(--primary-darker);
+	background-color: var(--primary-xxdark);
 	view-transition-name: portfolio-section;
 }
 
@@ -394,6 +394,7 @@ section > p {
 }
 
 #portfolio .read-more-btn {
+
 	background-color: var(--primary-dark);
 }
 
@@ -491,10 +492,6 @@ button {
 	border-radius: 9999px;
 	border-style: none;
 	box-shadow: var(--shadow-l);
-}
-
-.divider {
-	height: 0rem;
 }
 
 .selector {

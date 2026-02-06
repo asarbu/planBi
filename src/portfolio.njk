@@ -1,7 +1,22 @@
 {% extends "base.njk" %}
+{% block  head_extra %}
+{{ super() }}
+<style>
+    :root {
+        --primary-dark: black;
+        --primary-xxdark: black;
+        --primary-light: gray;
+        --primary-xlight: gainsboro;
+    }
+
+    .btn {
+        background-color: var(--primary-light);
+    }
+</style>
+{% endblock %}
 {% block main_content %}
     <main style="margin-top: -1px;">
-        <section id="portfolio" style="padding-top: 4rem">
+        <section id="portfolio" style="padding-top: 4rem;">
             <h3 class="portfolio-title">Evenimentele Noastre</h3>
             <h2>
                 Amintiri Prețioase & Recenzii Strălucitoare
