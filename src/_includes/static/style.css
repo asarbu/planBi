@@ -46,6 +46,7 @@
 
 	--navbar-height: 4rem;
 
+	box-sizing: border-box;
 	scrollbar-gutter: stable;
 }
 
@@ -263,7 +264,6 @@ section {
 	padding-inline: 1rem;
 	scroll-margin-top: 0px;
 	text-align: center;
-	box-sizing: border-box;
 	content-visibility: auto;
 }
 /* About Me Section Styles */
@@ -535,23 +535,27 @@ button {
 	}
 }
 
+.navbar-placeholder {
+	height: var(--navbar-height);
+	width: 100%;
+}
+
 .portfolio-details {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
+	justify-content: center;
 	overflow: hidden;
 	border-radius: 1rem;
-	height: calc(100svh + 3rem);
+	height: calc(100vh - var(--navbar-height));
+	height: calc(100dvh - var(--navbar-height));
 	width: 100%;
-	justify-content: center;
 	gap: 1rem;
-	margin-top: var(--navbar-height);
 }
 
 .image-frame {
 	overflow: hidden;
 	border-radius: 1rem;
-	box-sizing: border-box;
 	display: flex;
 	aspect-ratio: 4 / 3;	
 	/* Fall back to vw/vh units for better support on mobile browsers */
@@ -687,7 +691,6 @@ button {
 	border: 1px solid var(--gray-300);
 	border-radius: 0.5rem;
 	font-size: 1rem;
-	box-sizing: border-box;
 
 	focus {
 		border-color: var(--primary);
