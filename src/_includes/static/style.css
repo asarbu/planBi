@@ -43,6 +43,9 @@
 
 	--ease-in: cubic-bezier(0.42, 0, 1.0, 1.0);
 	--ease-out: cubic-bezier(0, 0, 0.58, 1.0);
+
+	--navbar-height: 4rem;
+
 	scrollbar-gutter: stable;
 }
 
@@ -148,7 +151,7 @@ svg, svg path {
 }
 
 nav {
-	height: 4rem;
+	height: var(--navbar-height);
 	width: 100%;
 	position: fixed;
 	z-index: 10;
@@ -542,6 +545,7 @@ button {
 	width: 100%;
 	justify-content: center;
 	gap: 1rem;
+	margin-top: var(--navbar-height);
 }
 
 .image-frame {
