@@ -1,7 +1,13 @@
 {% extends "base.njk" %}
 {% block head_extra %}
-	<link rel="stylesheet" href="/static/style.css">
-	<script>
+    <style>
+    {% set css %}
+		{% include "static/style.css" %}
+		{% include "static/thankyou.css" %}
+    {% endset %}
+    {{ css | cssmin | safe }}
+	</style>
+    <script>
 		document.documentElement.style.setProperty('--velvet-bg-color', 'var(--primary-dark)');
 	</script>
 {% endblock %}
@@ -10,34 +16,29 @@
     <header>
         <div id="velvet-container"></div>
     </header>
-    <main>
-        <div class="isSticky"
-            style="min-height: 60vh; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-            <div class="main-title" style="margin-bottom: 0.5em;">PlanBi</div>
-
-            <section style="width: 100%; display: flex; justify-content: center; align-items: center; padding: 1em;">
-                <div class="card" style="max-width: 500px; margin: 0 auto; text-align: center;">
-                    <h2 style="position: static; font-size: 2.5rem; margin-bottom: 1rem;color: black;">Mulțumim!</h2>
-                    <p class="text-xl text-highlight font-serif mb-8 mt-8">Cererea a fost primită cu succes.</p>
-                    <div class="number" id="number"
-                        style="font-size: 2em; color: var(--primary-dark); margin-top: 20px;"></div>
-                    <a href="/index.html" class="btn" style="margin-top: 2em;">Înapoi la pagina principală</a>
+    <main class="thankyou">
+            <section class="thankyou-section">
+                <div class="card thankyou-card">
+                    <h2 class="thankyou-title">Mulțumim!</h2>
+                    <p>Cererea a fost primită cu succes.</p>
+                    <div class="number thankyou-number" id="number"></div>
+                    <a href="/index.html" class="btn thankyou-btn">Înapoi la pagina principală</a>
                 </div>
             </section>
-        </div>
     </main>
     <script>
-        // Get random number from URL query string
-        function getQueryParam(param) {
+        document.addEventListener('DOMContentLoaded', () => {
+            const numberElement = document.getElementById('number');
+            if (!numberElement) { return; }
+
             const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get(param);
-        }
-        const number = getQueryParam('number');
-        document.getElementById('number').textContent = number ? `Solicitarea poate fi identificată cu numărul: ${number}` : '';
+            const requestNumber = urlParams.get('number');
+            const label = 'Solicitarea poate fi identificată cu numărul: ';
+
+            numberElement.textContent = requestNumber ? `${label}${requestNumber}` : '';
+    });
+
     </script>
-	{% endblock %}
-	{% block scripts %}
-	<script src="/static/script.js" type="module"></script>
 	<script src="/static/index.js" type="module"></script>
 	{% endblock %}
 </body>

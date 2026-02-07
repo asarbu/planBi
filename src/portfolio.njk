@@ -1,7 +1,20 @@
 {% extends "base.njk" %}
+{% block  head_extra %}
+{{ super() }}
+<style>
+    :root {
+        --primary-dark: var(--primary-darkest);
+        --primary-xxdark: var(--primary-darkest);
+    }
+
+    .btn {
+        background-color: var(--primary-darker);
+    }
+</style>
+{% endblock %}
 {% block main_content %}
     <main style="margin-top: -1px;">
-        <section id="portfolio" style="padding-top: 4rem">
+        <section id="portfolio" style="padding-top: 4rem;">
             <h3 class="portfolio-title">Evenimentele Noastre</h3>
             <h2>
                 Amintiri Prețioase & Recenzii Strălucitoare
@@ -9,7 +22,7 @@
             <p>
                 Vedeți magia pe care am creat-o și ascultați ce au de spus clienții noștri fericiți despre experiența lor cu PlanBi.
             </p>
-            <div id="divider" class="divider"></div>
+            <div id="navbar-placeholder" class="navbar-placeholder"></div>
             <div id="portfolio-details" class="portfolio-details">
                 <div class="image-frame section">
                     <div class="image-reel">

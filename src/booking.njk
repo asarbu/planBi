@@ -16,17 +16,17 @@
 					<div class="content">
 						<div>
 							<label for="name" class="consultation-label">Nume</label>
-							<input type="text" id="name" name="name" placeholder="Ion Popescu" required
+							<input type="text" id="name" name="name" minlength="2" maxlength="100" placeholder="Ion Popescu" required
 								class="consultation-input">
 						</div>
 						<div>
 							<label for="email" class="consultation-label">Adresă de email</label>
-							<input type="email" id="email" name="email" placeholder="email@exemplu.com" required
+							<input type="email" id="email" name="email" minlength="5" maxlength="100" placeholder="email@exemplu.com" required
 								class="consultation-input">
 						</div>
 						<div>
 							<label for="telephone" class="consultation-label">Număr de telefon</label>
-							<input type="tel" id="telephone" name="telephone" placeholder="(770) 123-4567" required
+							<input type="tel" id="telephone" name="telephone" minlength="5" maxlength="20" placeholder="(770) 123-4567" required
 								class="consultation-input">
 						</div>
 						<div>
@@ -61,7 +61,7 @@
 						</div>
 						<div>
 							<label for="message" class="consultation-label">Alte notițe...</label>
-							<textarea id="message" name="message" rows="4" placeholder="Alte notițe..."
+							<textarea id="message" name="message" rows="4" maxlength="100" placeholder="Alte notițe..."
 								class="consultation-input"></textarea>
 						</div>
 						<div class="gdpr-checkbox">

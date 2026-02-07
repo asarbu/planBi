@@ -15,21 +15,27 @@ const fragmentShaderSource = `
 	uniform vec3 uColor;
 	uniform vec2 uResolution;
 	uniform float uSpeed;
+	uniform float uAspect;
 	varying vec2 vUv;
+
+	float hash12(vec2 p) {
+		vec3 p3 = fract(vec3(p.xyx) * 0.1031);
+		p3 += dot(p3, p3.yzx + 33.33);
+		return fract((p3.x + p3.y) * p3.z);
+	}
+
 	void main() {
 		vec2 centeredCoords = (vUv * 2.0) - 1.0;
-		float aspectRatio = uResolution.x / uResolution.y;
-		centeredCoords.x *= aspectRatio;
+		centeredCoords.x *= uAspect;
+		float t = uTime * uSpeed;
 		float patternAngle = 0.0;
-		float patternPhase = 0.0;
-		float timeOffset = uTime * uSpeed;
-		patternPhase -= timeOffset;
+		float patternPhase = -t;
 		const float ITERATIONS = 8.0;
 		for (float i = 0.0; i < ITERATIONS; ++i) {
 			patternAngle += cos(i - patternPhase - patternAngle * centeredCoords.x);
 			patternPhase += sin(centeredCoords.y * i + patternAngle);
 		}
-		patternPhase += timeOffset;
+		patternPhase += t;
 		vec3 initialColor = vec3(
 			cos(centeredCoords.x * patternPhase),
 			cos(centeredCoords.y * patternAngle),
@@ -40,6 +46,8 @@ const fragmentShaderSource = `
 		const vec3 LUMINANCE_VECTOR = vec3(0.2126, 0.7152, 0.0722);
 		float luminance = dot(complexColor, LUMINANCE_VECTOR);
 		vec3 finalTintedShade = uColor * luminance;
+		float noise = hash12(gl_FragCoord.xy + vec2(t, t * 1.37));
+		finalTintedShade += (noise - 0.5) * (1.0 / 255.0 * 1.5);
 		gl_FragColor = vec4(finalTintedShade, 1.0);
 	}
 `;
@@ -54,50 +62,6 @@ const uvs = new Float32Array([
 	2, 0,
 	0, 2
 ]);
-
-/*
-* Easing Functions - inspired from http://gizma.com/easing/
-* only considering the t value for the range [0, 1] => [0, 1]
-*/
-var easing = {
-	// accelerating from zero velocity 
-	easeInCubic: function (t) { return solveBezier(0.42, 0, 1.0, 1.0)(t) },
-	// decelerating to zero velocity 
-	easeOutCubic: function (t) { return  solveBezier(0, 0, 0.58, 1.0)(t) },
-}
-        /**
-         * Robust Bezier Solver
-         * Newton-Raphson method to solve for t at a given x (time).
-         */
-        function solveBezier(x1, y1, x2, y2) {
-            const cx = 3.0 * x1;
-            const bx = 3.0 * (x2 - x1) - cx;
-            const ax = 1.0 - cx - bx;
-            const cy = 3.0 * y1;
-            const by = 3.0 * (y2 - y1) - cy;
-            const ay = 1.0 - cy - by;
-
-            function sampleCurveX(t) { return ((ax * t + bx) * t + cx) * t; }
-            function sampleCurveY(t) { return ((ay * t + by) * t + cy) * t; }
-            function sampleCurveDerivativeX(t) { return (3.0 * ax * t + 2.0 * bx) * t + cx; }
-
-            function solveCurveX(x) {
-                let t2 = x;
-                for (let i = 0; i < 8; i++) {
-                    const x2 = sampleCurveX(t2) - x;
-                    if (Math.abs(x2) < 1e-6) return t2;
-                    const d2 = sampleCurveDerivativeX(t2);
-                    if (Math.abs(d2) < 1e-6) break;
-                    t2 = t2 - x2 / d2;
-                }
-                return t2;
-            }
-
-            return function(x) {
-                if (x === 0 || x === 1) return x;
-                return sampleCurveY(solveCurveX(x));
-            };
-        }
 
 // Compile shader
 function compileShader(gl, type, source) {
@@ -138,12 +102,21 @@ function setupVelvetEffect(options) {
 	canvas.style.width = '100%';
 	canvas.style.height = '100%';
 	canvas.style.display = 'inline-block';
-	const gl = canvas.getContext('webgl');
+	const gl = canvas.getContext('webgl', {
+		alpha: false,
+		depth: false,
+		stencil: false,
+		antialias: true,
+		powerPreference: 'high-performance'
+	});
 	if (!gl) {
 		console.error('WebGL not supported');
 		return;
 	}
 	gl.clearColor(1, 1, 1, 1);
+	gl.disable(gl.DEPTH_TEST);
+	gl.disable(gl.STENCIL_TEST);
+	gl.disable(gl.CULL_FACE);
 	const program = createProgram(gl,vertexShaderSource, fragmentShaderSource);
 	gl.useProgram(program);
 
@@ -167,6 +140,7 @@ function setupVelvetEffect(options) {
 	const uColorLoc = gl.getUniformLocation(program, 'uColor');
 	const uResolutionLoc = gl.getUniformLocation(program, 'uResolution');
 	const uSpeedLoc = gl.getUniformLocation(program, 'uSpeed');
+	const uAspectLoc = gl.getUniformLocation(program, 'uAspect');
 
 	// Set static uniforms
 	gl.uniform3fv(uColorLoc, color);
@@ -182,6 +156,7 @@ function setupVelvetEffect(options) {
 		canvas.style.height = height + 'px';
 		gl.viewport(0, 0, canvas.width, canvas.height);
 		gl.uniform2f(uResolutionLoc, canvas.width, canvas.height);
+		gl.uniform1f(uAspectLoc, height > 0 ? (canvas.width / canvas.height) : 1.0);
 	}
 
 	function animate(time) {
@@ -222,40 +197,45 @@ function processSnapLogic() {
 		return; 
 	}
 
+	function disableScroll() {
+		document.body.style.overflow = 'hidden';
+		document.body.style.touchAction = 'none';
+		document.body.style.pointerEvents = 'none';
+		document.body.style.position = 'fixed';
+	}
+
+	function enableScroll() {
+		document.body.style.overflow = '';
+		document.body.style.touchAction = '';
+		document.body.style.pointerEvents = '';
+		document.body.style.position = '';
+	}
+
 	// Scroll down (Header Open -> Header Closed)
 	if (scrollDown && isInSnapUpZone && isHeaderOpen) {
 		isHeaderOpen = false;
-		document.body.style.touchAction = 'none';
-		document.body.style.overflow = 'hidden';
-		document.body.style.pointerEvents = 'none';
-		document.body.style.position = 'fixed';
+		disableScroll();
 		window.scrollTo(0, SNAP_THRESHOLD_DOWN);
 		mainTitle.classList.add('hidden');
-		logo.classList.add('condensed');
 		stickyElm.classList.add('faded');
 		velvetContainer.classList.add('faded');
+		logo.classList.add('condensed');
 		header.classList.add('condensed');
 		document.querySelectorAll("animate[data-direction='fwd']").forEach(elm => {
 			elm.beginElement();
 		});
-		setTimeout(() => {
+		logo.addEventListener('transitionend', () => {
 			mainTitle.classList.remove('hidden'); 
 			logo.classList.add('hidden');
 			scrollTicking = false; 
-			document.body.style.overflow = '';
-			document.body.style.touchAction = '';
-			document.body.style.pointerEvents = '';
+			enableScroll();
 			header.style.visibility = 'hidden';
-			document.body.style.position = '';
 			window.scrollTo(0, SNAP_THRESHOLD_DOWN);
-		}, 500);
+		}, { once: true });
 	}
 	else if (scrollUp && isInSnapDownZone && !isHeaderOpen) {
 		isHeaderOpen = true;
-		document.body.style.touchAction = 'none';
-		document.body.style.overflow = 'hidden';
-		document.body.style.pointerEvents = 'none'; 
-		document.body.style.position = 'fixed';
+		disableScroll();
 		header.style.visibility = '';
 		logo.classList.remove('hidden');
 		mainTitle.classList.add('hidden');
@@ -266,15 +246,12 @@ function processSnapLogic() {
 		document.querySelectorAll("animate[data-direction='bwd']").forEach(elm => {
 			elm.beginElement();
 		});
-		setTimeout(() => {
+		logo.addEventListener('transitionend', () => {
 			mainTitle.classList.add('hidden'); 
 			logo.classList.remove('hidden');
 			scrollTicking = false; 
-			document.body.style.overflow = '';
-			document.body.style.touchAction = '';
-			document.body.style.pointerEvents = '';
-			document.body.style.position = '';
-		}, 500);
+			enableScroll();
+		}, { once: true });
 	} else {
 		scrollTicking = false;
 	}
@@ -304,10 +281,6 @@ if (container) {
 	});
 }
 
-function remToPx(rem) {    
-    return rem * parseFloat(getComputedStyle(document.documentElement).fontSize);
-}
-
 document.addEventListener('DOMContentLoaded', function () {
 	mainTitle = document.getElementsByClassName('main-title')[0];
 	stickyElm = document.getElementsByClassName('isSticky')[0];
@@ -315,7 +288,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	logo = document.getElementsByClassName('logo')[0];
 	header = document.getElementsByTagName('header')[0];
 	HEADER_HEIGHT = document.defaultView.innerHeight;
-	SNAP_THRESHOLD_DOWN = 1; //remToPx(5);
+	SNAP_THRESHOLD_DOWN = 1;
 	lastScrollY = window.scrollY;
 	if (window.scrollY > HEADER_HEIGHT) {
 		logo.classList.add('hidden');
@@ -328,6 +301,38 @@ document.addEventListener('DOMContentLoaded', function () {
 			elm.beginElement();
 		});
 	}
+
+	// Prefetch section targets early for smoother view transitions on non-metered connections
+	const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+	const shouldPrefetch = !(connection && (connection.saveData || connection.effectiveType === '2g'));
+
+	function ensurePrefetch(href) {
+		if (document.querySelector(`link[rel="prefetch"][href="${href}"]`)) return;
+		const link = document.createElement('link');
+		link.rel = 'prefetch';
+		link.href = href;
+		document.head.appendChild(link);
+	}
+
+	function observeAndPrefetch(targetSelector, href) {
+		const target = document.querySelector(targetSelector);
+		if (!target) return;
+		const observer = new IntersectionObserver((entries, obs) => {
+			entries.forEach(entry => {
+				if (!entry.isIntersecting) return;
+				if (shouldPrefetch) ensurePrefetch(href);
+				obs.unobserve(entry.target);
+			});
+		}, {
+			rootMargin: '0px 0px -25% 0px',
+			threshold: 0
+		});
+		observer.observe(target);
+	}
+
+	//observeAndPrefetch('#portfolio', 'portfolio');
+	//observeAndPrefetch('#services', 'services');
+	//observeAndPrefetch('#booking', 'booking');
 
 	// Attach the handler to the window scroll event
 	window.addEventListener('scroll', onScrollHandler, { passive: false });

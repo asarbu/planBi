@@ -59,6 +59,11 @@ export async function onRequestPost(context) {
 		return Response.json({ error: 'Tip serviciu invalid' }, { status: 400 });
 	}
 
+	//Check if message is valid
+	if (requestBody.message && requestBody.message.length > 100){
+		return Response.json({ error: 'Notițe prea lungi' }, { status: 400 });
+	}
+
 	// Parse date only once
 	const selectedDate = new Date(requestBody.date);
 	if (isNaN(selectedDate.valueOf())) {
