@@ -7,9 +7,9 @@ const VALID_TIMESLOTS = new Set([
 	"13:00-15:00",
 	"15:30-17:30",
 ]);
-const SERVICES = new Set(['gold', 'platinum', 'diamond', 'nesigur']);
+const LEGACY_SERVICES = new Set(['gold', 'platinum', 'diamond', 'nesigur']);
 const LOCATIONS = new Set(['online', 'sediu', 'cafea']);
-const REQUIRED_FIELDS = ['name', 'email', 'telephone', 'service_type', 'date', 'timeslot', 'location'];
+const REQUIRED_FIELDS = ['name', 'email', 'telephone', 'date', 'timeslot', 'location'];
 
 export async function onRequestPost(context) {
 	const requestBody = await context.request.json();
@@ -54,10 +54,35 @@ export async function onRequestPost(context) {
 		return Response.json({ error: 'Telefon invalid' }, { status: 400 });
 	}
 
-	//Check service_type
-	if (!SERVICES.has(requestBody.service_type)){
-		return Response.json({ error: 'Tip serviciu invalid' }, { status: 400 });
+	// Validate services (cart array) or legacy service_type
+	let services = [];
+	let servicesSummary = '';
+	if (requestBody.services && Array.isArray(requestBody.services) && requestBody.services.length > 0) {
+		// Validate each cart item
+		for (const item of requestBody.services) {
+			if (!item.name || typeof item.name !== 'string' || item.name.length > 100) {
+				return Response.json({ error: 'Nume serviciu invalid în coș' }, { status: 400 });
+			}
+			if (!Number.isFinite(item.price) || item.price < 0) {
+				return Response.json({ error: 'Preț serviciu invalid în coș' }, { status: 400 });
+			}
+			if (!Number.isInteger(item.quantity) || item.quantity < 1 || item.quantity > 99) {
+				return Response.json({ error: 'Cantitate invalidă în coș' }, { status: 400 });
+			}
+		}
+		services = requestBody.services;
+		servicesSummary = services.map(s => `${s.name} x${s.quantity} (${s.priceDisplay || s.price + ' Euro'})`).join(', ');
+	} else if (requestBody.service_type && LEGACY_SERVICES.has(requestBody.service_type)) {
+		// Legacy single service_type fallback
+		servicesSummary = requestBody.service_type;
+		services = [{ name: requestBody.service_type, price: 0, priceDisplay: requestBody.service_type, quantity: 1 }];
+	} else {
+		return Response.json({ error: 'Selectați cel puțin un serviciu' }, { status: 400 });
 	}
+
+	// Attach normalized data back to requestBody for downstream use
+	requestBody.services = services;
+	requestBody.service_type = servicesSummary;
 
 	//Check if message is valid
 	if (requestBody.message && requestBody.message.length > 100){
@@ -94,11 +119,14 @@ export async function onRequestPost(context) {
 	}
 
 	let errors = [];
+	const servicesDetail = services.map(s => `  • ${s.name} x${s.quantity} — ${s.priceDisplay || s.price + ' Euro'}`).join('\n');
+	const estimatedTotal = services.reduce((sum, s) => sum + s.price * s.quantity, 0);
 	const description =
 		`Nume: ${requestBody.name}\n` +
 		`Email: ${requestBody.email}\n` +
 		`Telefon: ${requestBody.telephone}\n` +
-		`Tip Serviciu: ${requestBody.service_type}\n` +
+		`Servicii selectate:\n${servicesDetail}\n` +
+		`Total estimat: ${estimatedTotal} Euro\n` +
 		`Dată: ${requestBody.date}\n` +
 		`Fereastră: ${requestBody.timeslot}\n` +
 		`Locație: ${requestBody.location}\n` +

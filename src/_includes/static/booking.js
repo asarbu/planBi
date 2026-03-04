@@ -11,6 +11,73 @@ document.addEventListener('DOMContentLoaded', function () {
 	dateInput.setAttribute('min', minDate);
 	dateInput.setAttribute('max', maxDate);
 
+	// ──────────────────────────────────────
+	// Booking page cart rendering
+	// ──────────────────────────────────────
+	function renderBookingCart() {
+		var container = document.getElementById('booking-cart-items');
+		var totalRow = document.getElementById('booking-cart-total');
+		var totalValue = document.getElementById('booking-total-value');
+		var servicesInput = document.getElementById('services_data');
+		if (!container || !window.PlanBiCart) return;
+
+		var cart = window.PlanBiCart.getCart();
+
+		if (cart.length === 0) {
+			container.innerHTML = '<p class="booking-cart-empty">Nu ați selectat servicii. <a href="services.html">Vedeți serviciile noastre</a></p>';
+			if (totalRow) totalRow.style.display = 'none';
+			if (servicesInput) servicesInput.value = '';
+			return;
+		}
+
+		var html = '';
+		cart.forEach(function(item) {
+			html += '<div class="booking-cart-item" data-cart-id="' + item.id + '">'
+				+ '<div class="cart-item-info">'
+				+ '<div class="cart-item-name">' + item.name + '</div>'
+				+ '<div class="cart-item-price">' + item.priceDisplay + '</div>'
+				+ '</div>'
+				+ '<div class="cart-item-controls">'
+				+ '<button type="button" class="cart-qty-btn booking-qty-minus" data-id="' + item.id + '">−</button>'
+				+ '<span class="cart-item-qty">' + item.quantity + '</span>'
+				+ '<button type="button" class="cart-qty-btn booking-qty-plus" data-id="' + item.id + '">+</button>'
+				+ '</div>'
+				+ '<button type="button" class="cart-item-remove booking-item-remove" data-id="' + item.id + '" title="Elimină">×</button>'
+				+ '</div>';
+		});
+		container.innerHTML = html;
+
+		if (totalRow && totalValue) {
+			totalRow.style.display = 'flex';
+			totalValue.textContent = window.PlanBiCart.getCartTotal() + ' Euro';
+		}
+
+		if (servicesInput) {
+			servicesInput.value = JSON.stringify(cart);
+		}
+	}
+
+	// Delegate clicks in booking cart
+	var bookingCartContainer = document.getElementById('booking-cart-items');
+	if (bookingCartContainer && window.PlanBiCart) {
+		bookingCartContainer.addEventListener('click', function(e) {
+			var target = e.target;
+			if (target.classList.contains('booking-qty-minus')) {
+				window.PlanBiCart.updateQuantity(target.dataset.id, -1);
+			} else if (target.classList.contains('booking-qty-plus')) {
+				window.PlanBiCart.updateQuantity(target.dataset.id, 1);
+			} else if (target.classList.contains('booking-item-remove')) {
+				window.PlanBiCart.removeFromCart(target.dataset.id);
+			}
+		});
+	}
+
+	// Listen for cart updates from script.js
+	document.addEventListener('cartUpdated', renderBookingCart);
+
+	// Initial render
+	renderBookingCart();
+
 	// Consultation form event listener
 	const consultationForm = document.getElementById('consultationForm');
 	if (consultationForm) {
@@ -18,11 +85,18 @@ document.addEventListener('DOMContentLoaded', function () {
 			e.preventDefault();
 			document.getElementById('consultation-submit-button').disabled = true;
 			document.getElementById('consultation-submit-button').textContent = 'Submitting...';
+
+			var cart = window.PlanBiCart ? window.PlanBiCart.getCart() : [];
+			var servicesSummary = cart.map(function(item) {
+				return item.name + ' x' + item.quantity;
+			}).join(', ');
+
 			const formData = {
 				name: consultationForm.name.value,
 				email: consultationForm.email.value,
 				telephone: consultationForm.telephone.value,
-				service_type: consultationForm.service_type.value,
+				service_type: servicesSummary || 'nesigur',
+				services: cart,
 				date: consultationForm.date.valueAsDate.toISOString().split('T')[0],
 				timeslot: consultationForm.timeslot.value,
 				location: consultationForm.location.value,

@@ -17,6 +17,28 @@
 		<path d="M424.9,83.5c0.1,9.2,0.4,18.4,0.5,27.6c-4.7-1.6-9.4-3.3-14.1-4.8c-5,1.3-9.8,3.5-14.9,4.9   c0-9.1,0-18.3,0.3-27.4c2.2,3.4,4.3,6.9,6.5,10.4c2.6-4.5,4.7-9.3,7.5-13.7c2.8,4.4,5.2,9,7.8,13.6C420.5,90.5,422.6,87,424.9,83.5   L424.9,83.5z" />
 		<path fill="none" stroke="#FFF" stroke-width="7" stroke-miterlimit="10" d="M500.4,115.2l-84.1-48.5c-2.8-1.6-6.2-1.6-9,0l-84.1,48.6c-2.8,1.6-4.5,4.6-4.5,7.8v97.1c0,3.2,1.7,6.2,4.5,7.8  l84.1,48.6c2.8,1.6,6.2,1.6,9,0l84.1-48.6c2.8-1.6,4.5-4.6,4.5-7.8v-97.1C505,119.8,503.2,116.8,500.4,115.2z"/>
 	</svg>
+	<button id="cart-toggle" aria-label="Coș de cumpărături" class="cart-toggle">
+		<svg viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="cart-icon">
+			<path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+			<line x1="3" y1="6" x2="21" y2="6"/>
+			<path d="M16 10a4 4 0 01-8 0"/>
+		</svg>
+		<span id="cart-badge" class="cart-badge hidden">0</span>
+	</button>
+	<div id="cart-dropdown" class="cart-dropdown hidden">
+		<h4 class="cart-dropdown-title">Coșul tău</h4>
+		<div id="cart-items" class="cart-items">
+			<p class="cart-empty">Coșul este gol.</p>
+		</div>
+		<div id="cart-total" class="cart-total hidden">
+			<span>Total estimat:</span>
+			<strong id="cart-total-value">0 Euro</strong>
+		</div>
+		<div class="cart-actions">
+			<a href="booking.html" id="cart-checkout" class="btn cart-checkout-btn hidden">Programează consultanță</a>
+			<button id="cart-clear" class="cart-clear-btn hidden">Golește coșul</button>
+		</div>
+	</div>
 	<button id="navbar-toggle" aria-label="Open menu" class="navbar-toggle">
 		<span class="bar"></span>
 		<span class="bar"></span>
