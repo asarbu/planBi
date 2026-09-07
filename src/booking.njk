@@ -29,16 +29,16 @@
 							<input type="tel" id="telephone" name="telephone" minlength="5" maxlength="20" placeholder="(770) 123-4567" required
 								class="consultation-input">
 						</div>
-						<div>
-							<label for="service_type" class="consultation-label">Ce fel de serviciu vă
-								interesează?</label>
-							<select id="service_type" name="service_type" required class="consultation-input">
-								<option value="" disabled selected>Selectați un pachet de servicii</option>
-								<option value="gold">Gold</option>
-								<option value="platinum">Platinum</option>
-								<option value="diamond">Diamond</option>
-								<option value="nesigur">Nu sunt sigur încă</option>
-							</select>
+						<div class="booking-cart-summary">
+							<label class="consultation-label">Servicii selectate</label>
+							<div id="booking-cart-items" class="booking-cart-items">
+								<p class="booking-cart-empty">Nu ați selectat servicii. <a href="services.html">Vedeți serviciile noastre</a></p>
+							</div>
+							<div id="booking-cart-total" class="booking-cart-total" style="display:none;">
+								<span>Total estimat:</span>
+								<strong id="booking-total-value">0 Euro</strong>
+							</div>
+							<input type="hidden" id="services_data" name="services_data" value="">
 						</div>
 						<div>
 							<label for="date" class="consultation-label">Data ședintei de consultanță</label>
